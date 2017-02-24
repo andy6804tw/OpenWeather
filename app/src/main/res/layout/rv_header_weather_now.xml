@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="bottom"
+        android:text="23°"
+        android:textSize="90sp"
+        android:id="@+id/tv_temp"
+        android:textColor="@android:color/background_light" />
+</LinearLayout>

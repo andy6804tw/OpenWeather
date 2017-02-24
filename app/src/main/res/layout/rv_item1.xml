@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_box"
+    android:layout_below="@+id/weather"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/relativeLayout">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mon"
+        android:id="@+id/tv_day"
+        android:textColor="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="22sp"
+
+        />
+
+    <View
+        android:layout_below="@+id/tv_day"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+    <TextView
+        android:layout_below="@+id/tv_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jan 01 09:00 AM"
+        android:id="@+id/tv_date"
+        android:textColor="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="20sp"
+
+        />
+    <View
+        android:layout_below="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/view2" />
+
+    <TextView
+        android:layout_below="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TAIPEI"
+        android:id="@+id/tv_location"
+        android:textColor="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:textSize="30sp"
+
+        />
+
+    <TextView
+        android:layout_below="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15°C"
+        android:id="@+id/tv_temp"
+        android:textColor="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:textSize="55sp"
+        />
+
+    <TextView
+        android:layout_below="@+id/tv_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12°C"
+        android:id="@+id/tv_lowtemp"
+        android:textColor="#fff"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="30sp"
+        />
+
+    <View
+
+        android:layout_width="2dp"
+        android:layout_height="25dp"
+        android:background="#fff"
+
+        android:layout_alignTop="@+id/tv_lowtemp"
+        android:layout_toRightOf="@+id/tv_lowtemp"
+        android:layout_toEndOf="@+id/tv_lowtemp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="8dp"
+        android:id="@+id/view" />
+
+    <TextView
+        android:layout_below="@+id/tv_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/view"
+
+        android:text="19°C"
+        android:id="@+id/tv_highttemp"
+        android:textColor="#fff"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="3dp"
+        android:textSize="30sp"
+        />
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginRight="2dp"
+        android:layout_marginEnd="2dp"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/tv_location"
+        android:layout_alignRight="@+id/view2"
+        android:layout_alignEnd="@+id/view2" />
+</RelativeLayout>
