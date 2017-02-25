@@ -92,10 +92,7 @@ public class MainActivity extends AppCompatActivity {
                    temptime = System.currentTimeMillis();
                }
                else {
-                   /*finish();
-                   System.exit(0); //凡是非零都表示異常推出!0表示正常退出*/
-                  // ExitApplication.getInstance().exit();
-                   System.exit(0);
+                   ExitApplication.getInstance().exit();
                }
 
                return true;
