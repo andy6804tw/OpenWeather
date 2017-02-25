@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.R;
@@ -38,10 +40,14 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     private int mAlpha;
 
+    private long temptime = 0;//計算退出秒數
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_now);
+        ExitApplication.getInstance().addActivity(this);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         menu_init();//menu初始化
@@ -99,12 +105,12 @@ public class WeatherNowActivity extends AppCompatActivity {
             public void onClickMenu(GridMenu gridMenu, int position) {
                 Toast.makeText(WeatherNowActivity.this, "Title:" + gridMenu.getTitle() + ", Position:" + position,
                         Toast.LENGTH_SHORT).show();
-                if(position==0) {
+                if(position==1) {
                     Intent intent = new Intent(WeatherNowActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
-                if(position==1) {
+                if(position==2) {
                     Intent intent = new Intent(WeatherNowActivity.this, Main2Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -127,12 +133,30 @@ public class WeatherNowActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (0 == getSupportFragmentManager().getBackStackEntryCount()) {
-            super.onBackPressed();
-        } else {
+    public boolean onKeyDown(int keyCode, KeyEvent event)//手機按鈕事件
+    {
+        // TODO Auto-generated method stub
+       if (1 == getSupportFragmentManager().getBackStackEntryCount()) {
             getSupportFragmentManager().popBackStack();
+            return true;
+        }else{
+            if((keyCode == KeyEvent.KEYCODE_BACK)&&(event.getAction() == KeyEvent.ACTION_DOWN))
+            {
+                if(System.currentTimeMillis() - temptime >2000) // 2s內再次選擇back有效
+                {
+                    System.out.println(Toast.LENGTH_LONG);
+                    Toast.makeText(this, "再按一次離開", Toast.LENGTH_LONG).show();
+                    temptime = System.currentTimeMillis();
+                }
+                else {
+                    ExitApplication.getInstance().exit();
+                }
+
+                return true;
+
+            }
         }
+        return super.onKeyDown(keyCode, event);
     }
 
 
