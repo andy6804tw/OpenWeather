@@ -27,6 +27,7 @@ import com.openweather.openweather.WeatherNow.WeatherNowActivity;
 
 public class SunBabyLoadingView extends View {
 
+    public static String str="資料更新請稍後...";
     int count=0;
 
     private static final String TAG = "SunBaby";
@@ -635,7 +636,7 @@ public class SunBabyLoadingView extends View {
         canvas.save();
         canvas.drawRect(0, lineStartY + mPaint.getStrokeWidth() * .5f, getWidth(), getHeight(), bgPaint);
 
-        canvas.drawText("資料更新請稍後...", textX, textY, mTextPaint);
+        canvas.drawText(str, textX, textY, mTextPaint);
         canvas.restore();
     }
 

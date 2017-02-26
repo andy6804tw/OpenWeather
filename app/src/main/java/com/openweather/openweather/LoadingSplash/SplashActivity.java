@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
+import com.openweather.openweather.View.SunBabyLoadingView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,27 +49,30 @@ public class SplashActivity extends AppCompatActivity {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response);
-                            //Log.e("DataWeather",jsonObject.toString());
-                            // Log.e("DataWeather2",jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city"));
-                            String mDay="",mDate="",mLocation="",mTemp="",mLowTemp="",mHightTemp="",mWeather="";
-                            mDay=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("day");
-                            mDate=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("date");
-                            mLocation=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
-                            mTemp=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
-                            mLowTemp=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("low");
-                            mHightTemp=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("high");
-                            mWeather=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("text");
-                            Log.e("Weather",mDay+" | "+mDate+" | "+mLocation+" | "+mTemp+" | "+mLowTemp+" | "+mHightTemp+" | "+mWeather);
 
-                            if(mWeather==null)
-                                Toast.makeText(SplashActivity.this,"連接網路好不",Toast.LENGTH_SHORT).show();
-                            /*else if(mWeather.equals("Partly Cloudy"))
-                                imageView.setImageResource(R.drawable.c);
-                            else if(mWeather.equals("Mostly Cloudy"))
-                                imageView.setImageResource(R.drawable.b);
-                            TextView tvText=(TextView)findViewById(R.id.tvText);
-                            String region=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("region");
-                            tvText.setText(region+"現在天氣是: "+mWeather+"\n\n經度:"+latitude+"\n緯度:"+longtitude);*/
+                            //風 wind
+                            String chill=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
+                            String direction=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction");
+                            String speed=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed");
+                            //大氣 Atmosphere
+                            String humidity=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("humidity");
+                            String pressure=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("pressure");
+                            String rising=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("rising");
+                            String visibility=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("visibility");
+                            //天文 Astronomy
+                            String sunrise=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("astronomy").getString("sunrise");
+                            String sunset=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("astronomy").getString("sunset");
+                            //狀態 Condition
+                            String date=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("date");
+                            String day=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("day");
+                            String high=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("high");
+                            String low=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("low");
+                            String code=jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("code");
+                            Log.e("wind",chill+" | "+direction+" | "+speed);
+                            Log.e("Atmosphere",humidity+" | "+pressure+" | "+" | "+rising+" | "+visibility);
+                            Log.e("Astronomy",sunrise+" | "+sunset);
+                            Log.e("Condition",date+" | "+day+" | "+" | "+high+" | "+low);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -76,7 +80,8 @@ public class SplashActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // mTextView.setText("That didn't work!");
+                Toast.makeText(SplashActivity.this,"無法連接網路!",Toast.LENGTH_SHORT).show();
+                SunBabyLoadingView.str="正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
