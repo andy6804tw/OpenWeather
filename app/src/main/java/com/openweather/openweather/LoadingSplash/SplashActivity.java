@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,19 +22,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
-import com.openweather.openweather.View.SunBabyLoadingView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.os.Build.VERSION_CODES.M;
+import static com.openweather.openweather.View.SunBabyLoadingView.str;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity  {
 
     GPSTracker mGps;
-    int count=0;
+    DBAccessWeather mAccess;
+    double latitude,longtitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        GPSPremessionCheck();
+        mAccess = new DBAccessWeather(this, "weather", null, 1);
+
 
     }
 
@@ -76,6 +81,10 @@ public class SplashActivity extends AppCompatActivity {
                 } else
                     Log.e("Data4", "成功!");
             }
+        }else{
+            Toast.makeText(SplashActivity.this,"開始!~~",Toast.LENGTH_SHORT).show();
+            init_GPS();
+            init_Weather();
         }
         /***/
     }
@@ -83,9 +92,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        init_GPS();
-        init_Weather();
-
+        GPSPremessionCheck();
     }
 
     private void init_Weather() {
@@ -93,7 +100,7 @@ public class SplashActivity extends AppCompatActivity {
         ///**撈取天氣資料START**///
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D\"(22.9097,120.275002)\")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D\"("+latitude+","+longtitude+")\")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -123,11 +130,37 @@ public class SplashActivity extends AppCompatActivity {
                             String day = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("day");
                             String high = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("high");
                             String low = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("low");
+                            String temp = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
                             String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("code");
-                            Log.e("wind", chill + " | " + direction + " | " + speed);
+
+                            Cursor c = mAccess.getData("Condition", null, null);
+                            c.moveToFirst();
+                            if(c.getCount()==0) {
+                                mAccess.add();
+                                //寫入 Wind資料表
+                                mAccess.add("1", chill, direction, speed);
+                                //寫入 Atmosphere資料表
+                                mAccess.add("1", humidity, pressure, rising, visibility);
+                                //寫入 Astronomy資料表
+                                mAccess.add("1", sunrise, sunset);
+                                //寫入 Condition資料表
+                                mAccess.add("1", date, day, high, low, temp, Integer.parseInt(code));
+                            }else if(!temp.equals(c.getString(5))){
+                                Toast.makeText(SplashActivity.this,"更新天氣!",Toast.LENGTH_SHORT).show();
+                                //寫入 Wind資料表
+                                mAccess.update("1", chill, direction, speed,null);
+                                //寫入 Atmosphere資料表
+                                mAccess.update("1", humidity, pressure, rising, visibility,null);
+                                //寫入 Astronomy資料表
+                                mAccess.update("1", sunrise, sunset,null);
+                                //寫入 Condition資料表
+                                mAccess.update("1", date, day, high, low, temp,Integer.parseInt(code),null);
+                            }
+
+                            /*Log.e("wind", chill + " | " + direction + " | " + speed);
                             Log.e("Atmosphere", humidity + " | " + pressure + " | " + " | " + rising + " | " + visibility);
                             Log.e("Astronomy", sunrise + " | " + sunset);
-                            Log.e("Condition", date + " | " + day + " | " + " | " + high + " | " + low);
+                            Log.e("Condition", date + " | " + day + " | " + " | " + high + " | " + low);*/
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,7 +170,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(SplashActivity.this, "無法連接網路!", Toast.LENGTH_SHORT).show();
-                SunBabyLoadingView.str = "正載入歷史資料...";
+                str = "正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
@@ -147,8 +180,8 @@ public class SplashActivity extends AppCompatActivity {
     private void init_GPS() {
         mGps = new GPSTracker(this);
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
-            final double latitude = mGps.getLatitude();
-            final double longtitude = mGps.getLongtitude();
+            latitude = mGps.getLatitude();
+            longtitude = mGps.getLongtitude();
             Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
             ///**撈取時間資料START**///
             // Instantiate the RequestQueue.
@@ -166,16 +199,21 @@ public class SplashActivity extends AppCompatActivity {
                             try {
                                 jsonObject = new JSONObject(response);
                                 int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
-                                String str = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("short_name");
-                                String str2 = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
-                                String str3 = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
-                                String str4 = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                String country = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                String city = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("short_name");
+                                String district = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
+                                String village = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
                                 String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
-                                Log.e("Data", str);
-                                Log.e("Data2", str2);
-                                Log.e("Data3", str3);
-                                Log.e("Data4", str4);
-                                Log.e("Data5", str5);
+                                //寫入Location資料表
+                                Cursor c = mAccess.getData("Location", null, null);
+                                c.moveToFirst();
+                                if(c.getCount()==0){
+                                    mAccess.add("1",country,city,district,village,latitude+"",longtitude+"");
+                                }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
+                                    Toast.makeText(SplashActivity.this,"更新位置",Toast.LENGTH_SHORT).show();
+                                    mAccess.update("1",country,city,district,village,Double.toString(latitude),Double.toString(longtitude),null);
+                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

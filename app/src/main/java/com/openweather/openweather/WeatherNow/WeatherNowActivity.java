@@ -1,12 +1,14 @@
 package com.openweather.openweather.WeatherNow;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.MainActivity;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class WeatherNowActivity extends AppCompatActivity {
 
+    DBAccessWeather mAccess;
     private GridMenuFragment mGridMenuFragment;
     /**
      * blurredview
@@ -50,6 +54,7 @@ public class WeatherNowActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        mAccess = new DBAccessWeather(this, "weather", null, 1);
         menu_init();//menu初始化
         blurred_init();//背景初始化
 
@@ -159,5 +164,37 @@ public class WeatherNowActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Cursor cl1 = mAccess.getData("Location", null, null);
+        cl1.moveToFirst();
+        Log.e("Data Location", cl1.getString(0) + " " + cl1.getString(1) + " "
+                + cl1.getString(2) + " " + cl1.getString(3) + " "
+                + cl1.getString(4) + " " + cl1.getDouble(5)+" "+cl1.getDouble(6));
+        Cursor cl2 = mAccess.getData("Wind", null, null);
+        cl2.moveToFirst();
+        Log.e("Data Wind", cl2.getString(0) + " " + cl2.getString(1) + " "
+                + cl2.getString(2) + " " + cl2.getString(3));
+        Cursor cl3 = mAccess.getData("Atmosphere", null, null);
+        cl3.moveToFirst();
+        Log.e("Data Atmosphere",cl3.getString(0) + " " +  cl3.getString(1) + " "
+                + cl3.getString(2) + " " + cl3.getString(3) + " " + cl3.getString(4) );
 
+        Cursor cl5 = mAccess.getData("Astronomy", null, null);
+        cl5.moveToFirst();
+        Log.e("Data Astronomy", cl5.getString(1) + " " + cl5.getString(2));
+
+        Cursor cl6 = mAccess.getData("Condition", null, null);
+        cl6.moveToFirst();
+        Log.e("Data Condition",cl6.getString(0) + " " +  cl6.getString(1) + " "
+                + cl6.getString(2) + " " + cl6.getString(3) + " "
+                + cl6.getString(4) + " " + cl6.getString(5)+ " " + cl6.getString(5));
+
+        Cursor cl7 = mAccess.getData("Code", null, null);
+        cl7.moveToFirst();
+        cl7.moveToNext();
+        cl7.moveToNext();
+        Log.e("Data Code",cl7.getString(0) + " " +cl7.getString(1)+" "+cl7.getString(2));
+    }
 }
