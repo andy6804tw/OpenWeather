@@ -85,7 +85,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onResume();
         init_GPS();
         init_Weather();
-                onRestart();
 
     }
 
