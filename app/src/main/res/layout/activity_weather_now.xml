@@ -39,7 +39,8 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
-                       android:text="Yuanlin"
+                       android:id="@+id/tvCity"
+                       android:text="目前天氣"
                        android:textColor="@android:color/white"
                        android:textSize="18sp"/>
 
@@ -47,6 +48,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
+                       android:id="@+id/tvTime"
                        android:text="14:28 CST"
                        android:textColor="@android:color/white"
                        android:textSize="10sp"/>

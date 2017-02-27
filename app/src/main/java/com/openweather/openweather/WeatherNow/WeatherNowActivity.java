@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -25,6 +26,7 @@ import com.openweather.openweather.R;
 import com.qiushui.blurredview.BlurredView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class WeatherNowActivity extends AppCompatActivity {
@@ -48,6 +50,8 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     private long temptime = 0;//計算退出秒數
 
+    private TextView tvTime;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,9 @@ public class WeatherNowActivity extends AppCompatActivity {
         ExitApplication.getInstance().addActivity(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        tvTime=(TextView)findViewById(R.id.tvTime);
+
 
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         menu_init();//menu初始化
@@ -72,6 +79,15 @@ public class WeatherNowActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        Calendar c = Calendar.getInstance();
+                        //取得系統時間
+                        String hour = c.get(Calendar.HOUR_OF_DAY)+"";
+                        String minute = c.get(Calendar.MINUTE)+"";
+                        if(hour.length()==1)
+                            hour="0"+hour;
+                        if(minute.length()==1)
+                            minute="0"+minute;
+                        tvTime.setText(hour+":"+minute+" CST");
                     }
                 }, 3000);
             }
@@ -215,5 +231,16 @@ public class WeatherNowActivity extends AppCompatActivity {
         cl7.moveToNext();
         cl7.moveToNext();
         Log.e("Data Code",cl7.getString(0) + " " +cl7.getString(1)+" "+cl7.getString(2));
+
+
+        Calendar c = Calendar.getInstance();
+        //取得系統時間
+        String hour = c.get(Calendar.HOUR_OF_DAY)+"";
+        String minute = c.get(Calendar.MINUTE)+"";
+        if(hour.length()==1)
+            hour="0"+hour;
+        if(minute.length()==1)
+            minute="0"+minute;
+        tvTime.setText(hour+":"+minute+" CST");
     }
 }
