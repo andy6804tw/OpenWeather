@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class WeatherNowActivity extends AppCompatActivity {
 
+    private PullRefreshLayout layout;
     DBAccessWeather mAccess;
     private GridMenuFragment mGridMenuFragment;
     /**
@@ -57,8 +59,25 @@ public class WeatherNowActivity extends AppCompatActivity {
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         menu_init();//menu初始化
         blurred_init();//背景初始化
+        reflash();
 
     }
+
+    private void reflash() {
+        layout = (PullRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                layout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
+    }
+
     /**背景霧化Blurred**/
     private void blurred_init(){
         mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);

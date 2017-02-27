@@ -1,9 +1,5 @@
 package com.openweather.openweather.View;
 
-/**
- * Created by andy6804tw on 2017/2/25.
- */
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -27,10 +23,9 @@ import com.openweather.openweather.WeatherNow.WeatherNowActivity;
 
 public class SunBabyLoadingView extends View {
 
-    public static String str="資料更新請稍後...";
     int count=0;
 
-    private static final String TAG = "SunBaby";
+    public static  String str = "資料更新請稍後...";
 
     /**
      * 默认宽高
@@ -320,9 +315,6 @@ public class SunBabyLoadingView extends View {
      * 当太阳快速升起完毕后启动眨动眼睛两次动画
      */
     private void playRisedEyesAnimator() {
-        if(count++==2){//計算太陽升起次數
-            getContext().startActivity(new Intent(getContext(), WeatherNowActivity.class));
-        }
         final ValueAnimator blink2Anima = initBlink2Animator();
         blink2Anima.start();
 
@@ -402,7 +394,8 @@ public class SunBabyLoadingView extends View {
                 once = true;
             }
         });
-
+        if(count++==2)
+            getContext().startActivity(new Intent(getContext(), WeatherNowActivity.class));
         return sinkAnima;
     }
 

@@ -13,51 +13,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/yahooweather_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/title_shape">
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/relativeLayout">
+           <android.support.v7.widget.Toolbar
+               android:id="@+id/yahooweather_toolbar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/title_shape">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Yuanlin"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"/>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:paddingBottom="8dp"
+                   android:paddingTop="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="14:28 CST"
-                android:textColor="@android:color/white"
-                android:textSize="10sp"/>
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:text="Yuanlin"
+                       android:textColor="@android:color/white"
+                       android:textSize="18sp"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_hamburg"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:text="14:28 CST"
+                       android:textColor="@android:color/white"
+                       android:textSize="10sp"/>
+               </LinearLayout>
+           </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/yahooweather_recyclerview"
-        android:layout_below="@id/yahooweather_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:srcCompat="@mipmap/ic_hamburg"
+               android:id="@+id/imageView"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentEnd="true" />
+       </RelativeLayout>
+       <com.baoyz.widget.PullRefreshLayout
+           android:id="@+id/swipeRefreshLayout"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/yahooweather_recyclerview"
+           android:layout_below="@id/relativeLayout"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+
+       </com.baoyz.widget.PullRefreshLayout>
+
+   </LinearLayout>
+
+
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"

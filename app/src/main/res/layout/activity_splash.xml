@@ -10,8 +10,7 @@
     <com.openweather.openweather.View.SunBabyLoadingView
         android:layout_height="wrap_content"
         android:layout_width="250dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="212dp" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

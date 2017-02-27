@@ -25,12 +25,12 @@ import com.android.volley.toolbox.Volley;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
+import com.openweather.openweather.View.SunBabyLoadingView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.os.Build.VERSION_CODES.M;
-import static com.openweather.openweather.View.SunBabyLoadingView.str;
 
 public class SplashActivity extends AppCompatActivity  {
 
@@ -170,7 +170,7 @@ public class SplashActivity extends AppCompatActivity  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(SplashActivity.this, "無法連接網路!", Toast.LENGTH_SHORT).show();
-                str = "正載入歷史資料...";
+                SunBabyLoadingView.str = "正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
