@@ -15,7 +15,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Scroller;
 
@@ -135,7 +134,7 @@ public class TemperatureView extends View {
          * OvershottInterpolator　　　　　　                  超越，最后超出目的值然后缓慢改变到目的值
          * TimeInterpolator　　　　　　　　　                        一个接口，允许你自定义interpolator，以上几个都是实现了这个接口
          */
-        progressAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        progressAnimation.setInterpolator(new AccelerateInterpolator());
         animation.playTogether(progressAnimation);//动画同时执行,可以做多个动画
         animation.start();
     }

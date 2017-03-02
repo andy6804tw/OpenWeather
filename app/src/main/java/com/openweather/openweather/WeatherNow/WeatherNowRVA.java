@@ -5,14 +5,15 @@ package com.openweather.openweather.WeatherNow;
  */
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.TemperatureView;
 
@@ -28,6 +29,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     int mPosition=0;
+    private DBAccessWeather mAccess;
 
     public WeatherNowRVA(Context context) {
         this.mContext = context;
@@ -38,32 +40,29 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
         //第零個
-        public TextView tv_temp;
+        public TextView tvTemp,tvHigh,tvLow;
         //第一個
-        private TextView tvDay;
-        private TextView tvDate;
-        private TextView tvLocation;
-        private TextView tvTemp;
-        private TextView tvLowtemp;
-        private TextView tvHighttemp;
-        private ImageView imageView;
+        private TextView tvLocation,tv_temp,tv_low,tv_high,tvChill;
         private TemperatureView temperatureView;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
             if(viewType==0){
-                tv_temp=(TextView)itemView.findViewById(R.id.tv_temp);
+                tvTemp=(TextView)itemView.findViewById(R.id.tvTemp);
+                tvLow=(TextView)itemView.findViewById(R.id.tvLow);
+                tvHigh=(TextView)itemView.findViewById(R.id.tvHigh);
             }
             if(viewType==1){
                 /*tvDay = (TextView) itemView.findViewById(R.id.tv_condition);
                 tvDate = (TextView) itemView.findViewById(R.id.tv_date);
-                tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
-                tvTemp = (TextView) itemView.findViewById(R.id.tv_temp);
-                tvLowtemp = (TextView) itemView.findViewById(R.id.tv_lowtemp);
-                tvHighttemp = (TextView) itemView.findViewById(R.id.tv_highttemp);
-                imageView = (ImageView) itemView.findViewById(R.id.imageView);*/
+                tvLocation = (TextView) itemView.findViewById(R.id.tv_location);*/
+                tv_low = (TextView) itemView.findViewById(R.id.tv_low);
+                tv_high = (TextView) itemView.findViewById(R.id.tv_high);
+                tv_temp = (TextView) itemView.findViewById(R.id.tv_temp);
+                tvChill = (TextView) itemView.findViewById(R.id.tvChill);
+                //imageView = (ImageView) itemView.findViewById(R.id.imageView);
                 temperatureView = (TemperatureView) itemView.findViewById(R.id.temperatureView);
-                tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
+                tvLocation = (TextView) itemView.findViewById(R.id.tvLocation);
             }
         }
     }
@@ -110,30 +109,27 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         mPosition=position;
+        mAccess = new DBAccessWeather(mContext, "weather", null, 1);
         if(mPosition==0){
-            //viewHolder.tv_temp.setText("15");
+            Cursor c = mAccess.getData("Condition", null, null);
+            c.moveToFirst();
+            viewHolder.tvHigh.setText(c.getString(3)+"°");
+            viewHolder.tvLow.setText(c.getString(4)+"°");
+            viewHolder.tvTemp.setText(c.getString(5)+"°");
             }
         if(mPosition==1){
-            /*viewHolder.tvDay.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvDate.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvLocation.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvTemp.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvLowtemp.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvHighttemp.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
-            viewHolder.tvDate.setText(MainActivity.mDate);
-            viewHolder.tvDay.setText(MainActivity.mDay);
-            viewHolder.tvLocation.setText(MainActivity.mLocation);
-            viewHolder.tvTemp.setText(MainActivity.mTemp);
-            viewHolder.tvLowtemp.setText(MainActivity.mLowTemp);
-            viewHolder.tvHighttemp.setText(MainActivity.mHightTemp);
-            if(MainActivity.mWeather==null)
-                Toast.makeText(mContext,"連接網路好不",Toast.LENGTH_SHORT).show();
-            else if(MainActivity.mWeather.equals("Partly Cloudy"))
-                viewHolder.imageView.setImageResource(R.drawable.c);
-            else if(MainActivity.mWeather.equals("Mostly Cloudy"))
-                viewHolder.imageView.setImageResource(R.drawable.b);*/
-            viewHolder.temperatureView.start(23);
-            viewHolder.tvLocation.setText("123");
+            Cursor c = mAccess.getData("Location", null, null);
+            c.moveToFirst();
+            Cursor c2 = mAccess.getData("Condition", null, null);
+            c2.moveToFirst();
+            Cursor cl3 = mAccess.getData("Wind", null, null);
+            cl3.moveToFirst();
+            viewHolder.temperatureView.start(Integer.parseInt((c2.getString(5))));
+            viewHolder.tv_high.setText(c2.getString(3)+"°C");
+            viewHolder.tv_low.setText(c2.getString(4)+"°C");
+            viewHolder.tv_temp.setText(c2.getString(5)+"°C");
+            viewHolder.tvLocation.setText(c.getString(2));
+            viewHolder.tvChill.setText("體感溫度:"+cl3.getString(1)+"°C");
         }
     }
 

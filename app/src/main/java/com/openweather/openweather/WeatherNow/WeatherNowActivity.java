@@ -50,7 +50,7 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     private long temptime = 0;//計算退出秒數
 
-    private TextView tvTime;
+    private TextView tvTime,tvCity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +61,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         tvTime=(TextView)findViewById(R.id.tvTime);
+        tvCity=(TextView)findViewById(R.id.tvCity);
 
 
         mAccess = new DBAccessWeather(this, "weather", null, 1);
@@ -243,5 +244,6 @@ public class WeatherNowActivity extends AppCompatActivity {
         if(minute.length()==1)
             minute="0"+minute;
         tvTime.setText(hour+":"+minute+" CST");
+        tvCity.setText(cl1.getString(2));
     }
 }

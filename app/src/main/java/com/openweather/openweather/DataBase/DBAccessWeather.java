@@ -517,20 +517,20 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     }
 
     //Wind
-    public long add(String loc_id,String chill,String direction,String speed){
+    public long add(String loc_id,Double chill,String direction,String speed){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
-        values.put("chill",chill);
+        values.put("chill",Math.round((chill-32)*5/9.));
         values.put("direction",direction);
         values.put("speed",speed);
         return db.insert("Wind", null,values);
     }
-    public long update(String loc_id,String chill,String direction,String speed,String whereClause){
+    public long update(String loc_id,Double chill,String direction,String speed,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
-        values.put("chill",chill);
+        values.put("chill",Math.round((chill-32)*5/9.));
         values.put("direction",direction);
         values.put("speed",speed);
         long result=db.update("Wind", values, whereClause, null);
@@ -583,27 +583,27 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     }
 
     //Condition
-    public long add(String loc_id,String date,String day,String high,String low,String temp,int code){
+    public long add(String loc_id,String date,String day,Double high,Double low,Double temp,int code){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
         values.put("date",date);
         values.put("day",day);
-        values.put("high",high);
-        values.put("low",low);
-        values.put("temp",temp);
+        values.put("high",Math.round((high-32)*5/9.));
+        values.put("low",Math.round((low-32)*5/9.));
+        values.put("temp",Math.round((temp-32)*5/9.));
         values.put("code",code+"");
         return db.insert("Condition", null,values);
     }
-    public long update(String loc_id,String date,String day,String high,String low,String temp,int code,String whereClause){
+    public long update(String loc_id,String date,String day,Double high,Double low,Double temp,int code,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
         values.put("date",date);
         values.put("day",day);
-        values.put("high",high);
-        values.put("low",low);
-        values.put("temp",temp);
+        values.put("high",Math.round((high-32)*5/9.));
+        values.put("low",Math.round((low-32)*5/9.));
+        values.put("temp",Math.round((temp-32)*5/9.));
         values.put("code",code);
         long result=db.update("Condition", values, whereClause, null);
         db.close();

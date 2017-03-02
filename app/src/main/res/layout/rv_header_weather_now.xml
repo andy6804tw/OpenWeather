@@ -12,7 +12,7 @@
         android:gravity="bottom"
         android:text="23°"
         android:textSize="125sp"
-        android:id="@+id/tv_temp"
+        android:id="@+id/tvTemp"
         android:textColor="@android:color/background_light"
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp"
@@ -28,8 +28,8 @@
         android:layout_marginStart="13dp"
         android:layout_marginBottom="128dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/tv_temp"
-        android:layout_alignStart="@+id/tv_temp"
+        android:layout_alignLeft="@+id/tvTemp"
+        android:layout_alignStart="@+id/tvTemp"
         android:id="@+id/tableRow2">
 
         <ImageView
@@ -51,7 +51,7 @@
         android:layout_alignBottom="@+id/ivLow"
         android:layout_toRightOf="@+id/ivLow"
         android:layout_toEndOf="@+id/ivLow"
-        android:id="@+id/tvDown"
+        android:id="@+id/tvLow"
         android:textSize="20sp"
             android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp" />
@@ -59,9 +59,9 @@
         <ImageView
             app:srcCompat="@mipmap/high"
             android:id="@+id/ivHigh"
-            android:layout_alignTop="@+id/tv_temp"
-            android:layout_alignLeft="@+id/tv_temp"
-            android:layout_alignStart="@+id/tv_temp"
+            android:layout_alignTop="@+id/tvTemp"
+            android:layout_alignLeft="@+id/tvTemp"
+            android:layout_alignStart="@+id/tvTemp"
             android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"

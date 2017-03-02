@@ -138,23 +138,23 @@ public class SplashActivity extends AppCompatActivity  {
                             if(c.getCount()==0) {
                                 mAccess.add();
                                 //寫入 Wind資料表
-                                mAccess.add("1", chill, direction, speed);
+                                mAccess.add("1", Double.parseDouble(chill), direction, speed);
                                 //寫入 Atmosphere資料表
                                 mAccess.add("1", humidity, pressure, rising, visibility);
                                 //寫入 Astronomy資料表
                                 mAccess.add("1", sunrise, sunset);
                                 //寫入 Condition資料表
-                                mAccess.add("1", date, day, high, low, temp, Integer.parseInt(code));
-                            }else if(!temp.equals(c.getString(5))){
+                                mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code));
+                            }else if(Math.round((Double.parseDouble(temp)-32)*5/9.)!=Double.parseDouble(c.getString(5))){
                                 Toast.makeText(SplashActivity.this,"更新天氣!",Toast.LENGTH_SHORT).show();
                                 //寫入 Wind資料表
-                                mAccess.update("1", chill, direction, speed,null);
+                                mAccess.update("1", Double.parseDouble(chill), direction, speed,null);
                                 //寫入 Atmosphere資料表
                                 mAccess.update("1", humidity, pressure, rising, visibility,null);
                                 //寫入 Astronomy資料表
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
-                                mAccess.update("1", date, day, high, low, temp,Integer.parseInt(code),null);
+                                mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),null);
                             }
 
                             /*Log.e("wind", chill + " | " + direction + " | " + speed);
