@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.openweather.openweather.R;
+import com.openweather.openweather.View.TemperatureView;
 
 /**
  * Created by andy6804tw on 2017/1/25.
@@ -46,6 +47,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         private TextView tvLowtemp;
         private TextView tvHighttemp;
         private ImageView imageView;
+        private TemperatureView temperatureView;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
@@ -53,13 +55,15 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 tv_temp=(TextView)itemView.findViewById(R.id.tv_temp);
             }
             if(viewType==1){
-                tvDay = (TextView) itemView.findViewById(R.id.tv_day);
+                /*tvDay = (TextView) itemView.findViewById(R.id.tv_condition);
                 tvDate = (TextView) itemView.findViewById(R.id.tv_date);
                 tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
                 tvTemp = (TextView) itemView.findViewById(R.id.tv_temp);
                 tvLowtemp = (TextView) itemView.findViewById(R.id.tv_lowtemp);
                 tvHighttemp = (TextView) itemView.findViewById(R.id.tv_highttemp);
-                imageView = (ImageView) itemView.findViewById(R.id.imageView);
+                imageView = (ImageView) itemView.findViewById(R.id.imageView);*/
+                temperatureView = (TemperatureView) itemView.findViewById(R.id.temperatureView);
+                tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
             }
         }
     }
@@ -106,8 +110,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         mPosition=position;
-        if(mPosition==0)
-            //viewHolder.tv_temp.setText(MainActivity.mTemp);
+        if(mPosition==0){
+            //viewHolder.tv_temp.setText("15");
+            }
         if(mPosition==1){
             /*viewHolder.tvDay.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
             viewHolder.tvDate.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/NotoSans-Regular_0.ttf"));
@@ -127,6 +132,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 viewHolder.imageView.setImageResource(R.drawable.c);
             else if(MainActivity.mWeather.equals("Mostly Cloudy"))
                 viewHolder.imageView.setImageResource(R.drawable.b);*/
+            viewHolder.temperatureView.start(23);
+            viewHolder.tvLocation.setText("123");
         }
     }
 

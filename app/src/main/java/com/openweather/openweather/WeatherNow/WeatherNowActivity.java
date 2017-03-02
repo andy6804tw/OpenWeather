@@ -88,6 +88,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                         if(minute.length()==1)
                             minute="0"+minute;
                         tvTime.setText(hour+":"+minute+" CST");
+                        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
                     }
                 }, 3000);
             }

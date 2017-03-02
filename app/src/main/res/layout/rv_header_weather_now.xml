@@ -97,8 +97,8 @@
         android:layout_marginStart="12dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         app:srcCompat="@mipmap/mostly_sunny"
         android:id="@+id/imageView3"
         android:layout_above="@+id/tableRow2"

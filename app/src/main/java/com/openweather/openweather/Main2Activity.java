@@ -20,13 +20,11 @@ public class Main2Activity extends AppCompatActivity {
 
     private GridMenuFragment mGridMenuFragment;
     private long temptime = 0;//計算退出秒數
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ExitApplication.getInstance().addActivity(this);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mGridMenuFragment = GridMenuFragment.newInstance(R.drawable.bg_fragment_5);
 

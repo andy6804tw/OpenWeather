@@ -22,7 +22,6 @@
 
     </RelativeLayout>
 
-
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
