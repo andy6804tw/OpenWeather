@@ -1,17 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/textview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:gravity="bottom"
         android:text="23°"
-        android:textSize="90sp"
+        android:textSize="125sp"
         android:id="@+id/tv_temp"
-        android:textColor="@android:color/background_light" />
-</LinearLayout>
+        android:textColor="@android:color/background_light"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="128dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/tv_temp"
+        android:layout_alignStart="@+id/tv_temp"
+        android:id="@+id/tableRow2">
+
+        <ImageView
+            app:srcCompat="@mipmap/low"
+        android:layout_alignBottom="@+id/tvHigh"
+        android:layout_toRightOf="@+id/tvHigh"
+        android:layout_toEndOf="@+id/tvHigh"
+            android:id="@+id/ivLow"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
+        <TextView
+        android:text="18°"
+        android:textColor="@android:color/background_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivLow"
+        android:layout_toRightOf="@+id/ivLow"
+        android:layout_toEndOf="@+id/ivLow"
+        android:id="@+id/tvDown"
+        android:textSize="20sp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp" />
+
+        <ImageView
+            app:srcCompat="@mipmap/high"
+            android:id="@+id/ivHigh"
+            android:layout_alignTop="@+id/tv_temp"
+            android:layout_alignLeft="@+id/tv_temp"
+            android:layout_alignStart="@+id/tv_temp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:text="30°"
+            android:textColor="@android:color/background_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvHigh"
+            android:layout_alignBottom="@+id/ivHigh"
+            android:layout_toRightOf="@+id/ivHigh"
+            android:layout_toEndOf="@+id/ivHigh"
+            android:textSize="20sp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp" />
+
+    </TableRow>
+
+    <TextView
+        android:text="晴時多雲"
+        android:textColor="@android:color/background_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvWeather"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_toRightOf="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/mostly_sunny"
+        android:id="@+id/imageView3"
+        android:layout_above="@+id/tableRow2"
+        android:layout_alignLeft="@+id/tableRow2"
+        android:layout_alignStart="@+id/tableRow2" />
+
+</RelativeLayout>
