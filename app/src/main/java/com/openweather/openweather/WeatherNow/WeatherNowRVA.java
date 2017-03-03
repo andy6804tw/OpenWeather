@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ahmadnemati.wind.WindView;
+import com.github.ahmadnemati.wind.enums.TrendType;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.TemperatureView;
@@ -44,6 +46,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         //第一個
         private TextView tvLocation,tv_temp,tv_low,tv_high,tvChill;
         private TemperatureView temperatureView;
+        //第三個
+        private WindView windView;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
@@ -63,6 +67,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 //imageView = (ImageView) itemView.findViewById(R.id.imageView);
                 temperatureView = (TemperatureView) itemView.findViewById(R.id.temperatureView);
                 tvLocation = (TextView) itemView.findViewById(R.id.tvLocation);
+            }
+            else if(viewType==2){
+                windView=(WindView)itemView.findViewById(R.id.windView);
             }
         }
     }
@@ -99,7 +106,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(viewType==1)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item1, parent, false),viewType);
         else if(viewType==2)
-            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item2, parent, false),viewType);
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_wind, parent, false),viewType);
         else if(viewType==9)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item10, parent, false),viewType);
         else
@@ -107,7 +114,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         mPosition=position;
         mAccess = new DBAccessWeather(mContext, "weather", null, 1);
         if(mPosition==0){
@@ -120,7 +127,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         if(mPosition==1){
             Cursor c = mAccess.getData("Location", null, null);
             c.moveToFirst();
-            Cursor c2 = mAccess.getData("Condition", null, null);
+            final Cursor c2 = mAccess.getData("Condition", null, null);
             c2.moveToFirst();
             Cursor cl3 = mAccess.getData("Wind", null, null);
             cl3.moveToFirst();
@@ -130,6 +137,29 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.tv_temp.setText(c2.getString(5)+"°C");
             viewHolder.tvLocation.setText(c.getString(2));
             viewHolder.tvChill.setText("體感溫度:"+cl3.getString(1)+"°C");
+            viewHolder.temperatureView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewHolder.temperatureView.start(Integer.parseInt((c2.getString(5))));
+                }
+            });
+        }
+        else if(mPosition==2){
+            viewHolder. windView.setPressure(20);
+            viewHolder.windView.setPressureUnit(" 級");
+            viewHolder.windView.setWindSpeed(12);
+            viewHolder.windView.setWindText("東北");
+            viewHolder.windView.setBarometerText("陣風");
+            viewHolder.windView.setWindSpeedUnit(" mph");
+            viewHolder.windView.setTrendType(TrendType.UP);
+            viewHolder.windView.start();
+            viewHolder.windView.animateBaroMeter();
+            viewHolder.windView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    viewHolder.windView.animateBaroMeter();
+                }
+            });
         }
     }
 

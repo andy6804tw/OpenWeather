@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_box"
+    android:layout_below="@+id/weather"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/relativeLayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="風速和氣壓"
+        android:id="@+id/tv_condition"
+        android:textColor="#fff"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+
+        android:layout_marginBottom="2dp" />
+
+    <View
+        android:background="#fff"
+        android:layout_height="1dp"
+        android:id="@+id/view"
+        android:layout_below="@+id/tv_condition"
+        android:layout_alignLeft="@+id/tv_condition"
+        android:layout_alignStart="@+id/tv_condition"
+        android:layout_width="220dp" />
+    <com.github.ahmadnemati.wind.WindView
+        android:id="@+id/windView"
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        app:barometerTickSpacing="9dp"
+        app:bigPoleX="38dp"
+        app:labelFontSize="12sp"
+        app:numericFontSize="25sp"
+        app:poleBottomY="98dp"
+        app:pressureLineY="73dp"
+        app:pressureTextX="12dp"
+        app:pressureTextY="4dp"
+        app:smallPoleX="75dp"
+        app:windTextX="10dp"
+        app:windTextY="29dp" />
+
+</LinearLayout>

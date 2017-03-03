@@ -6,21 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:gravity="bottom"
-        android:text="23°"
-        android:textSize="125sp"
-        android:id="@+id/tvTemp"
-        android:textColor="@android:color/background_light"
-        android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_height="wrap_content" />
-
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,8 +38,8 @@
         android:layout_toEndOf="@+id/ivLow"
         android:id="@+id/tvLow"
         android:textSize="20sp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp" />
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp" />
 
         <ImageView
             app:srcCompat="@mipmap/high"
@@ -104,5 +89,20 @@
         android:layout_above="@+id/tableRow2"
         android:layout_alignLeft="@+id/tableRow2"
         android:layout_alignStart="@+id/tableRow2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="bottom"
+        android:text="23°"
+        android:textSize="125sp"
+        android:id="@+id/tvTemp"
+        android:textColor="@android:color/background_light"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
