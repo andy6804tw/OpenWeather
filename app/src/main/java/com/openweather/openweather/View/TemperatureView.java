@@ -103,7 +103,7 @@ public class TemperatureView extends View {
         if (mProgress != 0f) {
             mPaints[0].setColor(mThermometerColor);
             mPaints[0].setStrokeCap(Paint.Cap.BUTT);
-            canvas.drawLine(mWidth / 2, mMin * 8.5f, mWidth/ 2, mMin * (7.5f - 7 * mProgress / 99), mPaints[0]);
+            canvas.drawLine(mWidth / 2, mMin * 8.5f, mWidth/ 2, mMin * (7.5f - 7 * mProgress / 105), mPaints[0]);
         }
 
     }

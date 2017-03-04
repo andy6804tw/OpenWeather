@@ -107,8 +107,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item1, parent, false),viewType);
         else if(viewType==2)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_wind, parent, false),viewType);
-        else if(viewType==9)
-            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item10, parent, false),viewType);
+        else if(viewType==3)
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_atmosphere, parent, false),viewType);
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);
     }
