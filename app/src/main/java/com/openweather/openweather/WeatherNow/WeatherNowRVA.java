@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.ahmadnemati.wind.WindView;
 import com.github.ahmadnemati.wind.enums.TrendType;
@@ -43,11 +42,13 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder{
         //第零個
         public TextView tvTemp,tvHigh,tvLow;
-        //第一個
+        //第一個condition目前狀況
         private TextView tvLocation,tv_temp,tv_low,tv_high,tvChill;
         private TemperatureView temperatureView;
-        //第三個
+        //第三個wind風速與風向
         private WindView windView;
+        //第四個atmosphere大氣與氣壓
+        private TextView tvPressure,tvHumidity,tvVisiblity;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
@@ -70,6 +71,11 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             }
             else if(viewType==2){
                 windView=(WindView)itemView.findViewById(R.id.windView);
+            }
+            else if(viewType==3){
+                tvPressure = (TextView) itemView.findViewById(R.id.tvPressure);
+                tvHumidity = (TextView) itemView.findViewById(R.id.tvHumidity);
+                tvVisiblity = (TextView) itemView.findViewById(R.id.tvVisiblity);
             }
         }
     }
@@ -99,7 +105,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Toast.makeText(mContext,mPosition+" "+viewType+" ",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext,mPosition+" "+viewType+" ",Toast.LENGTH_SHORT).show();
         if (viewType == TYPE_HEADER) {
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_header_weather_now, parent, false),viewType);
         }
@@ -129,29 +135,53 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             c.moveToFirst();
             final Cursor c2 = mAccess.getData("Condition", null, null);
             c2.moveToFirst();
-            Cursor cl3 = mAccess.getData("Wind", null, null);
-            cl3.moveToFirst();
-            viewHolder.temperatureView.start(Integer.parseInt((c2.getString(5))));
+            Cursor c3 = mAccess.getData("Wind", null, null);
+            c3.moveToFirst();
+            if(c2.getShort(5)<-9)
+                viewHolder.temperatureView.start((c2.getShort(5)-16));
+            else if(c2.getShort(5)<5)
+                viewHolder.temperatureView.start(c2.getShort(5)-12);
+            else if(c2.getShort(5)<11)
+                viewHolder.temperatureView.start((c2.getShort(5)-7));
+            else if(c2.getShort(5)<16)
+                viewHolder.temperatureView.start((c2.getShort(5)-4));
+            else if(c2.getShort(5)<20)
+                viewHolder.temperatureView.start(c2.getShort(5)-2);
+            else
+                viewHolder.temperatureView.start(c2.getShort(5));
             viewHolder.tv_high.setText(c2.getString(3)+"°C");
             viewHolder.tv_low.setText(c2.getString(4)+"°C");
             viewHolder.tv_temp.setText(c2.getString(5)+"°C");
             viewHolder.tvLocation.setText(c.getString(2));
-            viewHolder.tvChill.setText("體感溫度:"+cl3.getString(1)+"°C");
+            viewHolder.tvChill.setText("體感溫度:"+c3.getString(1)+"°C");
             viewHolder.temperatureView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    viewHolder.temperatureView.start(Integer.parseInt((c2.getString(5))));
+                    if(c2.getShort(5)<-9)
+                        viewHolder.temperatureView.start((c2.getShort(5)-16));
+                    else if(c2.getShort(5)<5)
+                        viewHolder.temperatureView.start(c2.getShort(5)-12);
+                    else if(c2.getShort(5)<11)
+                        viewHolder.temperatureView.start((c2.getShort(5)-7));
+                    else if(c2.getShort(5)<16)
+                        viewHolder.temperatureView.start((c2.getShort(5)-4));
+                    else if(c2.getShort(5)<20)
+                        viewHolder.temperatureView.start(c2.getShort(5)-2);
+                    else
+                        viewHolder.temperatureView.start(c2.getShort(5));
                 }
             });
         }
         else if(mPosition==2){
-            viewHolder. windView.setPressure(20);
-            viewHolder.windView.setPressureUnit(" 級");
-            viewHolder.windView.setWindSpeed(12);
+            Cursor c = mAccess.getData("Wind", null, null);
+            c.moveToFirst();
+            viewHolder.windView.setWindSpeed(c.getShort(3));
             viewHolder.windView.setWindText("東北");
-            viewHolder.windView.setBarometerText("陣風");
+            viewHolder. windView.setPressure(3);
+            viewHolder.windView.setPressureUnit(" 級");
+            viewHolder.windView.setBarometerText("微風");
             viewHolder.windView.setWindSpeedUnit(" mph");
-            viewHolder.windView.setTrendType(TrendType.UP);
+                viewHolder.windView.setTrendType(TrendType.UP);
             viewHolder.windView.start();
             viewHolder.windView.animateBaroMeter();
             viewHolder.windView.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +190,13 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.windView.animateBaroMeter();
                 }
             });
+        }
+        else if(mPosition==3){
+            Cursor c = mAccess.getData("Atmosphere", null, null);
+            c.moveToFirst();
+            viewHolder.tvPressure.setText(c.getString(2)+" millibars");
+            viewHolder.tvHumidity.setText(c.getString(1)+" %");
+            viewHolder.tvVisiblity.setText(c.getString(3)+" km");
         }
     }
 

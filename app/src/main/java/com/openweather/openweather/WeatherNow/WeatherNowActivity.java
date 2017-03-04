@@ -128,7 +128,7 @@ public class WeatherNowActivity extends AppCompatActivity {
     /**選單Menu**/
     //menu初始化
     private void menu_init(){
-        mGridMenuFragment = GridMenuFragment.newInstance(R.drawable.back);
+        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.bg_tainan2);
 
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override

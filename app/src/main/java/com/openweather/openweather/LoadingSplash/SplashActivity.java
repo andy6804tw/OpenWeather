@@ -82,7 +82,6 @@ public class SplashActivity extends AppCompatActivity  {
                     Log.e("Data4", "成功!");
             }
         }else{
-            Toast.makeText(SplashActivity.this,"開始!~~",Toast.LENGTH_SHORT).show();
             init_GPS();
             init_Weather();
         }
@@ -132,7 +131,7 @@ public class SplashActivity extends AppCompatActivity  {
                             String low = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("low");
                             String temp = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
                             String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("code");
-
+                            String pushTime = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getString("pubDate");
                             Cursor c = mAccess.getData("Condition", null, null);
                             c.moveToFirst();
                             if(c.getCount()==0) {
@@ -145,12 +144,12 @@ public class SplashActivity extends AppCompatActivity  {
                                 mAccess.add("1", sunrise, sunset);
                                 //寫入 Condition資料表
                                 mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code));
-                            }else if(Math.round((Double.parseDouble(temp)-32)*5/9.)!=Double.parseDouble(c.getString(5))){
-                                Toast.makeText(SplashActivity.this,"更新天氣!",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(SplashActivity.this,pushTime,Toast.LENGTH_LONG).show();
                                 //寫入 Wind資料表
                                 mAccess.update("1", Double.parseDouble(chill), direction, speed,null);
                                 //寫入 Atmosphere資料表
-                                mAccess.update("1", humidity, pressure, rising, visibility,null);
+                                mAccess.update("1", humidity, pressure,visibility ,rising,null);
                                 //寫入 Astronomy資料表
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
@@ -182,7 +181,7 @@ public class SplashActivity extends AppCompatActivity  {
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
             latitude = mGps.getLatitude();
             longtitude = mGps.getLongtitude();
-            Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
             ///**撈取時間資料START**///
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -210,7 +209,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 if(c.getCount()==0){
                                     mAccess.add("1",country,city,district,village,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
-                                    Toast.makeText(SplashActivity.this,"更新位置",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(SplashActivity.this,"更新位置",Toast.LENGTH_SHORT).show();
                                     mAccess.update("1",country,city,district,village,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
 

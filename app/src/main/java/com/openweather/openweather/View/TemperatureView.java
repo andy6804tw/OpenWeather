@@ -34,7 +34,7 @@ public class TemperatureView extends View {
     private int mThermometerColor;
     private RectF oval;
     private Scroller mScroller;
-    private String[] mNumber = {"40", "30", "20", "10", "0", "-10", "-40"};
+    private String[] mNumber = {"40", "30", "20", "10", "0", "-10", "-25"};
     private float mProgress;
     private int mValueColor = Color.RED;
     private float mValueSize = 36;
@@ -103,7 +103,7 @@ public class TemperatureView extends View {
         if (mProgress != 0f) {
             mPaints[0].setColor(mThermometerColor);
             mPaints[0].setStrokeCap(Paint.Cap.BUTT);
-            canvas.drawLine(mWidth / 2, mMin * 8.5f, mWidth/ 2, mMin * (7.5f - 7 * mProgress / 105), mPaints[0]);
+            canvas.drawLine(mWidth / 2, mMin * 8.5f, mWidth/ 2, mMin * (7.5f - 7 * mProgress / 103), mPaints[0]);
         }
 
     }
