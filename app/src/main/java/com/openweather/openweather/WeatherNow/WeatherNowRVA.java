@@ -147,6 +147,12 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 viewHolder.temperatureView.start((c2.getShort(5)-4));
             else if(c2.getShort(5)<20)
                 viewHolder.temperatureView.start(c2.getShort(5)-2);
+            else if(c2.getShort(5)>=30)
+                viewHolder.temperatureView.start(c2.getShort(5)+4);
+            else if(c2.getShort(5)>=35)
+                viewHolder.temperatureView.start(c2.getShort(5)+6);
+            else if(c2.getShort(5)<30&&c2.getShort(5)>=25)
+                viewHolder.temperatureView.start(c2.getShort(5)+2);
             else
                 viewHolder.temperatureView.start(c2.getShort(5));
             viewHolder.tv_high.setText(c2.getString(3)+"°C");
@@ -167,6 +173,12 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         viewHolder.temperatureView.start((c2.getShort(5)-4));
                     else if(c2.getShort(5)<20)
                         viewHolder.temperatureView.start(c2.getShort(5)-2);
+                    else if(c2.getShort(5)<30&&c2.getShort(5)>=25)
+                        viewHolder.temperatureView.start(c2.getShort(5)+2);
+                    else if(c2.getShort(5)>=35)
+                        viewHolder.temperatureView.start(c2.getShort(5)+6);
+                    else if(c2.getShort(5)>=30)
+                        viewHolder.temperatureView.start(c2.getShort(5)+4);
                     else
                         viewHolder.temperatureView.start(c2.getShort(5));
                 }
