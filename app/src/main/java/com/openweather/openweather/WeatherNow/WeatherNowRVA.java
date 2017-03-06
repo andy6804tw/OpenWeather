@@ -17,6 +17,9 @@ import com.github.ahmadnemati.wind.enums.TrendType;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.TemperatureView;
+import com.openweather.sunviewlibrary.SunView;
+
+import java.util.Calendar;
 
 /**
  * Created by andy6804tw on 2017/1/25.
@@ -49,6 +52,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         private WindView windView;
         //第四個atmosphere大氣與氣壓
         private TextView tvPressure,tvHumidity,tvVisiblity;
+        //第五個 Astronomy 天文
+        private SunView sunView;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
@@ -76,6 +81,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 tvPressure = (TextView) itemView.findViewById(R.id.tvPressure);
                 tvHumidity = (TextView) itemView.findViewById(R.id.tvHumidity);
                 tvVisiblity = (TextView) itemView.findViewById(R.id.tvVisiblity);
+            }
+            else if(viewType==4){
+                sunView=(SunView)itemView.findViewById(R.id.sunView);
             }
         }
     }
@@ -115,6 +123,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_wind, parent, false),viewType);
         else if(viewType==3)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_atmosphere, parent, false),viewType);
+        else if(viewType==4)
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_astronomy, parent, false),viewType);
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);
     }
@@ -209,6 +219,26 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.tvPressure.setText(c.getString(2)+" millibars");
             viewHolder.tvHumidity.setText(c.getString(1)+" %");
             viewHolder.tvVisiblity.setText(c.getString(3)+" km");
+        }
+        else if(mPosition==4){
+            Calendar calendar = Calendar.getInstance();
+            //取得系統時間
+            String hour = calendar.get(Calendar.HOUR_OF_DAY)+"";
+            String minute = calendar.get(Calendar.MINUTE)+"";
+            if(hour.length()==1)
+                hour="0"+hour;
+            if(minute.length()==1)
+                minute="0"+minute;
+            /*if(Integer.parseInt(hour)<6)
+                hour="6";
+            else if(Integer.parseInt(hour)>18)
+                hour="18";*/
+            Cursor c = mAccess.getData("Astronomy", null, null);
+            c.moveToFirst();
+            viewHolder.sunView.setCurrentTime(hour+":"+minute);
+            viewHolder.sunView.setStartTime(c.getString(1));
+            viewHolder.sunView.setEndTime(c.getString(2));
+            viewHolder.sunView.setArcSolidColor("#53ffe1a2");
         }
     }
 
