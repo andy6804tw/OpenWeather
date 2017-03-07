@@ -27,7 +27,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.github.goka.blurredgridmenu:blurredgridmenu:1.0.2'
     compile 'com.qiushui:blurredview:0.8.1'
     compile 'com.android.support:cardview-v7:25.1.0'
@@ -36,4 +35,6 @@ dependencies {
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
     compile 'com.github.AhmadNemati:WindView:1.1.1'
     compile 'com.github.andy6804tw:SunView-lib:0.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    testCompile 'junit:junit:4.12'
 }

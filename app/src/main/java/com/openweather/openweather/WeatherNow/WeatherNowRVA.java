@@ -236,8 +236,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             Cursor c = mAccess.getData("Astronomy", null, null);
             c.moveToFirst();
             viewHolder.sunView.setCurrentTime(hour+":"+minute);
-            viewHolder.sunView.setStartTime(c.getString(1));
-            viewHolder.sunView.setEndTime(c.getString(2));
+            viewHolder.sunView.setStartTime("6:15");
+            viewHolder.sunView.setEndTime("18:05");
             viewHolder.sunView.setArcSolidColor("#53ffe1a2");
         }
     }
