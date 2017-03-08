@@ -7,7 +7,7 @@
 
     <com.qiushui.blurredview.BlurredView
         android:id="@+id/yahooweather_blurredview"
-        app:src="@mipmap/tainan"
+        app:src="@mipmap/test"
         app:move="true"
         app:disableBlurred="false"
         android:layout_width="match_parent"

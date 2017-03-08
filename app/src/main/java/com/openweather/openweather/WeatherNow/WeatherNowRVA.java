@@ -44,7 +44,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder{
         //第零個
-        public TextView tvTemp,tvHigh,tvLow;
+        public TextView tvTemp,tvHigh,tvLow,tvWeather;
         //第一個condition目前狀況
         private TextView tvLocation,tv_temp,tv_low,tv_high,tvChill;
         private TemperatureView temperatureView;
@@ -61,6 +61,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 tvTemp=(TextView)itemView.findViewById(R.id.tvTemp);
                 tvLow=(TextView)itemView.findViewById(R.id.tvLow);
                 tvHigh=(TextView)itemView.findViewById(R.id.tvHigh);
+                tvWeather=(TextView)itemView.findViewById(R.id.tvWeather);
             }
             if(viewType==1){
                 /*tvDay = (TextView) itemView.findViewById(R.id.tv_condition);
@@ -125,6 +126,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_atmosphere, parent, false),viewType);
         else if(viewType==4)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_astronomy, parent, false),viewType);
+        else if(viewType==5)
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item2, parent, false),viewType);
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);
     }
@@ -136,9 +139,12 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         if(mPosition==0){
             Cursor c = mAccess.getData("Condition", null, null);
             c.moveToFirst();
+            Cursor c2 = mAccess.getData("Code", null, null);
+            c2.moveToPosition(c.getShort(6));
             viewHolder.tvHigh.setText(c.getString(3)+"°");
             viewHolder.tvLow.setText(c.getString(4)+"°");
             viewHolder.tvTemp.setText(c.getString(5)+"°");
+            viewHolder.tvWeather.setText(c2.getString(1));
             }
         if(mPosition==1){
             Cursor c = mAccess.getData("Location", null, null);
