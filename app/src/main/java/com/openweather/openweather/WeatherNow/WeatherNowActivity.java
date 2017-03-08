@@ -21,6 +21,7 @@ import com.goka.blurredgridmenu.GridMenuFragment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.Main2Activity;
+import com.openweather.openweather.Main3Activity;
 import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
@@ -160,6 +161,11 @@ public class WeatherNowActivity extends AppCompatActivity {
                 }
                 if(position==3) {
                     Intent intent = new Intent(WeatherNowActivity.this, Pm25Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                if(position==4) {
+                    Intent intent = new Intent(WeatherNowActivity.this, Main3Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

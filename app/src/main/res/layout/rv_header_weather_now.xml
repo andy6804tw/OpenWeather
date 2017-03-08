@@ -5,24 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="290dp"
         android:layout_height="290dp"
-        android:background="@drawable/circle_shape"
-        android:layout_marginTop="97dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
+        android:background="@drawable/circle_shape">
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginBottom="18dp"
-            app:srcCompat="@mipmap/cloudy"
             android:layout_above="@+id/tvTemp"
             android:layout_alignLeft="@+id/tableRow2"
-            android:layout_alignStart="@+id/tableRow2" />
+            android:layout_alignStart="@+id/tableRow2"
+            android:layout_marginBottom="18dp"
+            app:srcCompat="@mipmap/cloudy" />
 
         <TextView
             android:id="@+id/tvWeather"
@@ -53,8 +52,8 @@
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
 
             <ImageView
                 android:id="@+id/ivLow"

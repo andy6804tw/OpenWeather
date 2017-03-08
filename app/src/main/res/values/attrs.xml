@@ -6,4 +6,5 @@
         <attr name="valueColor" format="color" />
         <attr name="valueSize" format="dimension" />
     </declare-styleable>
+
 </resources>
