@@ -130,7 +130,7 @@ public class SplashActivity extends AppCompatActivity  {
                             String high = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("high");
                             String low = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("low");
                             String temp = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
-                            String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(0).getString("code");
+                            String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("code");
                             String pushTime = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getString("pubDate");
                             Cursor c = mAccess.getData("Condition", null, null);
                             c.moveToFirst();
@@ -209,10 +209,9 @@ public class SplashActivity extends AppCompatActivity  {
                                 if(c.getCount()==0){
                                     mAccess.add("1",country,city,district,village,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
-                                    //Toast.makeText(SplashActivity.this,"更新位置",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
                                     mAccess.update("1",country,city,district,village,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

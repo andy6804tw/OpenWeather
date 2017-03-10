@@ -28,7 +28,7 @@ import java.util.Calendar;
 public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder> {
 
     private final Context mContext;
-    private static final int ITEM_COUNT = 10;
+    private static final int ITEM_COUNT = 5;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;

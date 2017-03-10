@@ -77,10 +77,13 @@ public class ExitApplication extends Application {
             activity.finish();
 
         }
+
+        System.exit(0);
+    }
+    public void clean(){
         for(int i=0;i<activityList.size()-1;i++){
             activityList.get(i).finish();
         }
-        System.exit(0);
     }
 
 }

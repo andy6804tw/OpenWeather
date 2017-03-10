@@ -6,12 +6,11 @@
     android:orientation="vertical">
     <com.qiushui.blurredview.BlurredView
         android:id="@+id/yahooweather_blurredview"
-        app:src="@mipmap/test"
+        app:src="@mipmap/tainan2"
         app:move="true"
         app:disableBlurred="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
    <LinearLayout
        android:orientation="vertical"
        android:layout_width="match_parent"

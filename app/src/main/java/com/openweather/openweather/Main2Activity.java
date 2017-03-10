@@ -49,6 +49,7 @@ public class Main2Activity extends AppCompatActivity {
                     Intent intent = new Intent(Main2Activity.this, WeatherNowActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }
                 if(position==1){
                     Intent intent = new Intent(Main2Activity.this, MainActivity.class);

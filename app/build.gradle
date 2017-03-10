@@ -36,6 +36,6 @@ dependencies {
     compile 'com.github.AhmadNemati:WindView:1.1.1'
     compile 'com.github.andy6804tw:SunView-lib:0.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
-    compile 'com.github.andy6804tw:RainingImageView-lib:1.0.0'
+    compile 'com.github.andy6804tw:RainingImageView-lib:1.0.1'
     testCompile 'junit:junit:4.12'
 }
