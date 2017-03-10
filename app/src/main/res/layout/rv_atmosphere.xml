@@ -13,13 +13,13 @@
     android:background="@drawable/round_box">
 
     <TextView
-        android:id="@+id/tv_condition"
+        android:id="@+id/tv_atmosphere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="5dp"
-        android:text="大氣和氣壓"
+        android:text="@string/tv_atmosphere"
         android:textColor="#fff"
 
         android:textSize="20sp" />
@@ -28,9 +28,9 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_alignLeft="@+id/tv_condition"
-        android:layout_alignStart="@+id/tv_condition"
-        android:layout_below="@+id/tv_condition"
+        android:layout_alignLeft="@+id/tv_atmosphere"
+        android:layout_alignStart="@+id/tv_atmosphere"
+        android:layout_below="@+id/tv_atmosphere"
         android:background="#fff" />
 
     <TableRow
@@ -42,12 +42,12 @@
         android:layout_marginTop="13dp">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="氣壓"
+            android:text="@string/pressure"
             android:textColor="#fff"
             android:textSize="15sp" />
 
@@ -55,8 +55,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/humidity"
             android:gravity="center_horizontal"
-            android:text="濕度"
+            android:text="@string/humidity"
             android:textColor="#fff"
             android:textSize="15sp" />
 
@@ -65,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:gravity="center_horizontal"
-            android:text="能見度"
+            android:id="@+id/visiblity"
+            android:text="@string/visiblity"
             android:textColor="#fff"
             android:textSize="15sp" />
 

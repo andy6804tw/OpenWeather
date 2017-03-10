@@ -45,6 +45,23 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         Log.e("SQLDB",sql2);
         db.execSQL(sql2);
 
+        String sql21 = "create table Direction("
+                +"direction integer not null primary key,"
+                +"direction_name varchar(10),"
+                +"foreign key (direction) references Wind(direction)"
+                +")";
+        Log.e("SQLDB",sql21);
+        db.execSQL(sql21);
+
+        String sql22 = "create table Speed("
+                +"speed integer not null primary key,"
+                +"series varchar(10),"
+                +"series_name varchar(10),"
+                +"foreign key (speed) references Wind(speed)"
+                +")";
+        Log.e("SQLDB",sql22);
+        db.execSQL(sql22);
+
         String sql3 = "create table Atmosphere("
                 +"loc_id int(10) not null primary key,"
                 +"humidity float(5),"
@@ -71,7 +88,8 @@ public class DBAccessWeather extends SQLiteOpenHelper {
                 +"high int(5),"
                 +"low int(5),"
                 +"temp int(5),"
-                +"code int(4)"
+                +"code int(4),"
+                +"publish_time string(20)"
                 +")";
         Log.e("SQLDB",sql6);
         db.execSQL(sql6);
@@ -92,6 +110,8 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exits Location");
         db.execSQL("drop table if exits Wind");
+        db.execSQL("drop table if exits Direction");
+        db.execSQL("drop table if exits Speed");
         db.execSQL("drop table if exits Atmosphere");
         db.execSQL("drop table if exits Astronomy");
         db.execSQL("drop table if exits Condition");
@@ -471,7 +491,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
             }
             case "Condition":{
                 return db.query(NAME, new String[]{"loc_id", "date", "day", "high"
-                                , "low","temp","code"}
+                                , "low","temp","code","publish_time"}
                         , whereStr, null, null, null, orderbyStr);
             }
             default: {
@@ -481,14 +501,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         }
     }
 
-    /*public int delete(String TABLE_NAME,String _id){
-        SQLiteDatabase db=this.getWritableDatabase();//取得讀寫資料表物件
-        int result;
-        //進行刪除
-        result=db.delete(TABLE_NAME,"loc_id ="+_id, null);
-        db.close();
-        return result;//回傳刪除筆數
-    }*/
+
 
     //Location
     public long add(String loc_id,String country,String city,String district
@@ -587,7 +600,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     }
 
     //Condition
-    public long add(String loc_id,String date,String day,Double high,Double low,Double temp,int code){
+    public long add(String loc_id,String date,String day,Double high,Double low,Double temp,int code,String publish_time){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
@@ -597,9 +610,10 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         values.put("low",Math.round((low-32)*5/9.));
         values.put("temp",Math.round((temp-32)*5/9.));
         values.put("code",code+"");
+        values.put("publish_time",publish_time);
         return db.insert("Condition", null,values);
     }
-    public long update(String loc_id,String date,String day,Double high,Double low,Double temp,int code,String whereClause){
+    public long update(String loc_id,String date,String day,Double high,Double low,Double temp,int code,String publish_time,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
@@ -609,20 +623,10 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         values.put("low",Math.round((low-32)*5/9.));
         values.put("temp",Math.round((temp-32)*5/9.));
         values.put("code",code);
+        values.put("publish_time",publish_time);
         long result=db.update("Condition", values, whereClause, null);
         db.close();
         return result;//回傳更新資料筆數
     }
 
-    //Code
-    /*public long update(String code_id,String description,String Wearing_Suggest,String whereClause){
-        SQLiteDatabase db=this.getWritableDatabase();
-        ContentValues values =new ContentValues();
-        values.put("code_id",code_id);
-        values.put("description",description);
-        values.put("Wearing_Suggest",Wearing_Suggest);
-        long result=db.update("Code", values, whereClause, null);
-        db.close();
-        return result;//回傳更新資料筆數
-    }*/
 }

@@ -50,4 +50,14 @@
     <string name="code45">雷暴</string>
     <string name="code46">陣雪</string>
     <string name="code47">單一雷暴</string>
+
+    <string name="tv_condition">目前狀況</string>
+    <string name="tvChill">體感溫度: </string>
+    <string name="tv_wind">風速和風向</string>
+    <string name="tv_atmosphere">大氣和氣壓</string>
+    <string name="pressure">氣壓</string>
+    <string name="humidity">濕度</string>
+    <string name="visiblity">能見度</string>
+    <string name="tvAstronomy">天文</string>
+
 </resources>

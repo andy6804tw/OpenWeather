@@ -42,7 +42,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class WeatherNowActivity extends AppCompatActivity {
@@ -94,22 +93,27 @@ public class WeatherNowActivity extends AppCompatActivity {
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                init_GPS();
+                init_Weather();
                 layout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        init_GPS();
-                        init_Weather();
-                        Calendar c = Calendar.getInstance();
-                        //取得系統時間
-                        String hour = c.get(Calendar.HOUR_OF_DAY)+"";
-                        String minute = c.get(Calendar.MINUTE)+"";
-                        if(hour.length()==1)
-                            hour="0"+hour;
-                        if(minute.length()==1)
-                            minute="0"+minute;
-                        tvTime.setText(hour+":"+minute+" CST");
-                        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
                         layout.setRefreshing(false);
+                        Toast.makeText(WeatherNowActivity.this,"Yes",Toast.LENGTH_LONG).show();
+                        Cursor cl1 = mAccess.getData("Location", null, null);
+                        cl1.moveToFirst();
+                        Cursor cl6 = mAccess.getData("Condition", null, null);
+                        cl6.moveToFirst();
+                        //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
+                        String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+                        String hour=time[0],minute=time[1];
+                        /*if(str[5].equals("PM")){
+                            hour=Integer.parseInt(time[0])+12+"";
+                        }
+                        tvTime.setText(hour+":"+minute+" "+str[6]);*/
+                        tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
+                        tvCity.setText(cl1.getString(2));
+                        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
                     }
                 }, 3000);
             }
@@ -120,7 +124,6 @@ public class WeatherNowActivity extends AppCompatActivity {
     private void blurred_init(){
         mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);
         mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new WeatherNowRVA(this));
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -264,6 +267,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                             String temp = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
                             String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("code");
                             String pushTime = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getString("pubDate");
+                            String publish_time = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getString("lastBuildDate");
                             Cursor c = mAccess.getData("Condition", null, null);
                             c.moveToFirst();
 
@@ -275,7 +279,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 //寫入 Astronomy資料表
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
-                                mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),null);
+                                mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time,null);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -388,7 +392,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         cl6.moveToFirst();
         Log.e("Data Condition",cl6.getString(0) + " " +  cl6.getString(1) + " "
                 + cl6.getString(2) + " " + cl6.getString(3) + " "
-                + cl6.getString(4) + " " + cl6.getString(5)+ " " + cl6.getString(6));
+                + cl6.getString(4) + " " + cl6.getString(5)+ " " + cl6.getString(6)+ " " + cl6.getString(7));
 
         Cursor cl7 = mAccess.getData("Code", null, null);
         cl7.moveToFirst();
@@ -397,15 +401,16 @@ public class WeatherNowActivity extends AppCompatActivity {
         Log.e("Data Code",cl7.getString(0) + " " +cl7.getString(1)+" "+cl7.getString(2));
 
 
-        Calendar c = Calendar.getInstance();
-        //取得系統時間
-        String hour = c.get(Calendar.HOUR_OF_DAY)+"";
-        String minute = c.get(Calendar.MINUTE)+"";
-        if(hour.length()==1)
-            hour="0"+hour;
-        if(minute.length()==1)
-            minute="0"+minute;
-        tvTime.setText(hour+":"+minute+" CST");
+
+        //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
+        String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+        String hour=time[0],minute=time[1];
+        if(str[5].equals("PM")){
+            hour=Integer.parseInt(time[0])+12+"";
+        }
+
+        //tvTime.setText(hour+":"+minute+" "+str[6]);
+        tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
         tvCity.setText(cl1.getString(2));
     }
 }

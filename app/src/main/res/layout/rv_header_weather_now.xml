@@ -15,28 +15,24 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_above="@+id/tvTemp"
-            android:layout_alignLeft="@+id/tableRow2"
-            android:layout_alignStart="@+id/tableRow2"
-            android:layout_marginBottom="18dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_above="@+id/tvWeather"
+            android:layout_centerHorizontal="true"
             app:srcCompat="@mipmap/cloudy" />
 
         <TextView
             android:id="@+id/tvWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tvTemp"
-            android:layout_marginBottom="35dp"
-            android:layout_toEndOf="@+id/imageView3"
-            android:layout_toRightOf="@+id/imageView3"
             android:text="晴時多雲"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:layout_above="@+id/tableRow2"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/tvTemp"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
@@ -44,7 +40,8 @@
             android:layout_marginEnd="37dp"
             android:layout_marginRight="37dp"
             android:fontFamily="sans-serif-thin"
-            android:text="23°"
+            android:gravity="center_horizontal"
+            android:text="16°"
             android:textColor="@android:color/background_light"
             android:textSize="125sp" />
 

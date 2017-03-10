@@ -175,7 +175,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.tv_low.setText(c2.getString(4)+"°C");
             viewHolder.tv_temp.setText(c2.getString(5)+"°C");
             viewHolder.tvLocation.setText(c.getString(2));
-            viewHolder.tvChill.setText("體感溫度:"+c3.getString(1)+"°C");
+            viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+c3.getString(1)+"°C");
             viewHolder.temperatureView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

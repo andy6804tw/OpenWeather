@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity  {
     GPSTracker mGps;
     DBAccessWeather mAccess;
     double latitude,longtitude;
-
+    String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,9 @@ public class SplashActivity extends AppCompatActivity  {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response);
-
+                            //位置 Location
+                            mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
+                            mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
                             //風 wind
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
                             String direction = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction");
@@ -132,10 +134,13 @@ public class SplashActivity extends AppCompatActivity  {
                             String temp = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("temp");
                             String code = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONObject("condition").getString("code");
                             String pushTime = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getString("pubDate");
+                            String publish_time = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getString("lastBuildDate");
                             Cursor c = mAccess.getData("Condition", null, null);
                             c.moveToFirst();
                             if(c.getCount()==0) {
                                 mAccess.add();
+                                //寫入 Location 資料表
+                                mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 //寫入 Wind資料表
                                 mAccess.add("1", Double.parseDouble(chill), direction, speed);
                                 //寫入 Atmosphere資料表
@@ -143,9 +148,11 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Astronomy資料表
                                 mAccess.add("1", sunrise, sunset);
                                 //寫入 Condition資料表
-                                mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code));
+                                mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time);
                             }else{
                                 Toast.makeText(SplashActivity.this,pushTime,Toast.LENGTH_LONG).show();
+                                //寫入 Location 資料表
+                                mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 //寫入 Wind資料表
                                 mAccess.update("1", Double.parseDouble(chill), direction, speed,null);
                                 //寫入 Atmosphere資料表
@@ -153,7 +160,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Astronomy資料表
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
-                                mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),null);
+                                mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time,null);
                             }
 
                             /*Log.e("wind", chill + " | " + direction + " | " + speed);
@@ -179,13 +186,16 @@ public class SplashActivity extends AppCompatActivity  {
     private void init_GPS() {
         mGps = new GPSTracker(this);
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
-            latitude = mGps.getLatitude();
-            longtitude = mGps.getLongtitude();
+            latitude = 40.835668;
+            longtitude =-73.927023;
+            if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124))
+                mLanguage="zh-TW";
+
             //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
             ///**撈取時間資料START**///
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longtitude + "&language=zh-TW&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longtitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -198,20 +208,22 @@ public class SplashActivity extends AppCompatActivity  {
                             try {
                                 jsonObject = new JSONObject(response);
                                 int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
-                                String country = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
-                                String city = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("short_name");
-                                String district = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
-                                String village = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
+                                if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124)){
+                                    mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                    mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
+                                }
+                                mDistrict = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
+                                mVillage = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
                                 String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
                                 //寫入Location資料表
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
-                                if(c.getCount()==0){
-                                    mAccess.add("1",country,city,district,village,latitude+"",longtitude+"");
+                               /* if(c.getCount()==0){
+                                    mAccess.add("1",mCountry,mCity,district,village,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
                                     Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
-                                    mAccess.update("1",country,city,district,village,Double.toString(latitude),Double.toString(longtitude),null);
-                                }
+                                    mAccess.update("1",mCountry,mCity,district,village,Double.toString(latitude),Double.toString(longtitude),null);
+                                }*/
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

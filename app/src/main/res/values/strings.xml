@@ -49,4 +49,14 @@
     <string name="code46">snow showers</string>
     <string name="code47">isolated thundershowers</string>
     <string name="code3200">not available</string>
+
+    <string name="tv_condition">Condition</string>
+    <string name="tvChill">Feel: </string>
+    <string name="tv_wind">Wind speed and direction</string>
+    <string name="tv_atmosphere">Atmospheric and Air pressure</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="visiblity">Visiblity</string>
+    <string name="tvAstronomy">Astronomy</string>
+
 </resources>

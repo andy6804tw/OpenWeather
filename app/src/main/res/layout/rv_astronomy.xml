@@ -13,13 +13,13 @@
     android:background="@drawable/round_box">
 
     <TextView
-        android:id="@+id/tv_condition"
+        android:id="@+id/tvAstronomy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="5dp"
-        android:text="天文"
+        android:text="@string/tvAstronomy"
         android:textColor="#fff"
 
         android:textSize="20sp" />
@@ -28,9 +28,9 @@
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_alignLeft="@+id/tv_condition"
-        android:layout_alignStart="@+id/tv_condition"
-        android:layout_below="@+id/tv_condition"
+        android:layout_alignLeft="@+id/tvAstronomy"
+        android:layout_alignStart="@+id/tvAstronomy"
+        android:layout_below="@+id/tvAstronomy"
         android:background="#fff" />
 
     <com.openweather.sunviewlibrary.SunView
