@@ -35,6 +35,7 @@ import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
+import com.openweather.openweather.Settings.SettingsActivity;
 import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
@@ -58,9 +59,9 @@ public class WeatherNowActivity extends AppCompatActivity {
      */
     private RecyclerView mRecyclerView;
 
-    private int mScrollerY;
+    private int mScrollerY=0;
 
-    private int mAlpha;
+    private int mAlpha=0;
 
     private long temptime = 0;//計算退出秒數
 
@@ -114,6 +115,8 @@ public class WeatherNowActivity extends AppCompatActivity {
                         tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
                         tvCity.setText(cl1.getString(2));
                         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
+                        mAlpha=0;
+                        mScrollerY=0;
                     }
                 }, 3000);
             }
@@ -183,6 +186,11 @@ public class WeatherNowActivity extends AppCompatActivity {
                 }
                 if(position==3) {
                     Intent intent = new Intent(WeatherNowActivity.this, Pm25Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                if(position==7) {
+                    Intent intent = new Intent(WeatherNowActivity.this, SettingsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

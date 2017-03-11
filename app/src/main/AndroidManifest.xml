@@ -23,6 +23,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".WeatherNow.WeatherNowActivity" />
         <activity android:name=".Pm25Activity" />
+        <activity android:name=".Settings.SettingsActivity"></activity>
     </application>
 
 </manifest>
