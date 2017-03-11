@@ -74,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
         mItemViewData = new SettingViewItem();
         mItemData = new SettingModel();
         mItemData.setTitle("24小時制");
-        mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon07));
+        mItemData.setDrawable(getResources().getDrawable(R.mipmap.setting_clock));
         mItemData.setChecked(true);
 
         mItemViewData.setData(mItemData);
@@ -85,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         mItemData = new SettingModel();
         mItemData.setTitle("溫度");
         mItemData.setSubTitle("°C");
-        mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon02));
+        mItemData.setDrawable(getResources().getDrawable(R.mipmap.setting_temp));
 
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new BasicItemViewH(context));

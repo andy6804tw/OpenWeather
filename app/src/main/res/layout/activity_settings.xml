@@ -1,9 +1,30 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Settings.SettingsActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/setting_toolbar">
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="設定"
+            android:textColor="@android:color/background_dark" />
+    </RelativeLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,11 +43,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                app:iOSStyle="false"
                 app:IsShowTopTitle="true"
                 app:TopTitle="設置"
-                />
+                app:iOSStyle="false" />
 
             <com.xiaoyongit.settingview.SettingView
                 android:id="@+id/ios_style_setting_view_02"
@@ -41,4 +60,4 @@
 
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>
