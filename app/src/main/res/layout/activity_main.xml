@@ -11,6 +11,18 @@
         android:background="@drawable/back"
         android:id="@+id/relativeLayout">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址:"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="63dp" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,8 +33,6 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
-
-
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
@@ -33,5 +43,7 @@
 
 
     </FrameLayout>
+
+
 
 </RelativeLayout>

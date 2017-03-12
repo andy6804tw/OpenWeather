@@ -5,6 +5,7 @@ package com.openweather.openweather.WeatherNow;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import com.openweather.sunviewlibrary.SunView;
 
 import java.util.Calendar;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by andy6804tw on 2017/1/25.
  */
@@ -34,6 +37,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     private static final int TYPE_ITEM = 1;
     int mPosition=0;
     private DBAccessWeather mAccess;
+    SharedPreferences settings;
 
     public WeatherNowRVA(Context context) {
         this.mContext = context;
@@ -136,14 +140,22 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         mPosition=position;
         mAccess = new DBAccessWeather(mContext, "weather", null, 1);
+        settings=mContext.getSharedPreferences("Data",MODE_PRIVATE);
+        //Toast.makeText(mContext,settings.getString("Temperature",""),Toast.LENGTH_LONG).show();
         if(mPosition==0){
             Cursor c = mAccess.getData("Condition", null, null);
             c.moveToFirst();
             Cursor c2 = mAccess.getData("Code", null, null);
             c2.moveToPosition(c.getShort(6));
-            viewHolder.tvHigh.setText(c.getString(3)+"°");
-            viewHolder.tvLow.setText(c.getString(4)+"°");
-            viewHolder.tvTemp.setText(c.getString(5)+"°");
+            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
+                viewHolder.tvHigh.setText(Math.round((c.getShort(3)-32)*5/9.)+"°");
+                viewHolder.tvLow.setText(Math.round((c.getShort(4)-32)*5/9.)+"°");
+                viewHolder.tvTemp.setText(Math.round((c.getShort(5)-32)*5/9.)+"°");
+           }else{
+                viewHolder.tvHigh.setText(c.getString(3)+"°");
+                viewHolder.tvLow.setText(c.getString(4)+"°");
+                viewHolder.tvTemp.setText(c.getString(5)+"°");
+            }
             viewHolder.tvWeather.setText(c2.getString(1));
             }
         if(mPosition==1){
@@ -153,50 +165,62 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             c2.moveToFirst();
             Cursor c3 = mAccess.getData("Wind", null, null);
             c3.moveToFirst();
-            if(c2.getShort(5)<-9)
-                viewHolder.temperatureView.start((c2.getShort(5)-16));
-            else if(c2.getShort(5)<5)
-                viewHolder.temperatureView.start(c2.getShort(5)-12);
-            else if(c2.getShort(5)<11)
-                viewHolder.temperatureView.start((c2.getShort(5)-7));
-            else if(c2.getShort(5)<16)
-                viewHolder.temperatureView.start((c2.getShort(5)-4));
-            else if(c2.getShort(5)<20)
-                viewHolder.temperatureView.start(c2.getShort(5)-2);
-            else if(c2.getShort(5)>=30)
-                viewHolder.temperatureView.start(c2.getShort(5)+4);
-            else if(c2.getShort(5)>=35)
-                viewHolder.temperatureView.start(c2.getShort(5)+6);
-            else if(c2.getShort(5)<30&&c2.getShort(5)>=25)
-                viewHolder.temperatureView.start(c2.getShort(5)+2);
+            long temp=Math.round((c2.getShort(5)-32)*5/9.);
+            if(temp<-9)
+                viewHolder.temperatureView.start((temp-16));
+            else if(temp<5)
+                viewHolder.temperatureView.start(temp-12);
+            else if(temp<11)
+                viewHolder.temperatureView.start((temp-7));
+            else if(temp<16)
+                viewHolder.temperatureView.start((temp-4));
+            else if(temp<20)
+                viewHolder.temperatureView.start(temp-2);
+            else if(temp<30&&temp>=25)
+                viewHolder.temperatureView.start(temp+2);
+            else if(temp>=35)
+                viewHolder.temperatureView.start(temp+6);
+            else if(temp>=30)
+                viewHolder.temperatureView.start(temp+4);
             else
-                viewHolder.temperatureView.start(c2.getShort(5));
-            viewHolder.tv_high.setText(c2.getString(3)+"°C");
-            viewHolder.tv_low.setText(c2.getString(4)+"°C");
-            viewHolder.tv_temp.setText(c2.getString(5)+"°C");
+                viewHolder.temperatureView.start(temp);
             viewHolder.tvLocation.setText(c.getString(2));
-            viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+c3.getString(1)+"°C");
+            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
+                viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+Math.round((c3.getShort(1)-32)*5/9.)+"°C");
+            }else{
+                viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+c3.getString(1)+"°F");
+            }
+            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
+                viewHolder.tv_high.setText(Math.round((c2.getShort(3)-32)*5/9.)+"°");
+                viewHolder.tv_low.setText(Math.round((c2.getShort(4)-32)*5/9.)+"°");
+                viewHolder.tv_temp.setText(Math.round((c2.getShort(5)-32)*5/9.)+"°");
+            }else{
+                viewHolder.tv_high.setText(c2.getString(3)+"°");
+                viewHolder.tv_low.setText(c2.getString(4)+"°");
+                viewHolder.tv_temp.setText(c2.getString(5)+"°");
+            }
             viewHolder.temperatureView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(c2.getShort(5)<-9)
-                        viewHolder.temperatureView.start((c2.getShort(5)-16));
-                    else if(c2.getShort(5)<5)
-                        viewHolder.temperatureView.start(c2.getShort(5)-12);
-                    else if(c2.getShort(5)<11)
-                        viewHolder.temperatureView.start((c2.getShort(5)-7));
-                    else if(c2.getShort(5)<16)
-                        viewHolder.temperatureView.start((c2.getShort(5)-4));
-                    else if(c2.getShort(5)<20)
-                        viewHolder.temperatureView.start(c2.getShort(5)-2);
-                    else if(c2.getShort(5)<30&&c2.getShort(5)>=25)
-                        viewHolder.temperatureView.start(c2.getShort(5)+2);
-                    else if(c2.getShort(5)>=35)
-                        viewHolder.temperatureView.start(c2.getShort(5)+6);
-                    else if(c2.getShort(5)>=30)
-                        viewHolder.temperatureView.start(c2.getShort(5)+4);
+                    long temp=Math.round((c2.getShort(5)-32)*5/9.);
+                    if(temp<-9)
+                        viewHolder.temperatureView.start((temp-16));
+                    else if(temp<5)
+                        viewHolder.temperatureView.start(temp-12);
+                    else if(temp<11)
+                        viewHolder.temperatureView.start((temp-7));
+                    else if(temp<16)
+                        viewHolder.temperatureView.start((temp-4));
+                    else if(temp<20)
+                        viewHolder.temperatureView.start(temp-2);
+                    else if(temp<30&&temp>=25)
+                        viewHolder.temperatureView.start(temp+2);
+                    else if(temp>=35)
+                        viewHolder.temperatureView.start(temp+6);
+                    else if(temp>=30)
+                        viewHolder.temperatureView.start(temp+4);
                     else
-                        viewHolder.temperatureView.start(c2.getShort(5));
+                        viewHolder.temperatureView.start(temp);
                 }
             });
         }

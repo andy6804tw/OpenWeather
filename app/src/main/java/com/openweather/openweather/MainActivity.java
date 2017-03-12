@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ExitApplication.getInstance().addActivity(this);
+
+        TextView textView=(TextView) findViewById(R.id.textView);
+        textView.setText(WeatherNowActivity.str5);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mGridMenuFragment = GridMenuFragment.newInstance(R.drawable.back);

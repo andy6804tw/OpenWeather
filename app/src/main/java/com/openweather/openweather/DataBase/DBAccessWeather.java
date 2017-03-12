@@ -538,7 +538,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
-        values.put("chill",Math.round((chill-32)*5/9.));
+        values.put("chill",chill);
         values.put("direction",direction);
         values.put("speed",speed);
         return db.insert("Wind", null,values);
@@ -547,7 +547,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
-        values.put("chill",Math.round((chill-32)*5/9.));
+        values.put("chill",chill);
         values.put("direction",direction);
         values.put("speed",speed);
         long result=db.update("Wind", values, whereClause, null);
@@ -606,9 +606,9 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         values.put("loc_id",loc_id);
         values.put("date",date);
         values.put("day",day);
-        values.put("high",Math.round((high-32)*5/9.));
-        values.put("low",Math.round((low-32)*5/9.));
-        values.put("temp",Math.round((temp-32)*5/9.));
+        values.put("high",high);
+        values.put("low",low);
+        values.put("temp",temp);
         values.put("code",code+"");
         values.put("publish_time",publish_time);
         return db.insert("Condition", null,values);
@@ -619,9 +619,9 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         values.put("loc_id",loc_id);
         values.put("date",date);
         values.put("day",day);
-        values.put("high",Math.round((high-32)*5/9.));
-        values.put("low",Math.round((low-32)*5/9.));
-        values.put("temp",Math.round((temp-32)*5/9.));
+        values.put("high",high);
+        values.put("low",low);
+        values.put("temp",temp);
         values.put("code",code);
         values.put("publish_time",publish_time);
         long result=db.update("Condition", values, whereClause, null);

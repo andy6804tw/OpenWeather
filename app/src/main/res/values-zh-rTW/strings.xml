@@ -59,5 +59,6 @@
     <string name="humidity">濕度</string>
     <string name="visiblity">能見度</string>
     <string name="tvAstronomy">天文</string>
+    <string name="tvBack">返回</string>
 
 </resources>

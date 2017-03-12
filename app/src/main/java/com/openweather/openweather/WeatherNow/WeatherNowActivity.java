@@ -3,6 +3,7 @@ package com.openweather.openweather.WeatherNow;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -36,7 +37,6 @@ import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
 import com.openweather.openweather.Settings.SettingsActivity;
-import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
 import org.json.JSONException;
@@ -44,6 +44,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.openweather.openweather.View.SunBabyLoadingView.str;
 
 public class WeatherNowActivity extends AppCompatActivity {
 
@@ -64,12 +66,12 @@ public class WeatherNowActivity extends AppCompatActivity {
     private int mAlpha=0;
 
     private long temptime = 0;//計算退出秒數
-
     private TextView tvTime,tvCity;
     GPSTracker mGps;
     DBAccessWeather mAccess;
     double latitude,longtitude;
-
+    public static String str5;
+    SharedPreferences settings;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,7 @@ public class WeatherNowActivity extends AppCompatActivity {
 
         tvTime=(TextView)findViewById(R.id.tvTime);
         tvCity=(TextView)findViewById(R.id.tvCity);
-
+        settings=getSharedPreferences("Data",MODE_PRIVATE);
 
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         menu_init();//menu初始化
@@ -107,13 +109,18 @@ public class WeatherNowActivity extends AppCompatActivity {
                         cl6.moveToFirst();
                         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
                         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
-                        String hour=time[0],minute=time[1];
-                        /*if(str[5].equals("PM")){
-                            hour=Integer.parseInt(time[0])+12+"";
+                        if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
+                            String hour=time[0],minute=time[1];
+                            if(str[5].equals("PM")){
+                                hour=Integer.parseInt(time[0])+12+"";
+                            }
+                            tvTime.setText(hour+":"+minute+" "+str[6]);
+                            tvCity.setText(cl1.getString(2));
                         }
-                        tvTime.setText(hour+":"+minute+" "+str[6]);*/
-                        tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
-                        tvCity.setText(cl1.getString(2));
+                        else{
+                            tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
+                            tvCity.setText(cl1.getString(2));
+                        }
                         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
                         mAlpha=0;
                         mScrollerY=0;
@@ -126,9 +133,7 @@ public class WeatherNowActivity extends AppCompatActivity {
     /**背景霧化Blurred**/
     private void blurred_init(){
         mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);
-        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new WeatherNowRVA(this));
+
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -297,7 +302,7 @@ public class WeatherNowActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(WeatherNowActivity.this, "無法連接網路!", Toast.LENGTH_SHORT).show();
-                SunBabyLoadingView.str = "正載入歷史資料...";
+                str = "正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
@@ -330,7 +335,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 String city = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("short_name");
                                 String district = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
                                 String village = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
-                                String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                                str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
                                 //寫入Location資料表
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
@@ -412,13 +417,20 @@ public class WeatherNowActivity extends AppCompatActivity {
 
         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
-        String hour=time[0],minute=time[1];
-        if(str[5].equals("PM")){
-            hour=Integer.parseInt(time[0])+12+"";
+        if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
+            String hour=time[0],minute=time[1];
+            if(str[5].equals("PM")){
+                hour=Integer.parseInt(time[0])+12+"";
+            }
+            tvTime.setText(hour+":"+minute+" "+str[6]);
+            tvCity.setText(cl1.getString(2));
         }
-
-        //tvTime.setText(hour+":"+minute+" "+str[6]);
-        tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
-        tvCity.setText(cl1.getString(2));
+        else{
+            tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
+            tvCity.setText(cl1.getString(2));
+        }
+        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new WeatherNowRVA(this));
     }
 }
