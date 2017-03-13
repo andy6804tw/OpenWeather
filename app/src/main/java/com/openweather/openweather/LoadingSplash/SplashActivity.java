@@ -112,12 +112,64 @@ public class SplashActivity extends AppCompatActivity  {
                         try {
                             jsonObject = new JSONObject(response);
                             //位置 Location
-                            mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
-                            mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
+                            if(!(latitude>=20&&latitude<=27)&&!(longtitude>=118&&longtitude<=124)){
+                                mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
+                                mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
+                            }
                             //風 wind
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
-                            String direction = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction");
-                            String speed = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed");
+                            double direction = Double.parseDouble(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction"));
+                            int speed = Integer.parseInt(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed"));
+
+                            if((direction>=0&&direction<=11.25) || (direction>=348.76&&direction<=360)) {
+                                direction=0;
+                            }
+                            if(direction>=11.26&&direction<=33.75){
+                                direction=1;
+                            }
+                            if(direction>=33.76&&direction<=56.25){
+                                direction=2;
+                            }
+                            if(direction>=56.26&&direction<=78.75){
+                                direction=3;
+                            }
+                            if(direction>=78.76&&direction<=101.25){
+                                direction=4;
+                            }
+                            if(direction>=101.26&&direction<=123.75){
+                                direction=5;
+                            }
+                            if(direction>=123.76&&direction<=146.25){
+                                direction=6;
+                            }
+                            if(direction>=146.26&&direction<=168.75){
+                                direction=7;
+                            }
+                            if(direction>=168.76&&direction<=191.25){
+                                direction=8;
+                            }
+                            if(direction>=191.26&&direction<=213.75){
+                                direction=9;
+                            }
+                            if(direction>=213.76&&direction<=236.25){
+                                direction=10;
+                            }
+                            if(direction>=236.26&&direction<=258.75){
+                                direction=11;
+                            }
+                            if(direction>=258.76&&direction<=281.25){
+                                direction=12;
+                            }
+                            if(direction>=281.26&&direction<=303.75){
+                                direction=13;
+                            }
+                            if(direction>=303.76&&direction<=326.25){
+                                direction=14;
+                            }
+                            if(direction>=326.26&&direction<=348.75){
+                                direction=15;
+                            }
+
                             //大氣 Atmosphere
                             String humidity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("humidity");
                             String pressure = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("pressure");
@@ -142,7 +194,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Location 資料表
                                 mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 //寫入 Wind資料表
-                                mAccess.add("1", Double.parseDouble(chill), direction, speed);
+                                mAccess.add("1", Double.parseDouble(chill), direction+"", speed+"");
                                 //寫入 Atmosphere資料表
                                 mAccess.add("1", humidity, pressure, rising, visibility);
                                 //寫入 Astronomy資料表
@@ -154,7 +206,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Location 資料表
                                 mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 //寫入 Wind資料表
-                                mAccess.update("1", Double.parseDouble(chill), direction, speed,null);
+                                mAccess.update("1", Double.parseDouble(chill), direction+"", speed+"",null);
                                 //寫入 Atmosphere資料表
                                 mAccess.update("1", humidity, pressure,visibility ,rising,null);
                                 //寫入 Astronomy資料表
@@ -186,8 +238,8 @@ public class SplashActivity extends AppCompatActivity  {
     private void init_GPS() {
         mGps = new GPSTracker(this);
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
-            latitude = 40.835668;
-            longtitude =-73.927023;
+            latitude = mGps.getLatitude();
+            longtitude =mGps.getLongtitude();
             if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124))
                 mLanguage="zh-TW";
 
@@ -208,22 +260,20 @@ public class SplashActivity extends AppCompatActivity  {
                             try {
                                 jsonObject = new JSONObject(response);
                                 int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
-                                if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124)){
-                                    mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
-                                    mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
-                                }
+                                mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
                                 mDistrict = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
                                 mVillage = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
                                 String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
                                 //寫入Location資料表
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
-                               /* if(c.getCount()==0){
-                                    mAccess.add("1",mCountry,mCity,district,village,latitude+"",longtitude+"");
+                                if(c.getCount()==0){
+                                    mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
                                     Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
-                                    mAccess.update("1",mCountry,mCity,district,village,Double.toString(latitude),Double.toString(longtitude),null);
-                                }*/
+                                    mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

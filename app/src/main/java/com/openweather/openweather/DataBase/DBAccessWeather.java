@@ -36,15 +36,6 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         Log.e("SQLDB",sql1);
         db.execSQL(sql1);
 
-        String sql2 = "create table Wind("
-                +"loc_id int(10) not null primary key,"
-                +"chill int(5),"
-                +"direction int(5),"
-                +"speed int(5)"
-                +")";
-        Log.e("SQLDB",sql2);
-        db.execSQL(sql2);
-
         String sql21 = "create table Direction("
                 +"direction integer not null primary key,"
                 +"direction_name varchar(10),"
@@ -53,14 +44,15 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         Log.e("SQLDB",sql21);
         db.execSQL(sql21);
 
-        String sql22 = "create table Speed("
-                +"speed integer not null primary key,"
-                +"series varchar(10),"
-                +"series_name varchar(10),"
-                +"foreign key (speed) references Wind(speed)"
+        String sql2 = "create table Wind("
+                +"loc_id integer not null primary key,"
+                +"chill int(10),"
+                +"direction int(10),"
+                +"speed int(10),"
+                +"foreign key (loc_id) references Location(loc_id)"
                 +")";
-        Log.e("SQLDB",sql22);
-        db.execSQL(sql22);
+        Log.e("SQLDB",sql2);
+        db.execSQL(sql2);
 
         String sql3 = "create table Atmosphere("
                 +"loc_id int(10) not null primary key,"
@@ -121,6 +113,169 @@ public class DBAccessWeather extends SQLiteOpenHelper {
 
     public long add(){
         SQLiteDatabase db = getWritableDatabase();
+
+
+            ContentValues values1=new ContentValues();
+
+                values1.put("direction", 0);
+                values1.put("direction_name",mContext.getResources().getString(R.string.N));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 1);
+                values1.put("direction_name",mContext.getResources().getString(R.string.NNE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 2);
+                values1.put("direction_name",mContext.getResources().getString(R.string.NE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 3);
+                values1.put("direction_name",mContext.getResources().getString(R.string.ENE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 4);
+                values1.put("direction_name",mContext.getResources().getString(R.string.E));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 5);
+                values1.put("direction_name",mContext.getResources().getString(R.string.ESE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 6);
+                values1.put("direction_name",mContext.getResources().getString(R.string.SE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 7);
+                values1.put("direction_name",mContext.getResources().getString(R.string.SSE));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 8);
+                values1.put("direction_name",mContext.getResources().getString(R.string.S));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 9);
+                values1.put("direction_name",mContext.getResources().getString(R.string.SSW));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 10);
+                values1.put("direction_name",mContext.getResources().getString(R.string.SW));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 11);
+                values1.put("direction_name",mContext.getResources().getString(R.string.WSW));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 12);
+                values1.put("direction_name",mContext.getResources().getString(R.string.W));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 13);
+                values1.put("direction_name",mContext.getResources().getString(R.string.WNW));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 14);
+                values1.put("direction_name",mContext.getResources().getString(R.string.NW));
+                db.insert("Direction", null, values1);
+
+                values1.put("direction", 15);
+                values1.put("direction_name",mContext.getResources().getString(R.string.NNW));
+                db.insert("Direction", null, values1);
+
+        //Speed
+        for(int i=0;i<=100;i++){
+            if(i<1) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","0");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed0));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=1&&i<=3) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","1");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed1));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=4&&i<=7) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","2");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed2));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=8&&i<=12) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","3");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed3));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=13&&i<=18) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","4");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed4));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=19&&i<=24) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","5");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed5));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=25&&i<=31) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","6");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed6));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=32&&i<=38) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","7");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed7));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=39&&i<=46) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","8");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed8));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=47&&i<=54) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","9");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed9));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=55&&i<=63) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","10");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed10));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=64&&i<=72) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","11");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed11));
+                db.insert("Speed", null, values2);
+            }
+            if(i>=73) {
+                ContentValues values2 = new ContentValues();
+                values2.put("speed", i);
+                values2.put("series","12");
+                values2.put("series_name",mContext.getResources().getString(R.string.speed12));
+                db.insert("Speed", null, values2);
+            }
+        }
+
         //Code0
         ContentValues va700 = new ContentValues();
         va700.put("code_id",0);
@@ -479,6 +634,14 @@ public class DBAccessWeather extends SQLiteOpenHelper {
             case "Wind": {
                 return db.query(NAME, new String[]{"loc_id", "chill", "direction", "speed"}
                         , whereStr, null, null, null, orderbyStr);
+            }
+            case "Direction":{
+                return db.query(NAME, new String[]{"direction","direction_name"}
+                        ,whereStr,null,null,null,orderbyStr);
+            }
+            case "Speed":{
+                return db.query(NAME, new String[]{"speed","series","series_name"}
+                        ,whereStr,null,null,null,orderbyStr);
             }
             case "Atmosphere": {
                 return db.query(NAME, new String[]{"loc_id", "humidity", "pressure"

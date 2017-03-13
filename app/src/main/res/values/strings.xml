@@ -50,6 +50,38 @@
     <string name="code47">isolated thundershowers</string>
     <string name="code3200">not available</string>
 
+    <string name="N">N</string>
+    <string name="NNE">NNE</string>
+    <string name="NE">NE</string>
+    <string name="ENE">ENE</string>
+    <string name="E">E</string>
+    <string name="ESE">ESE</string>
+    <string name="SE">SE</string>
+    <string name="SSE">SSE</string>
+    <string name="S">S</string>
+    <string name="SSW">SSW</string>
+    <string name="SW">SW</string>
+    <string name="WSW">WSW</string>
+    <string name="W">W</string>
+    <string name="WNW">WNW</string>
+    <string name="NW">NW</string>
+    <string name="NNW">NNW</string>
+
+
+    <string name="speed0">Calm</string>
+    <string name="speed1">Light air</string>
+    <string name="speed2">Light breeze</string>
+    <string name="speed3">Gentle breeze</string>
+    <string name="speed4">Moderate breeze</string>
+    <string name="speed5">Fresh breeze</string>
+    <string name="speed6">Strong breeze</string>
+    <string name="speed7">Near gale</string>
+    <string name="speed8">Gale</string>
+    <string name="speed9">Strong gale</string>
+    <string name="speed10">Storm</string>
+    <string name="speed11">Violent storm</string>
+    <string name="speed12">Hurricane</string>
+
     <string name="tv_condition">Condition</string>
     <string name="tvChill">Feel: </string>
     <string name="tv_wind">Wind speed and direction</string>

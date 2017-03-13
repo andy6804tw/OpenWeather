@@ -51,6 +51,37 @@
     <string name="code46">陣雪</string>
     <string name="code47">單一雷暴</string>
 
+    <string name="N">北</string>
+    <string name="NNE">東北偏北</string>
+    <string name="NE">東北</string>
+    <string name="ENE">東北偏東</string>
+    <string name="E">東</string>
+    <string name="ESE">東南偏東</string>
+    <string name="SE">東南</string>
+    <string name="SSE">東南偏南</string>
+    <string name="S">南</string>
+    <string name="SSW">西南偏南</string>
+    <string name="SW">西南</string>
+    <string name="WSW">西南偏西</string>
+    <string name="W">西</string>
+    <string name="WNW">西北偏西</string>
+    <string name="NW">西北</string>
+    <string name="NNW">西北偏北</string>
+
+    <string name="speed0">無風</string>
+    <string name="speed1">軟風</string>
+    <string name="speed2">輕風</string>
+    <string name="speed3">微風</string>
+    <string name="speed4">和風</string>
+    <string name="speed5">清風</string>
+    <string name="speed6">強風</string>
+    <string name="speed7">疾風</string>
+    <string name="speed8">大風</string>
+    <string name="speed9">烈風</string>
+    <string name="speed10">暴風</string>
+    <string name="speed11">狂風</string>
+    <string name="speed12">颶風</string>
+
     <string name="tv_condition">目前狀況</string>
     <string name="tvChill">體感溫度: </string>
     <string name="tv_wind">風速和風向</string>

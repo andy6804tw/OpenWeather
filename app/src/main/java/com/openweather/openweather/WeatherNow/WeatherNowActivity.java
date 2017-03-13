@@ -1,11 +1,13 @@
 package com.openweather.openweather.WeatherNow;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -37,6 +39,7 @@ import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
 import com.openweather.openweather.Settings.SettingsActivity;
+import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
 import org.json.JSONException;
@@ -45,10 +48,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.openweather.openweather.View.SunBabyLoadingView.str;
-
 public class WeatherNowActivity extends AppCompatActivity {
 
+    String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
     private PullRefreshLayout layout;
     private GridMenuFragment mGridMenuFragment;
     /**
@@ -111,7 +113,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
                         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
                             String hour=time[0],minute=time[1];
-                            if(str[5].equals("PM")){
+                            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12){
                                 hour=Integer.parseInt(time[0])+12+"";
                             }
                             tvTime.setText(hour+":"+minute+" "+str[6]);
@@ -160,7 +162,9 @@ public class WeatherNowActivity extends AppCompatActivity {
     //menu初始化
     private void menu_init(){
         mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.tainan2);
-
+        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new WeatherNowRVA(this));
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,6 +197,26 @@ public class WeatherNowActivity extends AppCompatActivity {
                     Intent intent = new Intent(WeatherNowActivity.this, Pm25Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                }
+                if(position==4){
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setComponent(new ComponentName("com.f74372017.twreservoir","com.f74372017.twreservoir.SplashActivity")); //包裹名稱，要開啟的頁面
+                    /*Intent intent = getApplication().getPackageManager()
+                            .getLaunchIntentForPackage("com.f74372017.twreservoir.SplashActivity");*/
+                    //intent.putExtra("value", "test"); //要傳送的值
+                    try{
+                        startActivity(intent);
+                    }
+                    catch(Exception e){
+                        Toast.makeText(WeatherNowActivity.this,"無安裝此應用!",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.f74372017.twreservoir")));
+                    }
+                    /*if (intent != null) {
+
+                    }
+                    else{
+
+                    }*/
                 }
                 if(position==7) {
                     Intent intent = new Intent(WeatherNowActivity.this, SettingsActivity.class);
@@ -259,11 +283,63 @@ public class WeatherNowActivity extends AppCompatActivity {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response);
-
+                            //位置 Location
+                            if(!(latitude>=20&&latitude<=27)&&!(longtitude>=118&&longtitude<=124)){
+                                mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
+                                mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
+                            }
                             //風 wind
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
-                            String direction = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction");
-                            String speed = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed");
+                            double direction = Double.parseDouble(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction"));
+                            int speed = Integer.parseInt(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed"));
+                            if((direction>=0&&direction<=11.25) || (direction>=348.76&&direction<=360)) {
+                                direction=0;
+                            }
+                            if(direction>=11.26&&direction<=33.75){
+                                direction=1;
+                            }
+                            if(direction>=33.76&&direction<=56.25){
+                                direction=2;
+                            }
+                            if(direction>=56.26&&direction<=78.75){
+                                direction=3;
+                            }
+                            if(direction>=78.76&&direction<=101.25){
+                                direction=4;
+                            }
+                            if(direction>=101.26&&direction<=123.75){
+                                direction=5;
+                            }
+                            if(direction>=123.76&&direction<=146.25){
+                                direction=6;
+                            }
+                            if(direction>=146.26&&direction<=168.75){
+                                direction=7;
+                            }
+                            if(direction>=168.76&&direction<=191.25){
+                                direction=8;
+                            }
+                            if(direction>=191.26&&direction<=213.75){
+                                direction=9;
+                            }
+                            if(direction>=213.76&&direction<=236.25){
+                                direction=10;
+                            }
+                            if(direction>=236.26&&direction<=258.75){
+                                direction=11;
+                            }
+                            if(direction>=258.76&&direction<=281.25){
+                                direction=12;
+                            }
+                            if(direction>=281.26&&direction<=303.75){
+                                direction=13;
+                            }
+                            if(direction>=303.76&&direction<=326.25){
+                                direction=14;
+                            }
+                            if(direction>=326.26&&direction<=348.75){
+                                direction=15;
+                            }
                             //大氣 Atmosphere
                             String humidity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("humidity");
                             String pressure = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("atmosphere").getString("pressure");
@@ -283,16 +359,23 @@ public class WeatherNowActivity extends AppCompatActivity {
                             String publish_time = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getString("lastBuildDate");
                             Cursor c = mAccess.getData("Condition", null, null);
                             c.moveToFirst();
-
-                                Toast.makeText(WeatherNowActivity.this,pushTime,Toast.LENGTH_LONG).show();
+                                //Toast.makeText(WeatherNowActivity.this,pushTime,Toast.LENGTH_LONG).show();
+                                //寫入 Location 資料表
+                                mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 //寫入 Wind資料表
-                                mAccess.update("1", Double.parseDouble(chill), direction, speed,null);
+                                mAccess.update("1", Double.parseDouble(chill), direction+"", speed+"",null);
                                 //寫入 Atmosphere資料表
                                 mAccess.update("1", humidity, pressure,visibility ,rising,null);
                                 //寫入 Astronomy資料表
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
                                 mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time,null);
+
+
+                            /*Log.e("wind", chill + " | " + direction + " | " + speed);
+                            Log.e("Atmosphere", humidity + " | " + pressure + " | " + " | " + rising + " | " + visibility);
+                            Log.e("Astronomy", sunrise + " | " + sunset);
+                            Log.e("Condition", date + " | " + day + " | " + " | " + high + " | " + low);*/
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -302,7 +385,7 @@ public class WeatherNowActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(WeatherNowActivity.this, "無法連接網路!", Toast.LENGTH_SHORT).show();
-                str = "正載入歷史資料...";
+                SunBabyLoadingView.str = "正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
@@ -313,12 +396,16 @@ public class WeatherNowActivity extends AppCompatActivity {
         mGps = new GPSTracker(this);
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
             latitude = mGps.getLatitude();
-            longtitude = mGps.getLongtitude();
+            longtitude =mGps.getLongtitude();
+            if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124)){
+                mLanguage="zh-TW";
+            }
+
             //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
             ///**撈取時間資料START**///
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longtitude + "&language=zh-TW&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longtitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -331,19 +418,20 @@ public class WeatherNowActivity extends AppCompatActivity {
                             try {
                                 jsonObject = new JSONObject(response);
                                 int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
-                                String country = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
-                                String city = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("short_name");
-                                String district = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
-                                String village = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
+                                mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
+                                mDistrict = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
+                                mVillage = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
                                 str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
                                 //寫入Location資料表
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
-                               if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
-                                    Toast.makeText(WeatherNowActivity.this,"更新位置"+" "+latitude+" "+longtitude,Toast.LENGTH_SHORT).show();
-                                    mAccess.update("1",country,city,district,village,Double.toString(latitude),Double.toString(longtitude),null);
+                                if(c.getCount()==0){
+                                    mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
+                                }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
+                                    Toast.makeText(WeatherNowActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
+                                    mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
-                                Toast.makeText(WeatherNowActivity.this,"位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -413,13 +501,15 @@ public class WeatherNowActivity extends AppCompatActivity {
         cl7.moveToNext();
         Log.e("Data Code",cl7.getString(0) + " " +cl7.getString(1)+" "+cl7.getString(2));
 
-
-
+        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
+        mAlpha=0;
+        mScrollerY=0;
+        Toast.makeText(WeatherNowActivity.this,cl6.getString(7),Toast.LENGTH_LONG).show();
         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
             String hour=time[0],minute=time[1];
-            if(str[5].equals("PM")){
+            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12){
                 hour=Integer.parseInt(time[0])+12+"";
             }
             tvTime.setText(hour+":"+minute+" "+str[6]);
@@ -429,8 +519,5 @@ public class WeatherNowActivity extends AppCompatActivity {
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }
-        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new WeatherNowRVA(this));
     }
 }
