@@ -20,8 +20,6 @@ import com.openweather.openweather.R;
 import com.openweather.openweather.View.TemperatureView;
 import com.openweather.sunviewlibrary.SunView;
 
-import java.util.Calendar;
-
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -253,24 +251,31 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.tvVisiblity.setText(c.getString(3)+" km");
         }
         else if(mPosition==4){
-            Calendar calendar = Calendar.getInstance();
-            //取得系統時間
-            String hour = calendar.get(Calendar.HOUR_OF_DAY)+"";
-            String minute = calendar.get(Calendar.MINUTE)+"";
-            if(hour.length()==1)
-                hour="0"+hour;
-            if(minute.length()==1)
-                minute="0"+minute;
-            /*if(Integer.parseInt(hour)<6)
-                hour="6";
-            else if(Integer.parseInt(hour)>18)
-                hour="18";*/
-            Cursor c = mAccess.getData("Astronomy", null, null);
-            c.moveToFirst();
+            Cursor cl6 = mAccess.getData("Condition", null, null);
+            cl6.moveToFirst();
+            //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
+            String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+                String hour=time[0],minute=time[1];
+                if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12){
+                    hour=Integer.parseInt(time[0])+12+"";
+                }
+            Cursor cl5 = mAccess.getData("Astronomy", null, null);
+            cl5.moveToFirst();
+            String str_start[]=cl5.getString(1).split(":");
+            String str_end[]=cl5.getString(2).split(":");
+            str_start[1]=str_start[1].split(" ")[0]; //把am去掉
+            str_end[1]=str_end[1].split(" ")[0];//把pm去掉
+            if(str_start[1].length()==1)//開始分補零
+                str_start[1]="0"+str_start[1];
+            //結束時間+12小時
+            str_end[0]=Integer.parseInt(str_end[0])+12+"";
+            if(str_end[1].length()==1)//結束分補零
+                str_end[1]="0"+str_end[1];
             viewHolder.sunView.setCurrentTime(hour+":"+minute);
-            viewHolder.sunView.setStartTime("6:15");
-            viewHolder.sunView.setEndTime("18:05");
-            viewHolder.sunView.setArcSolidColor("#53ffe1a2");
+            viewHolder.sunView.setStartTime("0"+str_start[0]+":"+str_start[1]);
+            viewHolder.sunView.setEndTime(str_end[0]+":"+str_end[1]);
+            viewHolder.sunView.setArcSolidColor(mContext.getResources().getColor(R.color.ArcSolidColor));//拱型內部顏色
+            viewHolder.sunView.setSunColor(mContext.getResources().getColor(R.color.SunColor));//拱型內部顏色
         }
     }
 
