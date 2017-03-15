@@ -38,5 +38,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     compile 'com.github.xiaoyongit520:SettingViewLib:0.0.6'
     compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.github.pwittchen:weathericonview:1.1.0'
     testCompile 'junit:junit:4.12'
 }

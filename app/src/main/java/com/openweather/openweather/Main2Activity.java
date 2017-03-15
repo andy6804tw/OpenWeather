@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
@@ -20,6 +22,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private GridMenuFragment mGridMenuFragment;
     private long temptime = 0;//計算退出秒數
+    private WebView mWebView = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,22 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+        mWebView = (WebView)findViewById(R.id.webView);
+        mWebView.setWebViewClient(mWebViewClient);
+        mWebView.setInitialScale(1);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl("http://opendata.cwb.gov.tw/opendata/DIV2/O-A0038-001.jpg");
     }
+
+    WebViewClient mWebViewClient = new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    };
 
     private void setupGridMenu() {
         List<GridMenu> menus = new ArrayList<>();

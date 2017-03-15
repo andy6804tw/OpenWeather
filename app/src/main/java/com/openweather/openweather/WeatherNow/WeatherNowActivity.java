@@ -161,7 +161,7 @@ public class WeatherNowActivity extends AppCompatActivity {
     /**選單Menu**/
     //menu初始化
     private void menu_init(){
-        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.tainan2);
+        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.bg_tainan);
         mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new WeatherNowRVA(this));
@@ -361,7 +361,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                             c.moveToFirst();
                                 //Toast.makeText(WeatherNowActivity.this,pushTime,Toast.LENGTH_LONG).show();
                                 //寫入 Location 資料表
-                                mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
+                                mAccess.update("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"",null);
                                 //寫入 Wind資料表
                                 mAccess.update("1", Double.parseDouble(chill), direction+"", speed+"",null);
                                 //寫入 Atmosphere資料表
