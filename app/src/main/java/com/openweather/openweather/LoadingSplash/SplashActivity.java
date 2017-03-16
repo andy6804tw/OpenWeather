@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.SunBabyLoadingView;
+import com.openweather.openweather.WeatherNow.WeatherNowActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,6 +88,12 @@ public class SplashActivity extends AppCompatActivity  {
         }else{
             init_GPS();
             init_Weather();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity( new Intent(SplashActivity.this, WeatherNowActivity.class));
+                }
+            }, 4000);
         }
         /***/
     }
@@ -205,7 +213,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Condition資料表
                                 mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time);
                             }else{
-                                Toast.makeText(SplashActivity.this,pushTime,Toast.LENGTH_LONG).show();
+                                //Toast.makeText(SplashActivity.this,pushTime,Toast.LENGTH_LONG).show();
                                 //寫入 Location 資料表
                                 mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 //寫入 Wind資料表

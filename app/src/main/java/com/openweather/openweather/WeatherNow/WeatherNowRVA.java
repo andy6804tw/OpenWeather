@@ -20,6 +20,7 @@ import com.github.pwittchen.weathericonview.WeatherIconView;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.TemperatureView;
+import com.openweather.openweather.View.WeatherChartView;
 import com.openweather.sunviewlibrary.SunView;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -31,7 +32,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder> {
 
     private final Context mContext;
-    private static final int ITEM_COUNT = 5;
+    private static final int ITEM_COUNT = 6;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -59,6 +60,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         private TextView tvPressure,tvHumidity,tvVisiblity;
         //第五個 Astronomy 天文
         private SunView sunView;
+        //第六個
+        WeatherChartView chartView;
 
         public ViewHolder(View itemView,int viewType) {
             super(itemView);
@@ -91,6 +94,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             }
             else if(viewType==4){
                 sunView=(SunView)itemView.findViewById(R.id.sunView);
+            }
+            else if(viewType==5){
+                chartView = (WeatherChartView)itemView.findViewById(R.id.weatherChartView);
             }
         }
     }
@@ -133,7 +139,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(viewType==4)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_astronomy, parent, false),viewType);
         else if(viewType==5)
-            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item2, parent, false),viewType);
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false),viewType);
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);
     }
@@ -430,6 +436,13 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.sunView.setEndTime(str_end[0]+":"+str_end[1]);
             viewHolder.sunView.setArcSolidColor(mContext.getResources().getColor(R.color.ArcSolidColor));//拱型內部顏色
             viewHolder.sunView.setSunColor(mContext.getResources().getColor(R.color.SunColor));//拱型內部顏色
+        }
+        else if(mPosition==5){
+            // set day
+            viewHolder.chartView.setTempDay(new int[]{14, 15, 16, 17, 9});
+            // set night
+            viewHolder.chartView.setTempNight(new int[]{7, 5, 9, 10, 3});
+            viewHolder.chartView.invalidate();
         }
     }
 

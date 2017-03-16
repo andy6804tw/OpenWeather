@@ -7,4 +7,6 @@
     <color name="setting_toolbar">#f5f5f7</color>
     <color name="ArcSolidColor">#6effe1a2</color>
     <color name="SunColor">#fcd682</color>
+    <color name="chartHigh">#fefd006e</color>
+    <color name="chartLow">#00ccff</color>
 </resources>

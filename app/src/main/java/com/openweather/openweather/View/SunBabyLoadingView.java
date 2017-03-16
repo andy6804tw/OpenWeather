@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,8 +16,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-
-import com.openweather.openweather.WeatherNow.WeatherNowActivity;
 
 
 public class SunBabyLoadingView extends View {
@@ -394,8 +391,8 @@ public class SunBabyLoadingView extends View {
                 once = true;
             }
         });
-        if(count++==2)
-            getContext().startActivity(new Intent(getContext(), WeatherNowActivity.class));
+        //if(count++==2)
+            //getContext().startActivity(new Intent(getContext(), WeatherNowActivity.class));
         return sinkAnima;
     }
 

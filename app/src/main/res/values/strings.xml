@@ -90,6 +90,7 @@
     <string name="humidity">Humidity</string>
     <string name="visiblity">Visiblity</string>
     <string name="tvAstronomy">Astronomy</string>
+    <string name="tvForecast">Forecast</string>
     <string name="tvBack">back</string>
     <string name="wind_class">wind class</string>
 
