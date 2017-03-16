@@ -36,6 +36,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         Log.e("SQLDB",sql1);
         db.execSQL(sql1);
 
+
         String sql2 = "create table Wind("
                 +"loc_id integer not null primary key,"
                 +"chill int(10),"
@@ -45,6 +46,15 @@ public class DBAccessWeather extends SQLiteOpenHelper {
                 +")";
         Log.e("SQLDB",sql2);
         db.execSQL(sql2);
+
+        String sql21 = "create table Speed("
+                +"speed integer not null primary key,"
+                +"series varchar(10),"
+                +"series_name varchar(10),"
+                +"foreign key (speed) references Wind(speed)"
+                +")";
+        Log.e("SQLDB",sql21);
+        db.execSQL(sql21);
 
         String sql3 = "create table Atmosphere("
                 +"loc_id int(10) not null primary key,"
@@ -106,101 +116,77 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     public long add(){
         SQLiteDatabase db = getWritableDatabase();
 
+        //Wind Speed
+        ContentValues values2 = new ContentValues();
+        values2.put("speed", 0);
+        values2.put("series","0");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed0));
+        db.insert("Speed", null, values2);
 
-        //Speed
-        for(int i=0;i<=100;i++){
-            if(i<1) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","0");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed0));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=1&&i<=3) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","1");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed1));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=4&&i<=7) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","2");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed2));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=8&&i<=12) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","3");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed3));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=13&&i<=18) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","4");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed4));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=19&&i<=24) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","5");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed5));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=25&&i<=31) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","6");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed6));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=32&&i<=38) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","7");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed7));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=39&&i<=46) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","8");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed8));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=47&&i<=54) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","9");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed9));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=55&&i<=63) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","10");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed10));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=64&&i<=72) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","11");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed11));
-                db.insert("Speed", null, values2);
-            }
-            if(i>=73) {
-                ContentValues values2 = new ContentValues();
-                values2.put("speed", i);
-                values2.put("series","12");
-                values2.put("series_name",mContext.getResources().getString(R.string.speed12));
-                db.insert("Speed", null, values2);
-            }
-        }
+
+        values2.put("speed", 1);
+        values2.put("series","1");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed1));
+        db.insert("Speed", null, values2);
+
+
+        values2.put("speed", 2);
+        values2.put("series","2");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed2));
+        db.insert("Speed", null, values2);
+
+
+        values2.put("speed", 3);
+        values2.put("series","3");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed3));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 4);
+        values2.put("series","4");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed4));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 5);
+        values2.put("series","5");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed5));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 6);
+        values2.put("series","6");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed6));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 7);
+        values2.put("series","7");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed7));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 8);
+        values2.put("series","8");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed8));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 9);
+        values2.put("series","9");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed9));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 10);
+        values2.put("series","10");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed10));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 11);
+        values2.put("series","11");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed11));
+        db.insert("Speed", null, values2);
+
+        values2.put("speed", 12);
+        values2.put("series","12");
+        values2.put("series_name",mContext.getResources().getString(R.string.speed12));
+        db.insert("Speed", null, values2);
+
+
 
         //Code0
         ContentValues va700 = new ContentValues();

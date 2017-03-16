@@ -90,7 +90,8 @@
     <string name="humidity">Humidity</string>
     <string name="visiblity">Visiblity</string>
     <string name="tvAstronomy">Astronomy</string>
-    <string name="tvBack">返回</string>
+    <string name="tvBack">back</string>
+    <string name="wind_class">wind class</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

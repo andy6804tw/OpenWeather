@@ -333,12 +333,57 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(mPosition==2){
             Cursor c2 = mAccess.getData("Wind", null, null);
             c2.moveToFirst();
+            Cursor c21 = mAccess.getData("Speed", null, null);
+            c21.moveToFirst();
+            //Speed
+            int wind_speed=c2.getShort(3),speed_id=0;
+            if(wind_speed<1) {
+                speed_id=0;
+            }
+            if(wind_speed>=1&&wind_speed<=3) {
+                speed_id=1;
+            }
+            if(wind_speed>=4&&wind_speed<=7) {
+                speed_id=2;
+            }
+            if(wind_speed>=8&&wind_speed<=12) {
+                speed_id=3;
+            }
+            if(wind_speed>=13&&wind_speed<=18) {
+                speed_id=4;
+            }
+            if(wind_speed>=19&&wind_speed<=24) {
+                speed_id=5;
+            }
+            if(wind_speed>=25&&wind_speed<=31) {
+                speed_id=6;
+            }
+            if(wind_speed>=32&&wind_speed<=38) {
+                speed_id=7;
+            }
+            if(wind_speed>=39&&wind_speed<=46) {
+                speed_id=8;
+            }
+            if(wind_speed>=47&&wind_speed<=54) {
+                speed_id=9;
+            }
+            if(wind_speed>=55&&wind_speed<=63) {
+                speed_id=10;
+            }
+            if(wind_speed>=64&&wind_speed<=72) {
+                speed_id=11;
+            }
+            if(wind_speed>=73) {
+                speed_id=12;
+            }
+            c21.moveToPosition(speed_id);
+
 
             viewHolder.windView.setWindSpeed(c2.getShort(3));
             viewHolder.windView.setWindText(c2.getString(2));
-            viewHolder. windView.setPressure(3);
-            viewHolder.windView.setPressureUnit(" 級");
-            viewHolder.windView.setBarometerText("微風");
+            viewHolder. windView.setPressure(c21.getShort(1));
+            viewHolder.windView.setPressureUnit(" "+mContext.getResources().getString(R.string.wind_class));
+            viewHolder.windView.setBarometerText(c21.getString(2));
             viewHolder.windView.setWindSpeedUnit(" mph");
                 viewHolder.windView.setTrendType(TrendType.UP);
             viewHolder.windView.start();

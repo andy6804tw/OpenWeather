@@ -122,6 +122,7 @@ public class SplashActivity extends AppCompatActivity  {
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
                             double direction = Double.parseDouble(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction"));
                             int speed = Integer.parseInt(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed"));
+                            //direction外來鍵
                             String str_direction="";
                             if((direction>=0&&direction<=11.25) || (direction>=348.76&&direction<=360)) {
                                 str_direction=mContext.getResources().getString(R.string.N);
