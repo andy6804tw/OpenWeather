@@ -34,7 +34,7 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
     compile 'com.github.AhmadNemati:WindView:1.1.1'
-    compile 'com.github.andy6804tw:SunView-lib:2.0.0'
+    compile 'com.github.andy6804tw:SunView-lib:2.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     compile 'com.github.xiaoyongit520:SettingViewLib:0.0.6'
     compile 'com.android.support:support-v4:25.2.0'

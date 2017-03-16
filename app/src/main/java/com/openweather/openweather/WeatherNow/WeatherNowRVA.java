@@ -436,6 +436,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.sunView.setEndTime(str_end[0]+":"+str_end[1]);
             viewHolder.sunView.setArcSolidColor(mContext.getResources().getColor(R.color.ArcSolidColor));//拱型內部顏色
             viewHolder.sunView.setSunColor(mContext.getResources().getColor(R.color.SunColor));//拱型內部顏色
+            viewHolder.sunView.setTimeTextColor(mContext.getResources().getColor(R.color.TimeTextColor));//字體顏色
         }
         else if(mPosition==5){
             // set day
