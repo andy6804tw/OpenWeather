@@ -2,6 +2,7 @@ package com.openweather.openweather.LoadingSplash;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ public class SplashActivity extends AppCompatActivity  {
     DBAccessWeather mAccess;
     double latitude,longtitude;
     String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class SplashActivity extends AppCompatActivity  {
         ExitApplication.getInstance().addActivity(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+        mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null, 1);
 
 
@@ -120,54 +122,54 @@ public class SplashActivity extends AppCompatActivity  {
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
                             double direction = Double.parseDouble(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction"));
                             int speed = Integer.parseInt(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("speed"));
-
+                            String str_direction="";
                             if((direction>=0&&direction<=11.25) || (direction>=348.76&&direction<=360)) {
-                                direction=0;
+                                str_direction=mContext.getResources().getString(R.string.N);
                             }
                             if(direction>=11.26&&direction<=33.75){
-                                direction=1;
+                                str_direction=mContext.getResources().getString(R.string.NNE);
                             }
                             if(direction>=33.76&&direction<=56.25){
-                                direction=2;
+                                str_direction=mContext.getResources().getString(R.string.NE);
                             }
                             if(direction>=56.26&&direction<=78.75){
-                                direction=3;
+                                str_direction=mContext.getResources().getString(R.string.ENE);
                             }
                             if(direction>=78.76&&direction<=101.25){
-                                direction=4;
+                                str_direction=mContext.getResources().getString(R.string.E);
                             }
                             if(direction>=101.26&&direction<=123.75){
-                                direction=5;
+                                str_direction=mContext.getResources().getString(R.string.ESE);
                             }
                             if(direction>=123.76&&direction<=146.25){
-                                direction=6;
+                                str_direction=mContext.getResources().getString(R.string.SE);
                             }
                             if(direction>=146.26&&direction<=168.75){
-                                direction=7;
+                                str_direction=mContext.getResources().getString(R.string.SSE);
                             }
                             if(direction>=168.76&&direction<=191.25){
-                                direction=8;
+                                str_direction=mContext.getResources().getString(R.string.S);
                             }
                             if(direction>=191.26&&direction<=213.75){
-                                direction=9;
+                                str_direction=mContext.getResources().getString(R.string.SSW);
                             }
                             if(direction>=213.76&&direction<=236.25){
-                                direction=10;
+                                str_direction=mContext.getResources().getString(R.string.SW);
                             }
                             if(direction>=236.26&&direction<=258.75){
-                                direction=11;
+                                str_direction=mContext.getResources().getString(R.string.WSW);
                             }
                             if(direction>=258.76&&direction<=281.25){
-                                direction=12;
+                                str_direction=mContext.getResources().getString(R.string.W);
                             }
                             if(direction>=281.26&&direction<=303.75){
-                                direction=13;
+                                str_direction=mContext.getResources().getString(R.string.WNW);
                             }
                             if(direction>=303.76&&direction<=326.25){
-                                direction=14;
+                                str_direction=mContext.getResources().getString(R.string.NW);
                             }
                             if(direction>=326.26&&direction<=348.75){
-                                direction=15;
+                                str_direction=mContext.getResources().getString(R.string.NNW);
                             }
 
                             //大氣 Atmosphere
@@ -194,7 +196,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Location 資料表
                                 mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 //寫入 Wind資料表
-                                mAccess.add("1", Double.parseDouble(chill), direction+"", speed+"");
+                                mAccess.add("1", Double.parseDouble(chill), str_direction, speed+"");
                                 //寫入 Atmosphere資料表
                                 mAccess.add("1", humidity, pressure, rising, visibility);
                                 //寫入 Astronomy資料表
@@ -206,7 +208,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 //寫入 Location 資料表
                                 mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 //寫入 Wind資料表
-                                mAccess.update("1", Double.parseDouble(chill), direction+"", speed+"",null);
+                                mAccess.update("1", Double.parseDouble(chill), str_direction, speed+"",null);
                                 //寫入 Atmosphere資料表
                                 mAccess.update("1", humidity, pressure,visibility ,rising,null);
                                 //寫入 Astronomy資料表

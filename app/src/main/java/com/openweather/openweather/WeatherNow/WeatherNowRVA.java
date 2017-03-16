@@ -333,10 +333,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(mPosition==2){
             Cursor c2 = mAccess.getData("Wind", null, null);
             c2.moveToFirst();
-            Cursor c21 = mAccess.getData("Direction", null, null);
-            c21.moveToPosition(c2.getShort(2));
+
             viewHolder.windView.setWindSpeed(c2.getShort(3));
-            viewHolder.windView.setWindText(c21.getString(1));
+            viewHolder.windView.setWindText(c2.getString(2));
             viewHolder. windView.setPressure(3);
             viewHolder.windView.setPressureUnit(" 級");
             viewHolder.windView.setBarometerText("微風");

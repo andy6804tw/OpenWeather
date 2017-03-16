@@ -36,14 +36,6 @@ public class DBAccessWeather extends SQLiteOpenHelper {
         Log.e("SQLDB",sql1);
         db.execSQL(sql1);
 
-        String sql21 = "create table Direction("
-                +"direction integer not null primary key,"
-                +"direction_name varchar(10),"
-                +"foreign key (direction) references Wind(direction)"
-                +")";
-        Log.e("SQLDB",sql21);
-        db.execSQL(sql21);
-
         String sql2 = "create table Wind("
                 +"loc_id integer not null primary key,"
                 +"chill int(10),"
@@ -114,72 +106,6 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     public long add(){
         SQLiteDatabase db = getWritableDatabase();
 
-
-            ContentValues values1=new ContentValues();
-
-                values1.put("direction", 0);
-                values1.put("direction_name",mContext.getResources().getString(R.string.N));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 1);
-                values1.put("direction_name",mContext.getResources().getString(R.string.NNE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 2);
-                values1.put("direction_name",mContext.getResources().getString(R.string.NE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 3);
-                values1.put("direction_name",mContext.getResources().getString(R.string.ENE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 4);
-                values1.put("direction_name",mContext.getResources().getString(R.string.E));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 5);
-                values1.put("direction_name",mContext.getResources().getString(R.string.ESE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 6);
-                values1.put("direction_name",mContext.getResources().getString(R.string.SE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 7);
-                values1.put("direction_name",mContext.getResources().getString(R.string.SSE));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 8);
-                values1.put("direction_name",mContext.getResources().getString(R.string.S));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 9);
-                values1.put("direction_name",mContext.getResources().getString(R.string.SSW));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 10);
-                values1.put("direction_name",mContext.getResources().getString(R.string.SW));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 11);
-                values1.put("direction_name",mContext.getResources().getString(R.string.WSW));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 12);
-                values1.put("direction_name",mContext.getResources().getString(R.string.W));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 13);
-                values1.put("direction_name",mContext.getResources().getString(R.string.WNW));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 14);
-                values1.put("direction_name",mContext.getResources().getString(R.string.NW));
-                db.insert("Direction", null, values1);
-
-                values1.put("direction", 15);
-                values1.put("direction_name",mContext.getResources().getString(R.string.NNW));
-                db.insert("Direction", null, values1);
 
         //Speed
         for(int i=0;i<=100;i++){
@@ -634,10 +560,6 @@ public class DBAccessWeather extends SQLiteOpenHelper {
             case "Wind": {
                 return db.query(NAME, new String[]{"loc_id", "chill", "direction", "speed"}
                         , whereStr, null, null, null, orderbyStr);
-            }
-            case "Direction":{
-                return db.query(NAME, new String[]{"direction","direction_name"}
-                        ,whereStr,null,null,null,orderbyStr);
             }
             case "Speed":{
                 return db.query(NAME, new String[]{"speed","series","series_name"}
