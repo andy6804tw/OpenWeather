@@ -375,8 +375,18 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 mAccess.add("1", sunrise, sunset);
                                 //寫入 Condition資料表
                                 mAccess.add("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time);
+                                //寫入 Forecast
+                                for(int i=0;i<10;i++){
+                                    //預報Forecast
+                                    String forecast_date = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("date");
+                                    String forecast_day = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("day");
+                                    String forecast_high = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("high");
+                                    String forecast_low = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("low");
+                                    String forecast_text = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("text");
+                                    mAccess.add(i+"", forecast_date, forecast_day,Double.parseDouble(forecast_high),Double.parseDouble(forecast_low),forecast_text);
+                                }
+
                             }else{
-                                //Toast.makeText(SplashActivity.this,pushTime,Toast.LENGTH_LONG).show();
                                 //寫入 Wind資料表
                                 mAccess.update("1", Double.parseDouble(chill), str_direction, speed+"",null);
                                 //寫入 Atmosphere資料表
@@ -385,12 +395,17 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 mAccess.update("1", sunrise, sunset,null);
                                 //寫入 Condition資料表
                                 mAccess.update("1", date, day, Double.parseDouble(high), Double.parseDouble(low), Double.parseDouble(temp), Integer.parseInt(code),publish_time,null);
+                                //寫入 Forecast
+                                for(int i=0;i<10;i++){
+                                    //預報Forecast
+                                    String forecast_date = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("date");
+                                    String forecast_day = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("day");
+                                    String forecast_high = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("high");
+                                    String forecast_low = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("low");
+                                    String forecast_text = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(i).getString("text");
+                                    mAccess.update(i+"", forecast_date, forecast_day,Double.parseDouble(forecast_high),Double.parseDouble(forecast_low),forecast_text,"forecast_id ="+i);
+                                }
                             }
-
-                            /*Log.e("wind", chill + " | " + direction + " | " + speed);
-                            Log.e("Atmosphere", humidity + " | " + pressure + " | " + " | " + rising + " | " + visibility);
-                            Log.e("Astronomy", sunrise + " | " + sunset);
-                            Log.e("Condition", date + " | " + day + " | " + " | " + high + " | " + low);*/
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -441,10 +456,10 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
                                 if(c.getCount()==0){
-                                    mAccess.add("0",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
+                                    mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
                                     Toast.makeText(WeatherNowActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
-                                    mAccess.update("0",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
+                                    mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -733,7 +733,7 @@ public class DBAccessWeather extends SQLiteOpenHelper {
     public long update(String forecast_id,String date,String day,Double high,Double low,String text,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
-        values.put("forecast_id",forecast_id);
+        //values.put("forecast_id",forecast_id);
         values.put("date",date);
         values.put("day",day);
         values.put("high",high);
