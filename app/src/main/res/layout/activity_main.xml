@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/back"
-        android:id="@+id/linearLayout">
+        android:id="@+id/relativeLayout">
 
         <TextView
             android:id="@+id/textView"
