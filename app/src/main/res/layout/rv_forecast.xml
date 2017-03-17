@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:wcv="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    xmlns:wcv="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="310dp"
+    android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_below="@+id/weather"
@@ -13,225 +12,234 @@
     android:background="@drawable/round_box"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/tvForecast"
-        android:textColor="#fff"
-
-        android:textSize="20sp" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="0.5dp"
-        android:layout_alignLeft="@+id/tv_condition"
-        android:layout_alignStart="@+id/tv_condition"
-        android:layout_below="@+id/tv_condition"
-        android:layout_marginBottom="10dp"
-        android:background="#fff" />
-
-    <com.openweather.openweather.View.WeatherChartView
-        android:id="@+id/weatherChartView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#18ffffff"
-        wcv:textColor="@android:color/white"
-        wcv:textSize="14sp" />
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:orientation="vertical">
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#18ffffff">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:text="@string/tvForecast"
 
-            <TextView
-                android:id="@+id/tvDay1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="今天"
-                android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
-            <com.github.pwittchen.weathericonview.WeatherIconView
-                android:id="@+id/weatherIconView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                custom:weatherIconResource="@string/wi_day_sunny_overcast"
-                custom:weatherIconColor="#fff"
-                custom:weatherIconSize="25"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:id="@+id/tvTemp1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="19°/20°"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-        <LinearLayout
+        <View
+            android:id="@+id/view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@+id/tv_condition"
+            android:layout_alignStart="@+id/tv_condition"
+            android:layout_below="@+id/tv_condition"
+            android:layout_marginBottom="10dp"
+            android:background="#fff" />
 
-            <TextView
-                android:id="@+id/tvDay2"
+        <com.openweather.openweather.View.WeatherChartView
+            android:id="@+id/weatherChartView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#18ffffff"
+            wcv:textColor="@android:color/white"
+            wcv:textSize="14sp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#18ffffff">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="明天"
-                android:textColor="#fff" />
+                android:orientation="vertical">
 
-            <com.github.pwittchen.weathericonview.WeatherIconView
-                android:id="@+id/weatherIconView2"
+                <TextView
+                    android:id="@+id/tvDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="今天"
+                    android:textColor="#fff" />
+
+                <com.github.pwittchen.weathericonview.WeatherIconView
+                    android:id="@+id/weatherIconView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    custom:weatherIconColor="#fff"
+                    custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                    custom:weatherIconSize="25" />
+
+                <TextView
+                    android:id="@+id/tvTemp1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="19°/20°"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                custom:weatherIconResource="@string/wi_day_sunny_overcast"
-                custom:weatherIconColor="#fff"
-                custom:weatherIconSize="25"
-                android:layout_centerHorizontal="true"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvTemp2"
+                <TextView
+                    android:id="@+id/tvDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="明天"
+                    android:textColor="#fff" />
+
+                <com.github.pwittchen.weathericonview.WeatherIconView
+                    android:id="@+id/weatherIconView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    custom:weatherIconColor="#fff"
+                    custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                    custom:weatherIconSize="25" />
+
+                <TextView
+                    android:id="@+id/tvTemp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="19°/20°"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="19°/20°"
-                android:textColor="#fff" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="星期三"
+                    android:textColor="#fff" />
 
-            <TextView
-                android:id="@+id/tvDay3"
+                <com.github.pwittchen.weathericonview.WeatherIconView
+                    android:id="@+id/weatherIconView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    custom:weatherIconColor="#fff"
+                    custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                    custom:weatherIconSize="25" />
+
+                <TextView
+                    android:id="@+id/tvTemp3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="19°/20°"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="星期三"
-                android:textColor="#fff" />
+                android:orientation="vertical">
 
-            <com.github.pwittchen.weathericonview.WeatherIconView
-                android:id="@+id/weatherIconView3"
+                <TextView
+                    android:id="@+id/tvDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="星期四"
+                    android:textColor="#fff" />
+
+                <com.github.pwittchen.weathericonview.WeatherIconView
+                    android:id="@+id/weatherIconView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    custom:weatherIconColor="#fff"
+                    custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                    custom:weatherIconSize="25" />
+
+                <TextView
+                    android:id="@+id/tvTemp4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="19°/20°"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                custom:weatherIconResource="@string/wi_day_sunny_overcast"
-                custom:weatherIconColor="#fff"
-                custom:weatherIconSize="25"
-                android:layout_centerHorizontal="true"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvTemp3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="19°/20°"
-                android:textColor="#fff" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="星期五"
+                    android:textColor="#fff" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                <com.github.pwittchen.weathericonview.WeatherIconView
+                    android:id="@+id/weatherIconView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    custom:weatherIconColor="#fff"
+                    custom:weatherIconResource="@string/wi_day_sunny_overcast"
+                    custom:weatherIconSize="25" />
 
-            <TextView
-                android:id="@+id/tvDay4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="星期四"
-                android:textColor="#fff" />
+                <TextView
+                    android:id="@+id/tvTemp5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="19°/20°"
+                    android:textColor="#fff" />
 
-            <com.github.pwittchen.weathericonview.WeatherIconView
-                android:id="@+id/weatherIconView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                custom:weatherIconResource="@string/wi_day_sunny_overcast"
-                custom:weatherIconColor="#fff"
-                custom:weatherIconSize="25"
-                android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+        </TableRow>
 
-            <TextView
-                android:id="@+id/tvTemp4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="19°/20°"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvDay5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="星期五"
-                android:textColor="#fff" />
-
-            <com.github.pwittchen.weathericonview.WeatherIconView
-                android:id="@+id/weatherIconView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                custom:weatherIconResource="@string/wi_day_sunny_overcast"
-                custom:weatherIconColor="#fff"
-                custom:weatherIconSize="25"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                android:id="@+id/tvTemp5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="19°/20°"
-                android:textColor="#fff" />
-
-        </LinearLayout>
-    </TableRow>
+    </LinearLayout>
 
     <TableRow
         android:layout_width="wrap_content"

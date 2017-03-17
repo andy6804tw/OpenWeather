@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.ahmadnemati.wind.WindView;
@@ -33,7 +34,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder> {
 
     private final Context mContext;
-    private static final int ITEM_COUNT = 6;
+    private static final int ITEM_COUNT = 7;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -147,7 +148,103 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(viewType==4)
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_astronomy, parent, false),viewType);
         else if(viewType==5) {
-            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false), viewType);
+            View v = LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false);
+            final ViewHolder viewHolder = new ViewHolder(v,viewType);
+
+            //對每一個cell註冊點擊事件
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index;
+                    LinearLayout linearLayout = (LinearLayout)v.findViewById(R.id.linearLayout);
+                    View subView = LayoutInflater.from(v.getContext()).inflate(R.layout.rv_forecast_add_layout, (ViewGroup)v, false);
+                    /*TextView tvDesc=(TextView)subView.findViewById(R.id.tvDesc);
+                    TextView tvCategory=(TextView)subView.findViewById(R.id.tvCategory);
+                    String strDesc="";
+                    strDesc="123";
+                    if(strDesc.equals(""))
+                        strDesc="無";
+                    tvDesc.setText("備註: " +strDesc);
+                    tvCategory.setText("類別: " + "456");*/
+
+
+
+                    //利用單元控制的標記值就標記為單元格的單元格，而不是單元格的單元格。標記值也就不存在了。
+                    //如果不取消重用，那麼將會出現未曾點擊就已經添加子視圖的效果，再點擊的時間會繼續添加而不是收回。
+                    if (v.findViewById(R.id.linearLayout).getTag() == null) {
+                        index = 1;
+                    } else {
+                        index = (int)v.findViewById(R.id.linearLayout).getTag();
+                    }
+
+                    //Log.i("Card", "Card點擊: " + index);
+
+                    // close狀態: 增加內容
+                    if (index == 1) {
+                        linearLayout.addView(subView);
+                        subView.setTag(1000);
+                        v.findViewById(R.id.linearLayout).setTag(2);
+                    } else {
+                        // open狀態： 移除增加內容
+                        linearLayout.removeView(v.findViewWithTag(1000));
+                        v.findViewById(R.id.linearLayout).setTag(1);
+                    }
+                }
+            });
+            // 取消viewHolder的重用機制（滑出View自動收回成預設狀態index=0 close）
+            viewHolder.setIsRecyclable(false);
+
+            return viewHolder;
+            //return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false), viewType);
+        }
+        else if(viewType==6){
+            View v = LayoutInflater.from(mContext).inflate(R.layout.card_layout, parent, false);
+            final ViewHolder viewHolder = new ViewHolder(v,viewType);
+
+            //對每一個cell註冊點擊事件
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index;
+                    LinearLayout linearLayout = (LinearLayout)v.findViewById(R.id.linearLayout);
+                    View subView = LayoutInflater.from(v.getContext()).inflate(R.layout.rv_forecast_add_layout, (ViewGroup)v, false);
+                    TextView tvDesc=(TextView)subView.findViewById(R.id.tvDesc);
+                    TextView tvCategory=(TextView)subView.findViewById(R.id.tvCategory);
+                    String strDesc="";
+                    strDesc="123";
+                    if(strDesc.equals(""))
+                        strDesc="無";
+                    tvDesc.setText("備註: " +strDesc);
+                    tvCategory.setText("類別: " + "456");
+
+
+
+                    //利用單元控制的標記值就標記為單元格的單元格，而不是單元格的單元格。標記值也就不存在了。
+                    //如果不取消重用，那麼將會出現未曾點擊就已經添加子視圖的效果，再點擊的時間會繼續添加而不是收回。
+                    if (v.findViewById(R.id.linearLayout).getTag() == null) {
+                        index = 1;
+                    } else {
+                        index = (int)v.findViewById(R.id.linearLayout).getTag();
+                    }
+
+                    //Log.i("Card", "Card點擊: " + index);
+
+                    // close狀態: 增加內容
+                    if (index == 1) {
+                        linearLayout.addView(subView);
+                        subView.setTag(1000);
+                        v.findViewById(R.id.linearLayout).setTag(2);
+                    } else {
+                        // open狀態： 移除增加內容
+                        linearLayout.removeView(v.findViewWithTag(1000));
+                        v.findViewById(R.id.linearLayout).setTag(1);
+                    }
+                }
+            });
+            // 取消viewHolder的重用機制（滑出View自動收回成預設狀態index=0 close）
+            viewHolder.setIsRecyclable(false);
+
+            return viewHolder;
         }
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);
