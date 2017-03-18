@@ -82,6 +82,16 @@
     <string name="speed11">狂風</string>
     <string name="speed12">颶風</string>
 
+    <string name="Today">今天</string>
+    <string name="Tomorrow">明天</string>
+    <string name="Sun">星期日</string>
+    <string name="Mon">星期一</string>
+    <string name="Tue">星期二</string>
+    <string name="Wed">星期三</string>
+    <string name="Thu">星期四</string>
+    <string name="Fri">星期五</string>
+    <string name="Sat">星期六</string>
+
     <string name="tv_condition">目前狀況</string>
     <string name="tvChill">體感溫度: </string>
     <string name="tv_wind">風速和風向</string>

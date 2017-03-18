@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.ahmadnemati.wind.WindView;
@@ -63,8 +64,11 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         //第五個 Astronomy 天文
         private SunView sunView;
         //第六個
+        private TableRow tableAdd;
         private WeatherChartView chartView;
         private WeatherIconView weatherIconView1,weatherIconView2,weatherIconView3,weatherIconView4,weatherIconView5;
+        private TextView tvDay1,tvDay2,tvDay3,tvDay4,tvDay5;
+        private TextView tvTemp1,tvTemp2,tvTemp3,tvTemp4,tvTemp5;
 
 
         public ViewHolder(View itemView,int viewType) {
@@ -100,12 +104,23 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 sunView=(SunView)itemView.findViewById(R.id.sunView);
             }
             else if(viewType==5){
+                tableAdd=(TableRow)itemView.findViewById(R.id.tableAdd);
                 chartView = (WeatherChartView)itemView.findViewById(R.id.weatherChartView);
                 weatherIconView1 = (WeatherIconView) itemView.findViewById(R.id.weatherIconView1);
                 weatherIconView2 = (WeatherIconView) itemView.findViewById(R.id.weatherIconView2);
                 weatherIconView3 = (WeatherIconView) itemView.findViewById(R.id.weatherIconView3);
                 weatherIconView4 = (WeatherIconView) itemView.findViewById(R.id.weatherIconView4);
                 weatherIconView5 = (WeatherIconView) itemView.findViewById(R.id.weatherIconView5);
+                tvDay1=(TextView)itemView.findViewById(R.id.tvDay1);
+                tvDay2=(TextView)itemView.findViewById(R.id.tvDay2);
+                tvDay3=(TextView)itemView.findViewById(R.id.tvDay3);
+                tvDay4=(TextView)itemView.findViewById(R.id.tvDay4);
+                tvDay5=(TextView)itemView.findViewById(R.id.tvDay5);
+                tvTemp1=(TextView)itemView.findViewById(R.id.tvTemp1);
+                tvTemp2=(TextView)itemView.findViewById(R.id.tvTemp2);
+                tvTemp3=(TextView)itemView.findViewById(R.id.tvTemp3);
+                tvTemp4=(TextView)itemView.findViewById(R.id.tvTemp4);
+                tvTemp5=(TextView)itemView.findViewById(R.id.tvTemp5);
             }
         }
     }
@@ -150,6 +165,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         else if(viewType==5) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false);
             final ViewHolder viewHolder = new ViewHolder(v,viewType);
+
 
             //對每一個cell註冊點擊事件
             v.setOnClickListener(new View.OnClickListener() {
@@ -275,104 +291,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.weatherIconView.setIconSize(85);
             viewHolder.weatherIconView.setIconColor(Color.WHITE);
             //天氣圖示
-            if(c.getShort(6)==0)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_0));
-            else if(c.getShort(6)==1)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_1));
-            else if(c.getShort(6)==2)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_2));
-            else if(c.getShort(6)==3)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_3));
-            else if(c.getShort(6)==4)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_4));
-            else if(c.getShort(6)==5)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_5));
-            else if(c.getShort(6)==6)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_6));
-            else if(c.getShort(6)==7)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_7));
-            else if(c.getShort(6)==8)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_8));
-            else if(c.getShort(6)==9)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_9));
-            else if(c.getShort(6)==10)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_10));
-            else if(c.getShort(6)==11)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_11));
-            else if(c.getShort(6)==12)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_12));
-            else if(c.getShort(6)==13)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_13));
-            else if(c.getShort(6)==14)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_14));
-            else if(c.getShort(6)==15)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_15));
-            else if(c.getShort(6)==16)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_16));
-            else if(c.getShort(6)==17)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_17));
-            else if(c.getShort(6)==18)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_18));
-            else if(c.getShort(6)==19)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_19));
-            else if(c.getShort(6)==20)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_20));
-            else if(c.getShort(6)==21)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_21));
-            else if(c.getShort(6)==22)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_22));
-            else if(c.getShort(6)==23)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_23));
-            else if(c.getShort(6)==24)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_24));
-            else if(c.getShort(6)==25)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_25));
-            else if(c.getShort(6)==26)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_26));
-            else if(c.getShort(6)==27)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_27));
-            else if(c.getShort(6)==28)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_28));
-            else if(c.getShort(6)==29)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_29));
-            else if(c.getShort(6)==30)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_30));
-            else if(c.getShort(6)==31)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_31));
-            else if(c.getShort(6)==32)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_32));
-            else if(c.getShort(6)==33)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_33));
-            else if(c.getShort(6)==34)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_34));
-            else if(c.getShort(6)==35)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_35));
-            else if(c.getShort(6)==36)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_36));
-            else if(c.getShort(6)==37)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_37));
-            else if(c.getShort(6)==38)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_38));
-            else if(c.getShort(6)==39)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_39));
-            else if(c.getShort(6)==40)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_40));
-            else if(c.getShort(6)==41)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_41));
-            else if(c.getShort(6)==42)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_42));
-            else if(c.getShort(6)==43)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_43));
-            else if(c.getShort(6)==44)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_44));
-            else if(c.getShort(6)==45)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_45));
-            else if(c.getShort(6)==46)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_46));
-            else if(c.getShort(6)==47)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_47));
-            else if(c.getShort(6)==3200)
-                viewHolder.weatherIconView.setIconResource(mContext.getString(R.string.wi_yahoo_3200));
+            viewHolder.weatherIconView.setIconResource(weatherIcon(c.getShort(6)));
 
 
         }
@@ -570,26 +489,66 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 cl8.moveToPosition(i-1);
                 Log.e("Code"+(i-1),cl8.getShort(5)+" "+cl8.getString(1));
                 if(i==1) {
+                    //set Day
+                    viewHolder.tvDay1.setText(mContext.getString(R.string.Today));
+                    //set temperature
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                        viewHolder.tvTemp1.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    else
+                        viewHolder.tvTemp1.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    //set icon
                     viewHolder.weatherIconView1.setIconSize(25);
                     viewHolder.weatherIconView1.setIconColor(Color.WHITE);
                     viewHolder.weatherIconView1.setIconResource(weatherIcon(cl8.getShort(5)));
                 }
                 if(i==2) {
+                    //set Day
+                    viewHolder.tvDay2.setText(mContext.getString(R.string.Tomorrow));
+                    //set temperature
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                        viewHolder.tvTemp2.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    else
+                        viewHolder.tvTemp2.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    //set icon
                     viewHolder.weatherIconView2.setIconSize(25);
                     viewHolder.weatherIconView2.setIconColor(Color.WHITE);
                     viewHolder.weatherIconView2.setIconResource(weatherIcon(cl8.getShort(5)));
                 }
                 if(i==3) {
+                    //set Day
+                    viewHolder.tvDay3.setText(day(cl8.getString(2)));
+                    //set Temperature
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                        viewHolder.tvTemp3.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    else
+                        viewHolder.tvTemp3.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    //set icon
                     viewHolder.weatherIconView3.setIconSize(25);
                     viewHolder.weatherIconView3.setIconColor(Color.WHITE);
                     viewHolder.weatherIconView3.setIconResource(weatherIcon(cl8.getShort(5)));
                 }
                 if(i==4) {
+                    //set Day
+                    viewHolder.tvDay4.setText(day(cl8.getString(2)));
+                    //set temperature
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                        viewHolder.tvTemp4.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    else
+                        viewHolder.tvTemp4.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    //set icon
                     viewHolder.weatherIconView4.setIconSize(25);
                     viewHolder.weatherIconView4.setIconColor(Color.WHITE);
                     viewHolder.weatherIconView4.setIconResource(weatherIcon(cl8.getShort(5)));
                 }
                 if(i==5) {
+                    //set Day
+                    viewHolder.tvDay5.setText(day(cl8.getString(2)));
+                    //set temperature
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                    viewHolder.tvTemp5.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    else
+                    viewHolder.tvTemp5.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    //set icon
                     viewHolder.weatherIconView5.setIconSize(25);
                     viewHolder.weatherIconView5.setIconColor(Color.WHITE);
                     viewHolder.weatherIconView5.setIconResource(weatherIcon(cl8.getShort(5)));
@@ -698,6 +657,30 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             return mContext.getString(R.string.wi_yahoo_47);
         else
             return mContext.getString(R.string.wi_yahoo_3200);
+    }
+    public String day(String day){
+        if(day.equals("Sun")){
+            return mContext.getResources().getString(R.string.Sun);
+        }
+        else if(day.equals("Mon")){
+            return mContext.getResources().getString(R.string.Mon);
+        }
+        else if(day.equals("Tue")){
+            return mContext.getResources().getString(R.string.Tue);
+        }
+        else if(day.equals("Wed")){
+            return mContext.getResources().getString(R.string.Wed);
+        }
+        else if(day.equals("Thu")){
+            return mContext.getResources().getString(R.string.Thu);
+        }
+        else if(day.equals("Fri")){
+            return mContext.getResources().getString(R.string.Fri);
+        }
+        else{
+            return mContext.getResources().getString(R.string.Sat);
+        }
+
     }
 
 //    @Override
