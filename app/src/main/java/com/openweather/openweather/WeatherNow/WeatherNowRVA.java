@@ -35,7 +35,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder> {
 
     private final Context mContext;
-    private static final int ITEM_COUNT = 7;
+    private static final int ITEM_COUNT = 6;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -69,6 +69,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
         private WeatherIconView weatherIconView1,weatherIconView2,weatherIconView3,weatherIconView4,weatherIconView5;
         private TextView tvDay1,tvDay2,tvDay3,tvDay4,tvDay5;
         private TextView tvTemp1,tvTemp2,tvTemp3,tvTemp4,tvTemp5;
+        private TextView tvFive,tvTen;
 
 
         public ViewHolder(View itemView,int viewType) {
@@ -121,6 +122,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 tvTemp3=(TextView)itemView.findViewById(R.id.tvTemp3);
                 tvTemp4=(TextView)itemView.findViewById(R.id.tvTemp4);
                 tvTemp5=(TextView)itemView.findViewById(R.id.tvTemp5);
+                tvFive=(TextView)itemView.findViewById(R.id.tvFive);
+                tvTen=(TextView)itemView.findViewById(R.id.tvTen);
             }
         }
     }
@@ -174,14 +177,117 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     int index;
                     LinearLayout linearLayout = (LinearLayout)v.findViewById(R.id.linearLayout);
                     View subView = LayoutInflater.from(v.getContext()).inflate(R.layout.rv_forecast_add_layout, (ViewGroup)v, false);
-                    /*TextView tvDesc=(TextView)subView.findViewById(R.id.tvDesc);
-                    TextView tvCategory=(TextView)subView.findViewById(R.id.tvCategory);
-                    String strDesc="";
-                    strDesc="123";
-                    if(strDesc.equals(""))
-                        strDesc="無";
-                    tvDesc.setText("備註: " +strDesc);
-                    tvCategory.setText("類別: " + "456");*/
+
+                    WeatherChartView chartView;
+                    WeatherIconView weatherIconView1,weatherIconView2,weatherIconView3,weatherIconView4,weatherIconView5;
+                    TextView tvDay1,tvDay2,tvDay3,tvDay4,tvDay5;
+                    TextView tvTemp1,tvTemp2,tvTemp3,tvTemp4,tvTemp5;
+                    chartView = (WeatherChartView)subView.findViewById(R.id.weatherChartView);
+                    weatherIconView1 = (WeatherIconView) subView.findViewById(R.id.weatherIconView1);
+                    weatherIconView2 = (WeatherIconView) subView.findViewById(R.id.weatherIconView2);
+                    weatherIconView3 = (WeatherIconView) subView.findViewById(R.id.weatherIconView3);
+                    weatherIconView4 = (WeatherIconView) subView.findViewById(R.id.weatherIconView4);
+                    weatherIconView5 = (WeatherIconView) subView.findViewById(R.id.weatherIconView5);
+                    tvDay1=(TextView)subView.findViewById(R.id.tvDay1);
+                    tvDay2=(TextView)subView.findViewById(R.id.tvDay2);
+                    tvDay3=(TextView)subView.findViewById(R.id.tvDay3);
+                    tvDay4=(TextView)subView.findViewById(R.id.tvDay4);
+                    tvDay5=(TextView)subView.findViewById(R.id.tvDay5);
+                    tvTemp1=(TextView)subView.findViewById(R.id.tvTemp1);
+                    tvTemp2=(TextView)subView.findViewById(R.id.tvTemp2);
+                    tvTemp3=(TextView)subView.findViewById(R.id.tvTemp3);
+                    tvTemp4=(TextView)subView.findViewById(R.id.tvTemp4);
+                    tvTemp5=(TextView)subView.findViewById(R.id.tvTemp5);
+                    Cursor cl8 = mAccess.getData("Forecast",null,null);
+                    cl8.moveToFirst();
+                    int arr_high[]=new int [5],arr_low[]=new int [5],code[]=new int[5];
+                    for(int i=0;i<5;i++){
+                        cl8.moveToPosition(i+5);
+                        arr_high[i]=cl8.getShort(3);
+                        arr_low[i]=cl8.getShort(4);
+                    }
+                    if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
+                        // set day
+                        chartView.setTempDay(new int[]{(int)Math.round((arr_high[0]-32)*5/9.), (int)Math.round((arr_high[1]-32)*5/9.), (int)Math.round((arr_high[2]-32)*5/9.), (int)Math.round((arr_high[3]-32)*5/9.), (int)Math.round((arr_high[4]-32)*5/9.)});
+                        // set night
+                        chartView.setTempNight(new int[]{(int)Math.round((arr_low[0]-32)*5/9.), (int)Math.round((arr_low[1]-32)*5/9.),(int)Math.round((arr_low[2]-32)*5/9.), (int)Math.round((arr_low[3]-32)*5/9.), (int)Math.round((arr_low[4]-32)*5/9.)});
+                        chartView.invalidate();
+                    }else{
+                        // set day
+                        chartView.setTempDay(new int[]{arr_high[0], arr_high[1], arr_high[2], arr_high[3], arr_high[4]});
+                        // set night
+                        chartView.setTempNight(new int[]{arr_low[0], arr_low[1], arr_low[2], arr_low[3], arr_low[4]});
+                        chartView.invalidate();
+                    }
+                    for(int i=0;i<5;i++){
+                        cl8.moveToPosition(i+5);
+                        Log.e("Code"+(i+5),cl8.getShort(5)+" "+cl8.getString(1));
+                        if(i==0) {
+                            //set Day
+                            tvDay1.setText(day(cl8.getString(2)));
+                            //set temperature
+                            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                                tvTemp1.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                            else
+                                tvTemp1.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                            //set icon
+                            weatherIconView1.setIconSize(25);
+                            weatherIconView1.setIconColor(Color.WHITE);
+                            weatherIconView1.setIconResource(weatherIcon(cl8.getShort(5)));
+                        }
+                        if(i==1) {
+                            //set Day
+                            tvDay2.setText(day(cl8.getString(2)));
+                            //set temperature
+                            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                                tvTemp2.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                            else
+                                tvTemp2.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                            //set icon
+                            weatherIconView2.setIconSize(25);
+                            weatherIconView2.setIconColor(Color.WHITE);
+                            weatherIconView2.setIconResource(weatherIcon(cl8.getShort(5)));
+                        }
+                        if(i==2) {
+                            //set Day
+                            tvDay3.setText(day(cl8.getString(2)));
+                            //set Temperature
+                            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                                tvTemp3.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                            else
+                                tvTemp3.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                            //set icon
+                            weatherIconView3.setIconSize(25);
+                            weatherIconView3.setIconColor(Color.WHITE);
+                            weatherIconView3.setIconResource(weatherIcon(cl8.getShort(5)));
+                        }
+                        if(i==3) {
+                            //set Day
+                            tvDay4.setText(day(cl8.getString(2)));
+                            //set temperature
+                            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                                tvTemp4.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                            else
+                                tvTemp4.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                            //set icon
+                            weatherIconView4.setIconSize(25);
+                            weatherIconView4.setIconColor(Color.WHITE);
+                            weatherIconView4.setIconResource(weatherIcon(cl8.getShort(5)));
+                        }
+                        if(i==4) {
+                            //set Day
+                            tvDay5.setText(day(cl8.getString(2)));
+                            //set temperature
+                            if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
+                                tvTemp5.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                            else
+                                tvTemp5.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                            //set icon
+                            weatherIconView5.setIconSize(25);
+                            weatherIconView5.setIconColor(Color.WHITE);
+                            weatherIconView5.setIconResource(weatherIcon(cl8.getShort(5)));
+                        }
+                    }
 
 
 
@@ -200,10 +306,16 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         linearLayout.addView(subView);
                         subView.setTag(1000);
                         v.findViewById(R.id.linearLayout).setTag(2);
+                        //5日10日文字顏色高亮
+                        viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
+                        viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                     } else {
                         // open狀態： 移除增加內容
                         linearLayout.removeView(v.findViewWithTag(1000));
                         v.findViewById(R.id.linearLayout).setTag(1);
+                        //5日10日文字顏色高亮
+                        viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
+                        viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
                     }
                 }
             });
@@ -212,55 +324,6 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
 
             return viewHolder;
             //return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false), viewType);
-        }
-        else if(viewType==6){
-            View v = LayoutInflater.from(mContext).inflate(R.layout.card_layout, parent, false);
-            final ViewHolder viewHolder = new ViewHolder(v,viewType);
-
-            //對每一個cell註冊點擊事件
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index;
-                    LinearLayout linearLayout = (LinearLayout)v.findViewById(R.id.linearLayout);
-                    View subView = LayoutInflater.from(v.getContext()).inflate(R.layout.rv_forecast_add_layout, (ViewGroup)v, false);
-                    TextView tvDesc=(TextView)subView.findViewById(R.id.tvDesc);
-                    TextView tvCategory=(TextView)subView.findViewById(R.id.tvCategory);
-                    String strDesc="";
-                    strDesc="123";
-                    if(strDesc.equals(""))
-                        strDesc="無";
-                    tvDesc.setText("備註: " +strDesc);
-                    tvCategory.setText("類別: " + "456");
-
-
-
-                    //利用單元控制的標記值就標記為單元格的單元格，而不是單元格的單元格。標記值也就不存在了。
-                    //如果不取消重用，那麼將會出現未曾點擊就已經添加子視圖的效果，再點擊的時間會繼續添加而不是收回。
-                    if (v.findViewById(R.id.linearLayout).getTag() == null) {
-                        index = 1;
-                    } else {
-                        index = (int)v.findViewById(R.id.linearLayout).getTag();
-                    }
-
-                    //Log.i("Card", "Card點擊: " + index);
-
-                    // close狀態: 增加內容
-                    if (index == 1) {
-                        linearLayout.addView(subView);
-                        subView.setTag(1000);
-                        v.findViewById(R.id.linearLayout).setTag(2);
-                    } else {
-                        // open狀態： 移除增加內容
-                        linearLayout.removeView(v.findViewWithTag(1000));
-                        v.findViewById(R.id.linearLayout).setTag(1);
-                    }
-                }
-            });
-            // 取消viewHolder的重用機制（滑出View自動收回成預設狀態index=0 close）
-            viewHolder.setIsRecyclable(false);
-
-            return viewHolder;
         }
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);

@@ -10,4 +10,6 @@
     <color name="SunColor">#fcd682</color>
     <color name="chartHigh">#fefd006e</color>
     <color name="chartLow">#00ccff</color>
+    <color name="tvForecast1">#fff</color>
+    <color name="tvForecast2">#bcb9b9</color>
 </resources>

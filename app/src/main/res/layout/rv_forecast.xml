@@ -249,11 +249,11 @@
         android:layout_marginTop="18dp">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvFive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5天"
-            android:textColor="#fff" />
+            android:textColor="@color/tvForecast1" />
 
         <TextView
             android:id="@+id/textView5"
@@ -263,11 +263,11 @@
             android:textColor="#fff" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvTen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10天"
-            android:textColor="#bcb9b9" />
+            android:textColor="@color/tvForecast2" />
     </TableRow>
 
 
