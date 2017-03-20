@@ -333,7 +333,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         mPosition=position;
-        mAccess = new DBAccessWeather(mContext, "weather", null, 6);
+        mAccess = new DBAccessWeather(mContext, "weather", null, 1);
         settings=mContext.getSharedPreferences("Data",MODE_PRIVATE);
         //Toast.makeText(mContext,settings.getString("Temperature",""),Toast.LENGTH_LONG).show();
         if(mPosition==0){

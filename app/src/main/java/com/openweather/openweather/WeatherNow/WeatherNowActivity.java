@@ -76,6 +76,11 @@ public class WeatherNowActivity extends AppCompatActivity {
     public static String str5;
     SharedPreferences settings;
     private Context mContext;
+    private int mImgDay[]={R.mipmap.day01,R.mipmap.day02,R.mipmap.day03,R.mipmap.day04,R.mipmap.day05,R.mipmap.day06};
+    private int mImgAfternoon[]={R.mipmap.afternoon01,R.mipmap.afternoon02,R.mipmap.afternoon03};
+    private int mImgnight[]={R.mipmap.night01,R.mipmap.night02,R.mipmap.night03,R.mipmap.night04,R.mipmap.night05};
+    private int mImgMidnight[]={R.mipmap.midnight01};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +88,12 @@ public class WeatherNowActivity extends AppCompatActivity {
         ExitApplication.getInstance().addActivity(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);
         tvTime=(TextView)findViewById(R.id.tvTime);
         tvCity=(TextView)findViewById(R.id.tvCity);
         settings=getSharedPreferences("Data",MODE_PRIVATE);
         mContext=getApplicationContext();
-        mAccess = new DBAccessWeather(this, "weather", null, 6);
+        mAccess = new DBAccessWeather(this, "weather", null, 1);
         menu_init();//menu初始化
         blurred_init();//背景初始化
         reflash();
@@ -113,11 +118,9 @@ public class WeatherNowActivity extends AppCompatActivity {
                         cl6.moveToFirst();
                         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
                         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+                        int hour=Integer.parseInt(time[0])+12;
+                        String minute=time[1];
                         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-                            String hour=time[0],minute=time[1];
-                            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12){
-                                hour=Integer.parseInt(time[0])+12+"";
-                            }
                             tvTime.setText(hour+":"+minute+" "+str[6]);
                             tvCity.setText(cl1.getString(2));
                         }
@@ -128,6 +131,15 @@ public class WeatherNowActivity extends AppCompatActivity {
                         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
                         mAlpha=0;
                         mScrollerY=0;
+                        //以時間判斷背景
+                        if(hour>=7&&hour<=16)
+                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
+                        else if(hour>16&&hour<=19)
+                        mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
+                        else if(hour>19&&hour<=23)
+                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
+                        else
+                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
                     }
                 }, 3000);
             }
@@ -136,7 +148,6 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     /**背景霧化Blurred**/
     private void blurred_init(){
-        mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -159,12 +170,26 @@ public class WeatherNowActivity extends AppCompatActivity {
                 Log.d("Scroll",mScrollerY+" "+mAlpha);
             }
         });
+        //以時間判斷背景
+        Cursor cl6 = mAccess.getData("Condition", null, null);
+        cl6.moveToFirst();
+        //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
+        String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+        int hour=Integer.parseInt(time[0])+12;
+        if(hour>=7&&hour<=16)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
+        else if(hour>16&&hour<=19)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
+        else if(hour>19&&hour<=23)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
+        else
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
     }
 
     /**選單Menu**/
     //menu初始化
     private void menu_init(){
-        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.bg_tainan);
+        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.ny);
         mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new WeatherNowRVA(this));
@@ -544,11 +569,8 @@ public class WeatherNowActivity extends AppCompatActivity {
         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-            String hour=time[0],minute=time[1];
-            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12){
-                hour=Integer.parseInt(time[0])+12+"";
-            }
-            tvTime.setText(hour+":"+minute+" "+str[6]);
+
+            tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }
         else{
