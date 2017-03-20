@@ -64,7 +64,7 @@ public class WeatherNowActivity extends AppCompatActivity {
      */
     private RecyclerView mRecyclerView;
 
-    private int mScrollerY=0;
+    public static int mScrollerY=0;
 
     private int mAlpha=0;
 
@@ -88,7 +88,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         tvCity=(TextView)findViewById(R.id.tvCity);
         settings=getSharedPreferences("Data",MODE_PRIVATE);
         mContext=getApplicationContext();
-        mAccess = new DBAccessWeather(this, "weather", null, 1);
+        mAccess = new DBAccessWeather(this, "weather", null, 6);
         menu_init();//menu初始化
         blurred_init();//背景初始化
         reflash();
@@ -156,6 +156,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     mAlpha = Math.abs(mScrollerY) / 10;
                 }
                 mBlurredView.setBlurredLevel(mAlpha);
+                Log.d("Scroll",mScrollerY+" "+mAlpha);
             }
         });
     }

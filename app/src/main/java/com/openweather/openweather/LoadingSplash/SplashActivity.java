@@ -51,7 +51,7 @@ public class SplashActivity extends AppCompatActivity  {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mContext=getApplicationContext();
-        mAccess = new DBAccessWeather(this, "weather", null, 1);
+        mAccess = new DBAccessWeather(this, "weather", null,6);
 
 
     }

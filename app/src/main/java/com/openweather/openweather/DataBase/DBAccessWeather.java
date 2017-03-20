@@ -113,15 +113,15 @@ public class DBAccessWeather extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exits Location");
-        db.execSQL("drop table if exits Wind");
-        db.execSQL("drop table if exits Direction");
-        db.execSQL("drop table if exits Speed");
-        db.execSQL("drop table if exits Atmosphere");
-        db.execSQL("drop table if exits Astronomy");
-        db.execSQL("drop table if exits Condition");
-        db.execSQL("drop table if exits Code");
-        db.execSQL("drop table if exits Forecast");
+        db.execSQL("DROP TABLE IF EXISTS Location");
+        db.execSQL("DROP TABLE IF EXISTS Wind");
+        db.execSQL("DROP TABLE IF EXISTS Direction");
+        db.execSQL("DROP TABLE IF EXISTS Speed");
+        db.execSQL("DROP TABLE IF EXISTS Atmosphere");
+        db.execSQL("DROP TABLE IF EXISTS Astronomy");
+        db.execSQL("DROP TABLE IF EXISTS Condition");
+        db.execSQL("DROP TABLE IF EXISTS Code");
+        db.execSQL("DROP TABLE IF EXISTS Forecast");
         onCreate(db);
     }
 

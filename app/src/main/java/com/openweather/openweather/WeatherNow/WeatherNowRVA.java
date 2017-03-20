@@ -316,6 +316,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         //5日10日文字顏色高亮
                         viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                         viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
+                        WeatherNowActivity.mScrollerY-=702;//修正背景虛化收起模糊Bug
                     }
                 }
             });
@@ -332,7 +333,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         mPosition=position;
-        mAccess = new DBAccessWeather(mContext, "weather", null, 1);
+        mAccess = new DBAccessWeather(mContext, "weather", null, 6);
         settings=mContext.getSharedPreferences("Data",MODE_PRIVATE);
         //Toast.makeText(mContext,settings.getString("Temperature",""),Toast.LENGTH_LONG).show();
         if(mPosition==0){
