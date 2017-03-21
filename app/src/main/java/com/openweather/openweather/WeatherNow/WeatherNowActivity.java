@@ -122,6 +122,8 @@ public class WeatherNowActivity extends AppCompatActivity {
                         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
                             if(str[5].equals("PM"))
                                 tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
+                            else
+                                tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
                             tvCity.setText(cl1.getString(2));
                         }
                         else{
@@ -571,6 +573,8 @@ public class WeatherNowActivity extends AppCompatActivity {
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
             if(str[5].equals("PM"))
                 tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
+            else
+                tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }
         else{
