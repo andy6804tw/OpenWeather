@@ -119,9 +119,9 @@ public class WeatherNowActivity extends AppCompatActivity {
                         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
                         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
                         int hour=Integer.parseInt(time[0])+12;
-                        String minute=time[1];
                         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-                            tvTime.setText(hour+":"+minute+" "+str[6]);
+                            if(str[5].equals("PM"))
+                                tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
                             tvCity.setText(cl1.getString(2));
                         }
                         else{
@@ -569,8 +569,8 @@ public class WeatherNowActivity extends AppCompatActivity {
         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-
-            tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
+            if(str[5].equals("PM"))
+                tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }
         else{
