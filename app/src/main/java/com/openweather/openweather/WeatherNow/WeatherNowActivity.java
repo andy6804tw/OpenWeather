@@ -112,36 +112,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     public void run() {
                         layout.setRefreshing(false);
                         Toast.makeText(WeatherNowActivity.this,"Yes",Toast.LENGTH_LONG).show();
-                        Cursor cl1 = mAccess.getData("Location", null, null);
-                        cl1.moveToFirst();
-                        Cursor cl6 = mAccess.getData("Condition", null, null);
-                        cl6.moveToFirst();
-                        //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
-                        String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
-                        int hour=Integer.parseInt(time[0])+12;
-                        if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-                            if(str[5].equals("PM"))
-                                tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
-                            else
-                                tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
-                            tvCity.setText(cl1.getString(2));
-                        }
-                        else{
-                            tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
-                            tvCity.setText(cl1.getString(2));
-                        }
-                        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
-                        mAlpha=0;
-                        mScrollerY=0;
-                        //以時間判斷背景
-                        if(hour>=7&&hour<=16)
-                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
-                        else if(hour>16&&hour<=19)
-                        mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
-                        else if(hour>19&&hour<=23)
-                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
-                        else
-                            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
+                        initInfo();
                     }
                 }, 3000);
             }
@@ -172,20 +143,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                 Log.d("Scroll",mScrollerY+" "+mAlpha);
             }
         });
-        //以時間判斷背景
-        Cursor cl6 = mAccess.getData("Condition", null, null);
-        cl6.moveToFirst();
-        //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
-        String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
-        int hour=Integer.parseInt(time[0])+12;
-        if(hour>=7&&hour<=16)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
-        else if(hour>16&&hour<=19)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
-        else if(hour>19&&hour<=23)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
-        else
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
+
     }
 
     /**選單Menu**/
@@ -568,11 +526,23 @@ public class WeatherNowActivity extends AppCompatActivity {
         mAlpha=0;
         mScrollerY=0;
         Toast.makeText(WeatherNowActivity.this,cl6.getString(7),Toast.LENGTH_LONG).show();
+
+        initInfo();
+
+    }
+    public void initInfo(){
+        Cursor cl1 = mAccess.getData("Location", null, null);
+        cl1.moveToFirst();
+        Cursor cl6 = mAccess.getData("Condition", null, null);
+        cl6.moveToFirst();
         //取得系統時間 Fri, 10 Mar 2017 03:23 PM CST
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
+        int hour=Integer.parseInt(time[0]);
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-            if(str[5].equals("PM"))
-                tvTime.setText(Integer.parseInt(time[0])+12+":"+time[1]+" "+str[6]);
+            if(str[5].equals("PM")) {
+                hour+=12;
+                tvTime.setText(Integer.parseInt(time[0]) + 12 + ":" + time[1] + " " + str[6]);
+            }
             else
                 tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
@@ -581,5 +551,17 @@ public class WeatherNowActivity extends AppCompatActivity {
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }
+        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
+        mAlpha=0;
+        mScrollerY=0;
+        //以時間判斷背景
+        if(hour>=7&&hour<=16)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
+        else if(hour>16&&hour<=19)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
+        else if(hour>19&&hour<=23)
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
+        else
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
     }
 }
