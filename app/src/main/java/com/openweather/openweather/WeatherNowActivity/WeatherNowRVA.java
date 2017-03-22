@@ -1,4 +1,4 @@
-package com.openweather.openweather.WeatherNow;
+package com.openweather.openweather.WeatherNowActivity;
 
 /**
  * Created by andy6804tw on 2017/2/24.

@@ -28,7 +28,7 @@ import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
 import com.openweather.openweather.View.SunBabyLoadingView;
-import com.openweather.openweather.WeatherNow.WeatherNowActivity;
+import com.openweather.openweather.WeatherNowActivity.WeatherNowActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

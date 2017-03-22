@@ -1,4 +1,4 @@
-package com.openweather.openweather.WeatherNow;
+package com.openweather.openweather.WeatherNowActivity;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -35,11 +35,11 @@ import com.goka.blurredgridmenu.GridMenuFragment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
-import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.MainActivity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
 import com.openweather.openweather.Settings.SettingsActivity;
+import com.openweather.openweather.UVIActivity.UVIActivity;
 import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
@@ -176,7 +176,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if(position==2) {
-                    Intent intent = new Intent(WeatherNowActivity.this, Main2Activity.class);
+                    Intent intent = new Intent(WeatherNowActivity.this, UVIActivity.class);
                     //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();

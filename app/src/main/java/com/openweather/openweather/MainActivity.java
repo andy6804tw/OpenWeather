@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
-import com.openweather.openweather.WeatherNow.WeatherNowActivity;
+import com.openweather.openweather.WeatherNowActivity.WeatherNowActivity;
 
 import java.util.ArrayList;
 import java.util.List;
