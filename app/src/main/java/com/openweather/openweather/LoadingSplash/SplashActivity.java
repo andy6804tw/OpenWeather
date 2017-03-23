@@ -93,7 +93,7 @@ public class SplashActivity extends AppCompatActivity  {
                 public void run() {
                     startActivity( new Intent(SplashActivity.this, WeatherNowActivity.class));
                 }
-            }, 4000);
+            }, 5000);
         }
         /***/
     }
