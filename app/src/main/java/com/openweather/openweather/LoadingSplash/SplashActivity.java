@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
@@ -42,6 +43,7 @@ public class SplashActivity extends AppCompatActivity  {
     double latitude,longtitude;
     String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
     private Context mContext;
+    DBAccessEnvironment mAccess2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class SplashActivity extends AppCompatActivity  {
 
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null,1);
-
+        mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
 
     }
 
@@ -88,6 +90,7 @@ public class SplashActivity extends AppCompatActivity  {
         }else{
             init_GPS();
             init_Weather();
+            init_Environment();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -334,5 +337,21 @@ public class SplashActivity extends AppCompatActivity  {
                 alertDialog.show();
             }
         }
+    }
+    public void init_Environment(){
+        Cursor cl1 = mAccess2.getData("Location", null, null);
+        if(cl1.getCount()==0){
+            mAccess2.add();
+        }else{
+            //更新Location
+            mAccess2.update("2","台灣","台南市","歸仁區","大潭里","22.9072455","120.2685797",null);
+            //更新Air
+            mAccess2.update("2","某時間",9,8,7,6,5,4,3,22,11,null);
+            //更新Ultraviolet
+            mAccess2.update("2",28,"CJCU","11點","澎湖","159.258","753.951",null);
+            //更新Rain
+            mAccess2.update("2","CJCU","11點","澎湖", 8521, 61,123,582,1234,null);
+        }
+
     }
 }

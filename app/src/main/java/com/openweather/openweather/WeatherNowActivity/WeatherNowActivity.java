@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.baoyz.widget.PullRefreshLayout;
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
@@ -522,12 +523,15 @@ public class WeatherNowActivity extends AppCompatActivity {
                 + cl8.getString(2) + " " + cl8.getString(3) + " "
                 + cl8.getString(4) + " " + cl8.getString(5));
 
+
         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
         mAlpha=0;
         mScrollerY=0;
         Toast.makeText(WeatherNowActivity.this,cl6.getString(7),Toast.LENGTH_LONG).show();
 
         initInfo();
+
+        callDB2();
 
     }
     public void initInfo(){
@@ -563,5 +567,49 @@ public class WeatherNowActivity extends AppCompatActivity {
             mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
         else
             mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
+    }
+    void callDB2(){
+        DBAccessEnvironment access2;
+        access2= new DBAccessEnvironment(this, "Environment", null, 1);
+        Cursor cl1 = access2.getData("Location", null, null);
+        cl1.moveToFirst();
+        Log.e("Data Location", cl1.getString(0) + " " + cl1.getString(1) + " "
+                + cl1.getString(2) + " " + cl1.getString(3) + " "
+                + cl1.getString(4) + " " + cl1.getDouble(5) + " "
+                + cl1.getDouble(6));
+
+        Cursor cl2 = access2.getData("AIR", null, null);
+        cl2.moveToFirst();
+        Log.e("Data Air", cl2.getString(0) + " " + cl2.getString(1) + " "
+                + cl2.getString(2) + " " + cl2.getString(3) + " "
+                + cl2.getString(4) + " " + cl2.getString(5) + " "
+                + cl2.getString(6) + " " + cl2.getString(7) + " "
+                + cl2.getString(8) + " " + cl2.getString(9) + " "
+                + cl2.getString(10));
+
+        Cursor cl22 = access2.getData("AQI", null, null);
+        cl22.moveToFirst();
+        Log.e("Data AQI", cl22.getString(0) + " " + cl22.getString(1) + " "
+                + cl22.getString(2) + " " + cl22.getString(3));
+
+        Cursor cl3 = access2.getData("PM25", null, null);
+        cl3.moveToFirst();
+        Log.e("Data PM25", cl3.getString(0) + " " + cl3.getString(1) + " "
+                + cl3.getString(2) + " " + cl3.getString(3) + " " + cl3.getString(4));
+
+        Cursor cl5 = access2.getData("Ultraviolet", null, null);
+        cl5.moveToFirst();
+        Log.e("Data Ultraviolet", cl5.getString(0) + " "
+                + cl5.getString(1) + " " + cl5.getString(2) + " "
+                + cl5.getString(3) + " " + cl5.getString(4) + " "
+                + cl5.getString(5) + " " + cl5.getString(6));
+
+        Cursor cl6 = access2.getData("Rain", null, null);
+        cl6.moveToFirst();
+        Log.e("Data Rain", cl6.getString(0) + " " + cl6.getString(1) + " "
+                + cl6.getString(2) + " " + cl6.getString(3) + " "
+                + cl6.getString(4) + " " + cl6.getString(5) + " "
+                + cl6.getString(6) + " " + cl6.getString(7) + " "
+                + cl6.getString(8));
     }
 }
