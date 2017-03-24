@@ -543,7 +543,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
         int hour=Integer.parseInt(time[0]);
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
-            if(str[5].equals("PM")) {
+            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12) {
                 hour+=12;
                 tvTime.setText(Integer.parseInt(time[0]) + 12 + ":" + time[1] + " " + str[6]);
             }

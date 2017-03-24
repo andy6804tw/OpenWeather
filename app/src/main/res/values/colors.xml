@@ -12,6 +12,7 @@
     <color name="chartLow">#00ccff</color>
     <color name="tvForecast1">#fff</color>
     <color name="tvForecast2">#bcb9b9</color>
+    <color name="alermUVI">#11f72a5a</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

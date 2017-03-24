@@ -39,5 +39,6 @@ dependencies {
     compile 'com.github.xiaoyongit520:SettingViewLib:0.0.6'
     compile 'com.android.support:support-v4:25.2.0'
     compile 'com.github.pwittchen:weathericonview:1.1.0'
+    compile 'me.drakeet:breathingviewhelper:1.0.0'
     testCompile 'junit:junit:4.12'
 }

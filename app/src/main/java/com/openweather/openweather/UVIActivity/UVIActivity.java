@@ -6,6 +6,8 @@ import android.view.WindowManager;
 
 import com.openweather.openweather.R;
 
+import me.drakeet.BreathingViewHelper;
+
 public class UVIActivity extends AppCompatActivity {
 
     @Override
@@ -13,6 +15,12 @@ public class UVIActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uvi);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+    // start
+        BreathingViewHelper.setBreathingBackgroundColor(
+                findViewById(R.id.relativelatout),
+                getResources().getColor(R.color.alermUVI)
+        );
+    // stop
+        //BreathingViewHelper.stopBreathingBackgroundColor(findViewById(R.id.relativelatout));
     }
 }
