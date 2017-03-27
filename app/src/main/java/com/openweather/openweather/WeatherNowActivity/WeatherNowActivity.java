@@ -67,7 +67,7 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     public static int mScrollerY=0;
 
-    private int mAlpha=0;
+    public static int mAlpha=0;
 
     private long temptime = 0;//計算退出秒數
     private TextView tvTime,tvCity;
@@ -552,6 +552,8 @@ public class WeatherNowActivity extends AppCompatActivity {
             tvCity.setText(cl1.getString(2));
         }
         else{
+            if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12)
+                hour+=12;
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
         }

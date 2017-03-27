@@ -8,14 +8,16 @@
     android:layout_alignParentStart="true"
     android:layout_below="@+id/weather"
     android:layout_marginBottom="15dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="15dp"
     android:background="@drawable/round_box"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/linearLayout"
         android:orientation="vertical">
 
         <TextView

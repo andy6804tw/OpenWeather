@@ -221,7 +221,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     }
                     for(int i=0;i<5;i++){
                         cl8.moveToPosition(i+5);
-                        Log.e("Code"+(i+5),cl8.getShort(5)+" "+cl8.getString(1));
+                        //Log.e("Code"+(i+5),cl8.getShort(5)+" "+cl8.getString(1));
                         if(i==0) {
                             //set Day
                             tvDay1.setText(day(cl8.getString(2)));
@@ -300,9 +300,13 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     }
 
                     //Log.i("Card", "Card點擊: " + index);
-
+                    int oldScrollOpen=WeatherNowActivity.mScrollerY;
+                    int oldScrollCloss=WeatherNowActivity.mScrollerY;
                     // close狀態: 增加內容
                     if (index == 1) {
+                        oldScrollOpen=WeatherNowActivity.mScrollerY;
+                        if(oldScrollCloss!=WeatherNowActivity.mScrollerY)
+                            WeatherNowActivity.mScrollerY+=702;//修正背景虛化收起模糊Bug
                         linearLayout.addView(subView);
                         subView.setTag(1000);
                         v.findViewById(R.id.linearLayout).setTag(2);
@@ -310,13 +314,18 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
                         viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                     } else {
+                        oldScrollCloss=WeatherNowActivity.mScrollerY;
                         // open狀態： 移除增加內容
                         linearLayout.removeView(v.findViewWithTag(1000));
                         v.findViewById(R.id.linearLayout).setTag(1);
                         //5日10日文字顏色高亮
                         viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                         viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
-                        WeatherNowActivity.mScrollerY-=702;//修正背景虛化收起模糊Bug
+                        Log.d("Scro@@@",WeatherNowActivity.mScrollerY+"");
+                        if(WeatherNowActivity.mScrollerY!=oldScrollOpen)
+                            WeatherNowActivity.mScrollerY-=702;//修正背景虛化收起模糊Bug
+                        Log.d("Scro!!!",WeatherNowActivity.mScrollerY+"");
+
                     }
                 }
             });
@@ -551,7 +560,7 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             }
             for(int i=1;i<=5;i++){
                 cl8.moveToPosition(i-1);
-                Log.e("Code"+(i-1),cl8.getShort(5)+" "+cl8.getString(1));
+                //Log.e("Code"+(i-1),cl8.getShort(5)+" "+cl8.getString(1));
                 if(i==1) {
                     //set Day
                     viewHolder.tvDay1.setText(mContext.getString(R.string.Today));
