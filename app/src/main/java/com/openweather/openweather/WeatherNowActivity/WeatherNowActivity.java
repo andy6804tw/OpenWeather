@@ -1,18 +1,15 @@
 package com.openweather.openweather.WeatherNowActivity;
 
 import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,11 +33,7 @@ import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
-import com.openweather.openweather.MainActivity;
-import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
-import com.openweather.openweather.Settings.SettingsActivity;
-import com.openweather.openweather.UVIActivity.UVIActivity;
 import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
@@ -78,8 +71,8 @@ public class WeatherNowActivity extends AppCompatActivity {
     SharedPreferences settings;
     private Context mContext;
     private int mImgDay[]={R.mipmap.day01,R.mipmap.day02,R.mipmap.day03,R.mipmap.day04,R.mipmap.day05,R.mipmap.day06};
-    private int mImgAfternoon[]={R.mipmap.afternoon01,R.mipmap.afternoon02,R.mipmap.afternoon03};
-    private int mImgnight[]={R.mipmap.night01,R.mipmap.night02,R.mipmap.night03,R.mipmap.night04,R.mipmap.night05};
+    private int mImgAfternoon[]={R.mipmap.afternoon01,R.mipmap.afternoon02,R.mipmap.afternoon03,R.mipmap.afternoon04,R.mipmap.afternoon05};
+    private int mImgnight[]={R.mipmap.night01,R.mipmap.night02,R.mipmap.night03,R.mipmap.night04,R.mipmap.night05,R.mipmap.night06,R.mipmap.night07};
     private int mImgMidnight[]={R.mipmap.midnight01};
 
     @Override
@@ -93,11 +86,15 @@ public class WeatherNowActivity extends AppCompatActivity {
         tvTime=(TextView)findViewById(R.id.tvTime);
         tvCity=(TextView)findViewById(R.id.tvCity);
         settings=getSharedPreferences("Data",MODE_PRIVATE);
+        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
+        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAlpha=0;
+        mScrollerY=0;
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null, 1);
-        menu_init();//menu初始化
+
         blurred_init();//背景初始化
-        reflash();
 
     }
 
@@ -112,7 +109,6 @@ public class WeatherNowActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
-                        Toast.makeText(WeatherNowActivity.this,"Yes",Toast.LENGTH_LONG).show();
                         initInfo();
                     }
                 }, 3000);
@@ -141,7 +137,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     mAlpha = Math.abs(mScrollerY) / 10;
                 }
                 mBlurredView.setBlurredLevel(mAlpha);
-                Log.d("Scroll",mScrollerY+" "+mAlpha);
+                //Log.d("Scroll",mScrollerY+" "+mAlpha);
             }
         });
 
@@ -150,27 +146,24 @@ public class WeatherNowActivity extends AppCompatActivity {
     /**選單Menu**/
     //menu初始化
     private void menu_init(){
-        mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.ny);
-        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new WeatherNowRVA(this));
+
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                /*FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
-                tx.commit();
+                tx.commit();*/
+                Toast.makeText(WeatherNowActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
             }
         });
 
-        setupGridMenu();
+        /*setupGridMenu();
 
         mGridMenuFragment.setOnClickMenuListener(new GridMenuFragment.OnClickMenuListener() {
             @Override
             public void onClickMenu(GridMenu gridMenu, int position) {
-                Toast.makeText(WeatherNowActivity.this, "Title:" + gridMenu.getTitle() + ", Position:" + position,
-                        Toast.LENGTH_SHORT).show();
+
                 if(position==1) {
                     Intent intent = new Intent(WeatherNowActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -178,7 +171,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                 }
                 if(position==2) {
                     Intent intent = new Intent(WeatherNowActivity.this, UVIActivity.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }
@@ -190,8 +183,8 @@ public class WeatherNowActivity extends AppCompatActivity {
                 if(position==4){
                     Intent intent = new Intent(Intent.ACTION_MAIN);
                     intent.setComponent(new ComponentName("com.f74372017.twreservoir","com.f74372017.twreservoir.SplashActivity")); //包裹名稱，要開啟的頁面
-                    /*Intent intent = getApplication().getPackageManager()
-                            .getLaunchIntentForPackage("com.f74372017.twreservoir.SplashActivity");*/
+                    //Intent intent = getApplication().getPackageManager()
+                     //       .getLaunchIntentForPackage("com.f74372017.twreservoir.SplashActivity");
                     //intent.putExtra("value", "test"); //要傳送的值
                     try{
                         startActivity(intent);
@@ -200,10 +193,6 @@ public class WeatherNowActivity extends AppCompatActivity {
                         Toast.makeText(WeatherNowActivity.this,"無安裝此應用!",Toast.LENGTH_LONG).show();
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.f74372017.twreservoir")));
                     }
-                    /*if (intent != null) {
-                    }
-                    else{
-                    }*/
                 }
                 if(position==7) {
                     Intent intent = new Intent(WeatherNowActivity.this, SettingsActivity.class);
@@ -211,7 +200,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        });*/
     }
     private void setupGridMenu() {
         List<GridMenu> menus = new ArrayList<>();
@@ -239,7 +228,6 @@ public class WeatherNowActivity extends AppCompatActivity {
             {
                 if(System.currentTimeMillis() - temptime >2000) // 2s內再次選擇back有效
                 {
-                    System.out.println(Toast.LENGTH_LONG);
                     Toast.makeText(this, "再按一次離開", Toast.LENGTH_LONG).show();
                     temptime = System.currentTimeMillis();
                 }
@@ -487,7 +475,7 @@ public class WeatherNowActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Cursor cl1 = mAccess.getData("Location", null, null);
+        /*Cursor cl1 = mAccess.getData("Location", null, null);
         cl1.moveToFirst();
         Log.e("Data Location", cl1.getString(0) + " " + cl1.getString(1) + " "
                 + cl1.getString(2) + " " + cl1.getString(3) + " "
@@ -521,17 +509,17 @@ public class WeatherNowActivity extends AppCompatActivity {
         cl8.moveToPosition(9);
         Log.e("Data Forecast",cl8.getString(0) + " " +  cl8.getString(1) + " "
                 + cl8.getString(2) + " " + cl8.getString(3) + " "
-                + cl8.getString(4) + " " + cl8.getString(5));
+                + cl8.getString(4) + " " + cl8.getString(5));*/
 
 
-        mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
-        mAlpha=0;
-        mScrollerY=0;
-        Toast.makeText(WeatherNowActivity.this,cl6.getString(7),Toast.LENGTH_LONG).show();
+
 
         initInfo();
+        menu_init();//menu初始化
 
-        callDB2();
+        reflash();
+
+        //callDB2();
 
     }
     public void initInfo(){
@@ -561,14 +549,26 @@ public class WeatherNowActivity extends AppCompatActivity {
         mAlpha=0;
         mScrollerY=0;
         //以時間判斷背景
-        if(hour>=7&&hour<=16)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[(int)(Math.random()*mImgDay.length)]));
-        else if(hour>16&&hour<=19)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[(int)(Math.random()*mImgAfternoon.length)]));
-        else if(hour>19&&hour<=23)
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[(int)(Math.random()*mImgnight.length)]));
-        else
-            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[(int)(Math.random()*mImgMidnight.length)]));
+        if(hour>=7&&hour<=16) {
+            int round=(int) (Math.random() * mImgDay.length);
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgDay[round]));//主畫面背景
+            mGridMenuFragment = GridMenuFragment.newInstance(mImgDay[round]);//選單背景
+        }
+        else if(hour>16&&hour<=18) {
+            int round=(int) (Math.random() * mImgAfternoon.length);
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgAfternoon[round]));//主畫面背景
+            mGridMenuFragment = GridMenuFragment.newInstance(mImgAfternoon[round]);//選單背景
+        }
+        else if(hour>18&&hour<=23) {
+            int round=(int) (Math.random() * mImgnight.length);
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgnight[round]));//主畫面背景
+            mGridMenuFragment = GridMenuFragment.newInstance(mImgnight[round]);//選單背景
+        }
+        else {
+            int round=(int) (Math.random() * mImgMidnight.length);
+            mBlurredView.setBlurredImg(mContext.getResources().getDrawable(mImgMidnight[round]));//主畫面背景
+            mGridMenuFragment = GridMenuFragment.newInstance(mImgMidnight[round]);//選單背景
+        }
     }
     void callDB2(){
         DBAccessEnvironment access2;

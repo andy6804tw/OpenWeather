@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -63,7 +62,7 @@ public class SplashActivity extends AppCompatActivity  {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //如果沒有授權使用定位就會跳出來這個
             // TODO: Consider calling
-            Log.e("Data6", "進入!");
+            //Log.e("Data6", "進入!");
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -80,12 +79,12 @@ public class SplashActivity extends AppCompatActivity  {
                     // 請求授權
                     //     第一個參數是請求授權的名稱
                     //     第二個參數是請求代碼
-                    Log.e("Data3", "失敗!");
+                    //Log.e("Data3", "失敗!");
                     requestPermissions(
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             10);
-                } else
-                    Log.e("Data4", "成功!");
+                }
+                    //Log.e("Data4", "成功!");
             }
         }else{
             init_GPS();
@@ -228,7 +227,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 }
 
                             }else{
-                                Toast.makeText(SplashActivity.this,publish_time,Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(SplashActivity.this,publish_time,Toast.LENGTH_SHORT).show();
                                 //寫入 Wind資料表
                                 mAccess.update("1", Double.parseDouble(chill), str_direction, speed+"",null);
                                 //寫入 Atmosphere資料表
@@ -300,7 +299,7 @@ public class SplashActivity extends AppCompatActivity  {
                                 if(c.getCount()==0){
                                     mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
-                                    Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
                                     mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
                             } catch (JSONException e) {

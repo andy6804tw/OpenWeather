@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -321,10 +320,10 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         //5日10日文字顏色高亮
                         viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                         viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
-                        Log.d("Scro@@@",WeatherNowActivity.mScrollerY+"");
-                        if(WeatherNowActivity.mScrollerY!=oldScrollOpen)
+                        //Log.d("Scro@@@",WeatherNowActivity.mScrollerY+"");
+                        if(WeatherNowActivity.mScrollerY!=oldScrollOpen||WeatherNowActivity.mScrollerY==4673)
                             WeatherNowActivity.mScrollerY-=702;//修正背景虛化收起模糊Bug
-                        Log.d("Scro!!!",WeatherNowActivity.mScrollerY+"");
+                        //Log.d("Scro!!!",WeatherNowActivity.mScrollerY+"");
 
                     }
                 }
@@ -333,7 +332,6 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             viewHolder.setIsRecyclable(false);
 
             return viewHolder;
-            //return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_forecast, parent, false), viewType);
         }
         else
             return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_item_weather_now, parent, false),viewType);

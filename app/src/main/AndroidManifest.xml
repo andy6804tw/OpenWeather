@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WellcomeActivity.WelcomeActivity">
+        <activity android:name=".LoadingSplash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
         <activity android:name=".Pm25Activity" />
         <activity android:name=".Settings.SettingsActivity" />
         <activity android:name=".UVIActivity.UVIActivity" />
-        <activity android:name=".LoadingSplash.SplashActivity"></activity>
+        <activity android:name=".WellcomeActivity.WelcomeActivity"></activity>
     </application>
 
 </manifest>
