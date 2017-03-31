@@ -527,9 +527,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
             str_end[0]=Integer.parseInt(str_end[0])+12+"";
             if(str_end[1].length()==1)//結束分補零
                 str_end[1]="0"+str_end[1];
-            viewHolder.sunView.setCurrentTime(hour+":"+minute);
             viewHolder.sunView.setStartTime("0"+str_start[0]+":"+str_start[1]);
             viewHolder.sunView.setEndTime(str_end[0]+":"+str_end[1]);
+            viewHolder.sunView.setCurrentTime(hour+":"+minute);
             viewHolder.sunView.setArcSolidColor(mContext.getResources().getColor(R.color.ArcSolidColor));//拱型內部顏色
             viewHolder.sunView.setSunColor(mContext.getResources().getColor(R.color.SunColor));//拱型內部顏色
             viewHolder.sunView.setTimeTextColor(mContext.getResources().getColor(R.color.TimeTextColor));//字體顏色

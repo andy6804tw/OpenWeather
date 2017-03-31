@@ -82,11 +82,11 @@ public class WeatherNowActivity extends AppCompatActivity {
         ExitApplication.getInstance().addActivity(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        mBlurredView = (BlurredView) findViewById(R.id.yahooweather_blurredview);
+        mBlurredView = (BlurredView) findViewById(R.id.blurredview);
         tvTime=(TextView)findViewById(R.id.tvTime);
         tvCity=(TextView)findViewById(R.id.tvCity);
         settings=getSharedPreferences("Data",MODE_PRIVATE);
-        mRecyclerView = (RecyclerView) findViewById(R.id.yahooweather_recyclerview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAlpha=0;
@@ -111,7 +111,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                         layout.setRefreshing(false);
                         initInfo();
                     }
-                }, 3000);
+                }, 3500);
             }
         });
     }
@@ -150,7 +150,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+               /* FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
                 tx.commit();*/
@@ -531,6 +531,8 @@ public class WeatherNowActivity extends AppCompatActivity {
         String str[]=cl6.getString(7).split(" "),time[]=str[4].split(":");
         int hour=Integer.parseInt(time[0]);
         if(settings.getString("Clock","").equals("24hr")||settings.getString("Clock","").equals("")){
+            if(str[5].equals("AM")&&Integer.parseInt(time[0])==12)
+                hour=00;
             if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12) {
                 hour+=12;
                 tvTime.setText(Integer.parseInt(time[0]) + 12 + ":" + time[1] + " " + str[6]);

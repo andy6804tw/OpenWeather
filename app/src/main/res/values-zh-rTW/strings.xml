@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenWeather</string>
+    <string name="app_name">用數據看天氣</string>
     <string name="code00">龍捲風</string>
     <string name="code01">熱帶風暴</string>
     <string name="code02">颶風</string>
-    <string name="code03">嚴重雷暴</string>
+    <string name="code03">劇烈雷雨</string>
     <string name="code04">雷暴</string>
-    <string name="code05">下雨和下雪</string>
+    <string name="code05">雨夾雪</string>
     <string name="code06">下雨和結霜</string>
     <string name="code07">下雪和結霜</string>
-    <string name="code08">冰冷的細雨</string>
-    <string name="code09">細雨</string>
-    <string name="code10">冰冷的雨</string>
+    <string name="code08">凍毛雨</string>
+    <string name="code09">濛濛細雨</string>
+    <string name="code10">凍雨</string>
     <string name="code11">陣雨</string>
     <string name="code12">陣雨</string>
     <string name="code13">飄雪花</string>
@@ -46,7 +46,7 @@
     <string name="code41">暴雪</string>
     <string name="code42">零星帶雪陣雨</string>
     <string name="code43">暴雪</string>
-    <string name="code44">居部多雲</string>
+    <string name="code44">局部多雲</string>
     <string name="code45">雷暴</string>
     <string name="code46">陣雪</string>
     <string name="code47">單一雷暴</string>

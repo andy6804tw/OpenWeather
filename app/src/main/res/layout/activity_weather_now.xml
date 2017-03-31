@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <com.qiushui.blurredview.BlurredView
-        android:id="@+id/yahooweather_blurredview"
+        android:id="@+id/blurredview"
         app:src="@mipmap/ny"
         app:move="true"
         app:disableBlurred="false"
@@ -21,7 +21,7 @@
            android:layout_height="wrap_content"
            android:id="@+id/relativeLayout">
            <android.support.v7.widget.Toolbar
-               android:id="@+id/yahooweather_toolbar"
+               android:id="@+id/toolbar"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:background="@drawable/title_shape">
@@ -70,7 +70,7 @@
            android:layout_height="match_parent">
 
        <android.support.v7.widget.RecyclerView
-           android:id="@+id/yahooweather_recyclerview"
+           android:id="@+id/recyclerview"
            android:layout_below="@id/relativeLayout"
            android:layout_width="match_parent"
            android:layout_height="match_parent"/>
