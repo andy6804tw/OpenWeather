@@ -6,45 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="290dp"
-        android:layout_height="290dp"
+    <LinearLayout
+        android:layout_width="330dp"
+        android:layout_height="330dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="97dp"
-        android:background="@drawable/circle_shape">
+        android:background="@drawable/circle_shape"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <com.github.pwittchen.weathericonview.WeatherIconView
             android:id="@+id/my_weather_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            custom:weatherIconResource="@string/wi_day_sunny_overcast"
+            android:layout_centerHorizontal="true"
             custom:weatherIconColor="@android:color/black"
-            custom:weatherIconSize="70"
-            android:layout_centerHorizontal="true"/>
+            custom:weatherIconResource="@string/wi_day_sunny_overcast"
+            custom:weatherIconSize="70" />
 
         <TextView
             android:id="@+id/tvWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="晴時多雲"
-            android:textColor="@android:color/background_light"
             android:layout_above="@+id/tableRow2"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/tvTemp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="37dp"
-            android:layout_marginRight="37dp"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="center_horizontal"
-            android:text="16°"
-            android:textColor="@android:color/background_light"
-            android:textSize="125sp" />
+            android:layout_centerHorizontal="true"
+            android:text="晴時多雲"
+            android:textColor="@android:color/background_light" />
 
         <TableRow
             android:id="@+id/tableRow2"
@@ -105,6 +93,17 @@
 
         </TableRow>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tvTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginTop="-25dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="16°"
+            android:textColor="@android:color/background_light"
+            android:textSize="120sp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

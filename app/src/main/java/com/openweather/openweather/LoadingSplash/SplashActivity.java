@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity  {
 
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null,1);
-        mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
+        //mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
 
     }
 
@@ -89,13 +89,13 @@ public class SplashActivity extends AppCompatActivity  {
         }else{
             init_GPS();
             init_Weather();
-            init_Environment();
+            //init_Environment();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     startActivity( new Intent(SplashActivity.this, WeatherNowActivity.class));
                 }
-            }, 5000);
+            }, 6500);
         }
         /***/
     }

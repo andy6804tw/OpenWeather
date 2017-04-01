@@ -37,9 +37,10 @@
 
     <com.openweather.openweather.View.TemperatureView
         android:id="@+id/temperatureView"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="170dp"
         android:layout_alignTop="@+id/tv_condition"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/view"
         android:layout_toRightOf="@+id/view" />
@@ -51,10 +52,11 @@
         android:layout_alignBottom="@+id/temperatureView"
         android:layout_alignLeft="@+id/view"
         android:layout_alignStart="@+id/view"
+        android:layout_below="@id/view"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="38dp"
         android:layout_marginStart="38dp"
-        android:layout_weight="0.5"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <TextView

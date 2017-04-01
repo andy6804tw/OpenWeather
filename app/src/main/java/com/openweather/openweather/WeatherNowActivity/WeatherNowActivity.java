@@ -111,7 +111,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                         layout.setRefreshing(false);
                         initInfo();
                     }
-                }, 3500);
+                }, 3000);
             }
         });
     }
@@ -433,7 +433,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                                 if(c.getCount()==0){
                                     mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
                                 }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
-                                    Toast.makeText(WeatherNowActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(WeatherNowActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
                                     mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                                 }
                             } catch (JSONException e) {

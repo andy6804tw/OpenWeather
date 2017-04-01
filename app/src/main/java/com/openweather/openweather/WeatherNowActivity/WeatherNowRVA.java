@@ -394,9 +394,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                 viewHolder.temperatureView.start(temp);
             viewHolder.tvLocation.setText(c.getString(2));
             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
-                viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+Math.round((c3.getShort(1)-32)*5/9.)+"°C");
+                viewHolder.tvChill.setText(mContext.getString(R.string.tvChill)+" "+Math.round((c3.getShort(1)-32)*5/9.)+"°C");
             }else{
-                viewHolder.tvChill.setText(viewHolder.tvChill.getText()+" "+c3.getString(1)+"°F");
+                viewHolder.tvChill.setText(mContext.getString(R.string.tvChill)+" "+c3.getString(1)+"°F");
             }
             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
                 viewHolder.tv_high.setText(Math.round((c2.getShort(3)-32)*5/9.)+"°");
