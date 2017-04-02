@@ -26,6 +26,9 @@
         <activity android:name=".Settings.SettingsActivity" />
         <activity android:name=".UVIActivity.UVIActivity" />
         <activity android:name=".WellcomeActivity.WelcomeActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c35757b70465f6feb7def6349ac0f1052839f09f" />
     </application>
 
 </manifest>
