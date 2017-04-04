@@ -98,7 +98,14 @@ public class SplashActivity extends AppCompatActivity  {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity( new Intent(SplashActivity.this, WeatherNowActivity.class));
+                    Cursor c = mAccess.getData("Condition", null, null);
+                    c.moveToFirst();
+                    if(c.getCount()==0) {
+                        SunBabyLoadingView.str = "資料重新建置中請收後...";
+                        onResume();
+                    }
+                    else
+                        startActivity( new Intent(SplashActivity.this, WeatherNowActivity.class));
                 }
             }, 6500);
         }
