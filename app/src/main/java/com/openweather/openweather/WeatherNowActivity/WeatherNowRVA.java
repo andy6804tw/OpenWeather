@@ -298,7 +298,6 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         index = (int)v.findViewById(R.id.linearLayout).getTag();
                     }
 
-                    //Log.i("Card", "Card點擊: " + index);
                     int oldScrollOpen=WeatherNowActivity.mScrollerY;
                     int oldScrollCloss=WeatherNowActivity.mScrollerY;
                     // close狀態: 增加內容
@@ -321,9 +320,8 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                         viewHolder.tvTen.setTextColor(mContext.getResources().getColor(R.color.tvForecast2));
                         viewHolder.tvFive.setTextColor(mContext.getResources().getColor(R.color.tvForecast1));
                         //Log.d("Scro@@@",WeatherNowActivity.mScrollerY+"");
-                        if(WeatherNowActivity.mScrollerY!=oldScrollOpen||WeatherNowActivity.mScrollerY==4673)
+                        if(WeatherNowActivity.mScrollerY!=oldScrollOpen||WeatherNowActivity.mScrollerY==4718)
                             WeatherNowActivity.mScrollerY-=702;//修正背景虛化收起模糊Bug
-                        //Log.d("Scro!!!",WeatherNowActivity.mScrollerY+"");
 
                     }
                 }
