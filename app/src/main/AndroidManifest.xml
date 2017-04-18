@@ -25,10 +25,13 @@
         <activity android:name=".Pm25Activity" />
         <activity android:name=".Settings.SettingsActivity" />
         <activity android:name=".UVIActivity.UVIActivity" />
-        <activity android:name=".WellcomeActivity.WelcomeActivity"></activity>
+        <activity android:name=".WellcomeActivity.WelcomeActivity" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c35757b70465f6feb7def6349ac0f1052839f09f" />
+
+        <activity android:name=".WeatherNowActivity.EditLocationActivity"></activity>
     </application>
 
 </manifest>
