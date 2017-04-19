@@ -92,28 +92,29 @@
     <string name="Fri">星期五</string>
     <string name="Sat">星期六</string>
 
-    <string name="Keelung">基隆</string>
-    <string name="Taipei">台北</string>
-    <string name="Hsinchu">新竹</string>
-    <string name="Taichung">台中</string>
-    <string name="Tainan">台南</string>
-
-    <string name="Kaohsiung">高雄</string>
-    <string name="Yilan">宜蘭</string>
-    <string name="Taoyuan">桃園</string>
-    <string name="Miaoli">苗栗</string>
-    <string name="Changhua">彰化</string>
-
-    <string name="Nantou">南投</string>
-    <string name="Yunlin">雲林</string>
-    <string name="Chiayi">嘉義</string>
-    <string name="Pingtung">屏東</string>
-    <string name="Taitung">臺東</string>
-
-    <string name="Hualien">花蓮</string>
-    <string name="Penghu">澎湖</string>
-    <string name="Kinmen">金門</string>
-    <string name="Matsu">馬祖</string>
+    <string name="SelectCity">選擇城市</string>
+    <string name="Keelung">基隆市</string>
+    <string name="NewTaipei">新北市</string>
+    <string name="Taipei">臺北市</string>
+    <string name="Hsinchu">新竹市</string>
+    <string name="HsinchuCountry">新竹縣</string>
+    <string name="Taichung">臺中市</string>
+    <string name="Tainan">台南市</string>
+    <string name="Kaohsiung">高雄市</string>
+    <string name="Yilan">宜蘭縣</string>
+    <string name="Taoyuan">桃園市</string>
+    <string name="Miaoli">苗栗縣</string>
+    <string name="Changhua">彰化縣</string>
+    <string name="Nantou">南投縣</string>
+    <string name="Yunlin">雲林縣</string>
+    <string name="Chiayi">嘉義市</string>
+    <string name="ChiayiCountry">嘉義縣</string>
+    <string name="Pingtung">屏東縣</string>
+    <string name="Taitung">臺東縣</string>
+    <string name="Hualien">花蓮縣</string>
+    <string name="Penghu">澎湖縣</string>
+    <string name="Kinmen">金門縣</string>
+    <string name="Lienchiang">連江縣</string>
 
     <string name="tv_condition">目前狀況</string>
     <string name="tvChill">體感溫度: </string>

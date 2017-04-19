@@ -93,6 +93,30 @@
     <string name="Fri">Fri</string>
     <string name="Sat">Sat</string>
 
+    <string name="SelectCity">Select City</string>
+    <string name="Keelung">Keelung City</string>
+    <string name="NewTaipei">New Taipei City</string>
+    <string name="Taipei">Taipei City</string>
+    <string name="Hsinchu">Hsinchu City</string>
+    <string name="HsinchuCountry">Hsinchu Country</string>
+    <string name="Taichung">Taichung City</string>
+    <string name="Tainan">Tainan City</string>
+    <string name="Kaohsiung">Kaohsiung City</string>
+    <string name="Yilan">Yilan Country</string>
+    <string name="Taoyuan">Taoyuan City</string>
+    <string name="Miaoli">Miaoli Country</string>
+    <string name="Changhua">Changhua Country</string>
+    <string name="Nantou">Nantou Country</string>
+    <string name="Yunlin">Yunlin Country</string>
+    <string name="Chiayi">Chiayi City</string>
+    <string name="ChiayiCountry">Chiayi Country</string>
+    <string name="Pingtung">Pingtung Country</string>
+    <string name="Taitung">Taitung</string>
+    <string name="Hualien">Hualien Country</string>
+    <string name="Penghu">Penghu Country</string>
+    <string name="Kinmen">Kinmen Country</string>
+    <string name="Lienchiang">Lienchiang Country</string>
+
     <string name="tv_condition">Condition</string>
     <string name="tvChill">Feel: </string>
     <string name="tv_wind">Wind speed and direction</string>

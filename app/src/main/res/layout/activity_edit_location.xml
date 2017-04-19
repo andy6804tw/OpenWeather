@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="city : "
         android:id="@+id/tv_city"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textColor="#fff"
         />
 

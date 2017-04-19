@@ -26,7 +26,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
-import com.openweather.openweather.View.SunBabyLoadingView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,8 +62,7 @@ public class EditLocationActivity extends AppCompatActivity {
 
         tvCity = (TextView) findViewById(R.id.tv_city);
         listView = (ListView) findViewById(R.id.lvGroup);
-        Log.d(TAG, "pre :"+strCity);
-        tvCity.setText("選擇城市 : " + strCity);
+        tvCity.setText(getResources().getString(R.string.SelectCity)+": " + strCity);
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         mContext=getApplicationContext();
 
@@ -83,7 +81,7 @@ public class EditLocationActivity extends AppCompatActivity {
                 mPlace = viewHolder.tv.getText().toString();
                 //queryEnCityName(text);
 
-                tvCity.setText("選擇城市 : " + mPlace);
+                tvCity.setText(getResources().getString(R.string.SelectCity)+": " + mPlace);
                 init_PlaceWeather();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -102,14 +100,18 @@ public class EditLocationActivity extends AppCompatActivity {
     private void initDataList() {
         groups = new ArrayList<String>();
         groups.add(getResources().getString(R.string.Keelung));
+        groups.add(getResources().getString(R.string.NewTaipei));
         groups.add(getResources().getString(R.string.Taipei));
         groups.add(getResources().getString(R.string.Taoyuan));
         groups.add(getResources().getString(R.string.Hsinchu));
+        groups.add(getResources().getString(R.string.HsinchuCountry));
         groups.add(getResources().getString(R.string.Miaoli));
         groups.add(getResources().getString(R.string.Taichung));
         groups.add(getResources().getString(R.string.Changhua));
+        groups.add(getResources().getString(R.string.Nantou));
         groups.add(getResources().getString(R.string.Yunlin));
         groups.add(getResources().getString(R.string.Chiayi));
+        groups.add(getResources().getString(R.string.ChiayiCountry));
         groups.add(getResources().getString(R.string.Tainan));
         groups.add(getResources().getString(R.string.Kaohsiung));
         groups.add(getResources().getString(R.string.Pingtung));
@@ -118,69 +120,7 @@ public class EditLocationActivity extends AppCompatActivity {
         groups.add(getResources().getString(R.string.Yilan));
         groups.add(getResources().getString(R.string.Penghu));
         groups.add(getResources().getString(R.string.Kinmen));
-        groups.add(getResources().getString(R.string.Matsu));
-    }
-
-
-    public String queryEnCityName(String city) {
-
-        switch (city) {
-
-            case "基隆":
-                city = "Keelung";
-                break;
-            case "台北":
-                city = "Taipei";
-                break;
-            case "桃園":
-                city = "Taoyuan";
-                break;
-            case "新竹":
-                city = "Hsinchu";
-                break;
-            case "苗栗":
-                city = "Miaoli";
-                break;
-            case "台中":
-                city = "Taichung";
-                break;
-            case "彰化":
-                city = "Changhua";
-                break;
-            case "雲林":
-                city = "Yunlin";
-                break;
-            case "嘉義":
-                city = "Chiayi";
-                break;
-            case "高雄":
-                city = "Taipei";
-                break;
-            case "屏東":
-                city = "Taipei";
-                break;
-            case "台東":
-                city = "Taipei";
-                break;
-            case "花蓮":
-                city = "Hualien";
-                break;
-            case "宜蘭":
-                city = "Yilan";
-                break;
-            case "澎湖":
-                city = "Penghu";
-                break;
-            case "金門":
-                city = "Kinmen";
-                break;
-            case "馬祖":
-                city = "Matsu";
-                break;
-
-        }
-
-        return city;
+        groups.add(getResources().getString(R.string.Lienchiang));
     }
 
 
@@ -238,8 +178,15 @@ public class EditLocationActivity extends AppCompatActivity {
         ///**撈取天氣資料START**///
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
+        //處理英文空白字串增加%20
+        String tempPlace=mPlace;
+        if(mPlace.split(" ").length==2)
+            mPlace=mPlace.split(" ")[0]+"%20"+mPlace.split(" ")[1];
+        if(mPlace.split(" ").length==3)
+            mPlace=mPlace.split(" ")[0]+"%20"+mPlace.split(" ")[1]+"%20"+mPlace.split(" ")[2];
         String url= "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D\""+mPlace+"\")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-
+        //把空白%20變回
+        mPlace=tempPlace;
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -252,7 +199,7 @@ public class EditLocationActivity extends AppCompatActivity {
                             jsonObject = new JSONObject(response);
                             //位置 Location
                             mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
-                            mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
+                            mCity = mPlace;
                             //寫入 Location 資料表
                             mAccess.update("0",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                             //風 wind
@@ -380,7 +327,6 @@ public class EditLocationActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(EditLocationActivity.this, "無法連接網路!", Toast.LENGTH_SHORT).show();
-                SunBabyLoadingView.str = "正載入歷史資料...";
             }
         });
         // Add the request to the RequestQueue.
