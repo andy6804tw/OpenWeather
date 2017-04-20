@@ -9,4 +9,8 @@
     <dimen name="slide_title">30dp</dimen>
     <dimen name="slide_desc">16dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
+    <dimen name="ivNow_paddingRight">-15dp</dimen>
+    <dimen name="ivNow_paddingRight2">3dp</dimen>
+    <dimen name="ivNow_paddingTop">4dp</dimen>
+
 </resources>

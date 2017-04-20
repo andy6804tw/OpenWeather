@@ -132,14 +132,14 @@
     <string name="next">下一個</string>
     <string name="skip">跳過</string>
     <string name="start">開始</string>
-    <string name="slide_1_title">哈囉!</string>
-    <string name="slide_1_desc">歡迎使用天氣小幫手!</string>
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_1_title">即時天氣</string>
+    <string name="slide_1_desc">OpenWeather精準即時掌握天氣!</string>
+    <string name="slide_2_title">氣象預報</string>
+    <string name="slide_2_desc">我們提供5日以及10日的天氣預報</string>
+    <string name="slide_3_title">空氣品質</string>
+    <string name="slide_3_desc">包含AQI、PM2.5以及多項環境即時資訊</string>
+    <string name="slide_4_title">紫外線</string>
+    <string name="slide_4_desc">即時的紫外線數據，並且能一目了然知道即時情況</string>
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
 

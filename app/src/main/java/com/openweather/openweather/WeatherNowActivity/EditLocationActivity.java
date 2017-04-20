@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.openweather.openweather.DataBase.DBAccessWeather;
+import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
 
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class EditLocationActivity extends AppCompatActivity {
     String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
     private Context mContext;
     String mPlace="Taipei";
+    public static Boolean myPlace=false;
 
     class ViewHolder {
         TextView tv;
@@ -59,6 +61,7 @@ public class EditLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_location);
+        ExitApplication.getInstance().addActivity(this);
 
         tvCity = (TextView) findViewById(R.id.tv_city);
         listView = (ListView) findViewById(R.id.lvGroup);
@@ -80,9 +83,9 @@ public class EditLocationActivity extends AppCompatActivity {
                 ViewHolder viewHolder = (ViewHolder) view.getTag();
                 mPlace = viewHolder.tv.getText().toString();
                 //queryEnCityName(text);
-
                 tvCity.setText(getResources().getString(R.string.SelectCity)+": " + mPlace);
                 init_PlaceWeather();
+                EditLocationActivity.myPlace=true;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

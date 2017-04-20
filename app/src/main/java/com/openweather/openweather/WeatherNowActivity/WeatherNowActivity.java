@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     private long temptime = 0;//計算退出秒數
     private TextView tvTime,tvCity;
+    private  ImageView ivNow;
     GPSTracker mGps;
     DBAccessWeather mAccess;
     double latitude,longtitude;
@@ -82,13 +84,14 @@ public class WeatherNowActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_now);
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         ExitApplication.getInstance().addActivity(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mBlurredView = (BlurredView) findViewById(R.id.blurredview);
         tvTime=(TextView)findViewById(R.id.tvTime);
         tvCity=(TextView)findViewById(R.id.tvCity);
+        ivNow=(ImageView)findViewById(R.id.ivNow);
         settings=getSharedPreferences("Data",MODE_PRIVATE);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
@@ -113,6 +116,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         layout.setRefreshing(false);
+                        EditLocationActivity.myPlace=false;
                         initInfo();
                         Cursor cl1 = mAccess.getData("Location", null, null);
                         cl1.moveToFirst();
@@ -547,12 +551,27 @@ public class WeatherNowActivity extends AppCompatActivity {
             else
                 tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
+            if(EditLocationActivity.myPlace) {
+                ivNow.setVisibility(View.INVISIBLE);
+                ivNow.setPadding(0, 0, (int) getResources().getDimension(R.dimen.ivNow_paddingRight), 0);
+            }else{
+                ivNow.setVisibility(View.VISIBLE);
+                ivNow.setPadding(0, (int) getResources().getDimension(R.dimen.ivNow_paddingTop), (int) getResources().getDimension(R.dimen.ivNow_paddingRight2), 0);
+            }
         }
         else{
             if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12)
                 hour+=12;
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
             tvCity.setText(cl1.getString(2));
+            if(EditLocationActivity.myPlace) {
+                ivNow.setVisibility(View.INVISIBLE);
+                ivNow.setPadding(0, 0, (int) getResources().getDimension(R.dimen.ivNow_paddingRight), 0);
+            }else{
+                ivNow.setVisibility(View.VISIBLE);
+                ivNow.setPadding(0,  (int) getResources().getDimension(R.dimen.ivNow_paddingTop), (int) getResources().getDimension(R.dimen.ivNow_paddingRight2), 0);
+            }
+
         }
         mRecyclerView.setAdapter(new WeatherNowRVA(WeatherNowActivity.this));
         mAlpha=0;
@@ -626,15 +645,6 @@ public class WeatherNowActivity extends AppCompatActivity {
 
     public void rePlace(View view) {
         startActivity(new Intent(WeatherNowActivity.this,EditLocationActivity.class));
-        /*layout.setRefreshing(true);
-        init_PlaceWeather();
-        layout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onResume();
-                layout.setRefreshing(false);
-            }
-        }, 3000);*/
     }
 
 

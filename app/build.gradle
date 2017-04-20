@@ -22,8 +22,8 @@ android {
         applicationId "com.openweather.openweather"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
@@ -58,5 +58,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.2.0'
     compile 'com.github.pwittchen:weathericonview:1.1.0'
     compile 'me.drakeet:breathingviewhelper:1.0.0'
+    compile 'com.kaopiz:kprogresshud:1.0.5'
     testCompile 'junit:junit:4.12'
 }
