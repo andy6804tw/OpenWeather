@@ -6,14 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cardview_light_background"
     tools:context="com.openweather.openweather.Pm25Activity">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_hamburg"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
     <WebView
         android:id="@+id/webView"

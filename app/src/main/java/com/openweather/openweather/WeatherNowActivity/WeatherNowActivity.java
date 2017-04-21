@@ -217,14 +217,14 @@ public class WeatherNowActivity extends AppCompatActivity {
     }
     private void setupGridMenu() {
         List<GridMenu> menus = new ArrayList<>();
-        menus.add(new GridMenu("即時天氣", R.drawable.home));
-        menus.add(new GridMenu("氣溫圖", R.drawable.calendar));
-        menus.add(new GridMenu("紫外線", R.drawable.overview));
-        menus.add(new GridMenu("全台PM2.5", R.drawable.groups));
-        menus.add(new GridMenu("即時水庫", R.drawable.lists));
-        menus.add(new GridMenu("Profile", R.drawable.profile));
-        menus.add(new GridMenu("Timeline", R.drawable.timeline));
-        menus.add(new GridMenu("Setting", R.drawable.settings));
+        menus.add(new GridMenu("即時天氣", R.mipmap.weather_now));
+        menus.add(new GridMenu("氣溫圖", R.mipmap.temperature));
+        menus.add(new GridMenu("紫外線", R.mipmap.uvi));
+        menus.add(new GridMenu("全台PM2.5", R.mipmap.mask));
+        menus.add(new GridMenu("即時水庫", R.mipmap.water));
+        //menus.add(new GridMenu("Profile", R.drawable.profile));
+        //menus.add(new GridMenu("Timeline", R.drawable.timeline));
+        //menus.add(new GridMenu("Setting", R.mipmap.settings));
 
         mGridMenuFragment.setupMenu(menus);
     }
