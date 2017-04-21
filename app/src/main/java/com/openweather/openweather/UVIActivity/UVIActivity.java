@@ -2,6 +2,7 @@ package com.openweather.openweather.UVIActivity;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -9,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.Pm25Activity;
@@ -29,14 +32,53 @@ public class UVIActivity extends AppCompatActivity {
 
     private GridMenuFragment mGridMenuFragment;
     private long temptime = 0;//計算退出秒數
+    DBAccessEnvironment mAccess2;
+    private TextView tvUv,tvCity,tvLocation,tvPublishTime,tvPublishAgency,tvSiteName,tvStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uvi);
         ExitApplication.getInstance().addActivity(this);
+        mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
+        Cursor c = mAccess2.getData("Ultraviolet", null, null);
+        c.moveToFirst();
+        Toast.makeText(UVIActivity.this,c.getString(1)+" "+c.getString(2)+" "+c.getString(3)+" "+c.getString(4),Toast.LENGTH_SHORT).show();
+        Cursor cl1 = mAccess2.getData("Location", null, null);
+        cl1.moveToFirst();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        tvUv=(TextView)findViewById(R.id.tvUv);
+        tvCity=(TextView)findViewById(R.id.tvCity);
+        tvLocation=(TextView)findViewById(R.id.tvLocation);
+        tvPublishTime=(TextView)findViewById(R.id.tvPublishTime);
+        tvPublishAgency=(TextView)findViewById(R.id.tvPublishAgency);
+        tvSiteName=(TextView)findViewById(R.id.tvSiteName);
+        tvStr=(TextView)findViewById(R.id.tvStr);
+        tvUv.setText(c.getString(1));
+        tvPublishTime.setText("發布時間: "+c.getString(3));
+        tvPublishAgency.setText("發布機關: "+c.getString(2));
+        tvSiteName.setText("測站: "+c.getString(4));
+        tvLocation.setText("您目前的位置為: "+cl1.getString(3));
+        tvCity.setText(cl1.getString(2));
+        if(c.getShort(1)==0||c.getShort(1)==1||c.getShort(1)==2){
+            tvStr.setText("低量級");
+        }
+        else if(c.getShort(1)==3||c.getShort(1)==4||c.getShort(1)==5){
+            tvStr.setText("中量級");
+        }
+        else if(c.getShort(1)==6||c.getShort(1)==7){
+            tvStr.setText("高量級");
+        }
+        else if(c.getShort(1)==8||c.getShort(1)==9||c.getShort(1)==10){
+            tvStr.setText("過量級");
+        }
+        else if(c.getShort(1)>=11){
+            tvStr.setText("危險級");
+        }
+
+
     // start
         BreathingViewHelper.setBreathingBackgroundColor(
                 findViewById(R.id.relativelatout),

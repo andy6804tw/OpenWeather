@@ -106,9 +106,8 @@ public class WeatherNowActivity extends AppCompatActivity {
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
-        Cursor c = mAccess2.getData("Location", null, null);
-        c.moveToFirst();
-        Toast.makeText(WeatherNowActivity.this,c.getString(2),Toast.LENGTH_SHORT).show();
+
+
 
         blurred_init();//背景初始化
 
@@ -172,7 +171,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
                 tx.commit();
-                Toast.makeText(WeatherNowActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+
             }
         });
 

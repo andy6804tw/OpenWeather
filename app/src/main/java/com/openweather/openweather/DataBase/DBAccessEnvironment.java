@@ -113,7 +113,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
     public long add(){
 
         SQLiteDatabase db = getWritableDatabase();
-
+/*
         //Location
         ContentValues va1 = new ContentValues();
         va1.put("loc_id", 1);
@@ -139,7 +139,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         va2.put("NOX",7);
         va2.put("NO1",8);
         db.insert("AIR",null,va2);
-
+*/
         //AQI
         for(int i = 1;i<=6;i++){
             ContentValues va3 = new ContentValues();
@@ -283,7 +283,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
 
             }
         }
-
+/*
         //Ultraviolet
         ContentValues va5 = new ContentValues();
         va5.put("loc_id",1);
@@ -307,7 +307,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         va6.put("Rainfall3hr",900);
         va6.put("Rainfall12hr",1751);
         db.insert("Rain",null,va6);
-
+*/
 
         db.close();
         return 1;
@@ -417,7 +417,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
     }
 
     //Ultraviolet
-    public long add(String loc_id,int UVI,String PublishAgency,String PublishTime,String SiteName,String latitude,String longitude){
+    public long add(String loc_id,int UVI,String PublishAgency,String PublishTime,String SiteName,double latitude,double longitude){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);

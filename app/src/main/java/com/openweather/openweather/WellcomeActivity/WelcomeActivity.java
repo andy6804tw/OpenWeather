@@ -642,7 +642,12 @@ public class WelcomeActivity extends AppCompatActivity {
                             String PublishTime=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishTime");
                             Log.e("UVI Result","The UVISite closest to you is "+SiteName+"測站  distance->"+min+" km"+" "+index);
                             Log.e("UVI info","SiteName:"+SiteName+" UVI:"+UVI+" PublishAgency:"+PublishAgency+" PublishTime:"+PublishTime);
-
+                            Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+                            cl5.moveToFirst();
+                            if(cl5.getCount()==0) {
+                                mAccess2.add();
+                                mAccess2.add("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
