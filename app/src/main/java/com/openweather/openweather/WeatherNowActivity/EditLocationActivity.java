@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.R;
@@ -55,7 +56,7 @@ public class EditLocationActivity extends AppCompatActivity {
     private String default_cityName = "Taipei";
     String strCity = "";
     private String prefName = "prefSet";
-
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +70,7 @@ public class EditLocationActivity extends AppCompatActivity {
         mAccess = new DBAccessWeather(this, "weather", null, 1);
         mContext=getApplicationContext();
 
-
         initDataList();
-
-
-
 
         GroupAdapter adapter = new GroupAdapter(this, groups);
         listView.setAdapter(adapter);
@@ -86,20 +83,32 @@ public class EditLocationActivity extends AppCompatActivity {
                 tvCity.setText(getResources().getString(R.string.SelectCity)+": " + mPlace);
                 init_PlaceWeather();
                 EditLocationActivity.myPlace=true;
-                new Handler().postDelayed(new Runnable() {
+               /* new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         startActivity( new Intent(EditLocationActivity.this, WeatherNowActivity.class));
                     }
-                }, 3000);
-
-
-
+                }, 3000);*/
+                hud = KProgressHUD.create(EditLocationActivity.this)
+                        .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                        .setLabel("請稍後...")
+                        .setDimAmount(0.5f);
+                scheduleDismiss();
+                hud.show();
             }
         });
 
     }
-
+    private void scheduleDismiss() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hud.dismiss();
+                startActivity( new Intent(EditLocationActivity.this, WeatherNowActivity.class));
+            }
+        }, 3000);
+    }
     private void initDataList() {
         groups = new ArrayList<String>();
         groups.add(getResources().getString(R.string.Keelung));
