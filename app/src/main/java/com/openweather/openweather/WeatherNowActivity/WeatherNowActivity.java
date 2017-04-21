@@ -1,15 +1,18 @@
 package com.openweather.openweather.WeatherNowActivity;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,14 +31,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.baoyz.widget.PullRefreshLayout;
-import com.crashlytics.android.Crashlytics;
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
+import com.openweather.openweather.Main2Activity;
+import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
+import com.openweather.openweather.Settings.SettingsActivity;
+import com.openweather.openweather.UVIActivity.UVIActivity;
 import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
@@ -44,8 +50,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.fabric.sdk.android.Fabric;
 
 public class WeatherNowActivity extends AppCompatActivity {
 
@@ -117,10 +121,8 @@ public class WeatherNowActivity extends AppCompatActivity {
                     public void run() {
                         layout.setRefreshing(false);
                         EditLocationActivity.myPlace=false;
-                        initInfo();
-                        Cursor cl1 = mAccess.getData("Location", null, null);
-                        cl1.moveToFirst();
-                        Log.e("GPS",latitude+" "+longtitude+" "+cl1.getString(2));
+                        onResume();
+
                     }
                 }, 3000);
             }
@@ -161,22 +163,22 @@ public class WeatherNowActivity extends AppCompatActivity {
         findViewById(R.id.imageView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
-                tx.commit();*/
+                tx.commit();
                 Toast.makeText(WeatherNowActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
             }
         });
 
-        /*setupGridMenu();
+        setupGridMenu();
 
         mGridMenuFragment.setOnClickMenuListener(new GridMenuFragment.OnClickMenuListener() {
             @Override
             public void onClickMenu(GridMenu gridMenu, int position) {
 
                 if(position==1) {
-                    Intent intent = new Intent(WeatherNowActivity.this, MainActivity.class);
+                    Intent intent = new Intent(WeatherNowActivity.this, Main2Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -211,15 +213,15 @@ public class WeatherNowActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });*/
+        });
     }
     private void setupGridMenu() {
         List<GridMenu> menus = new ArrayList<>();
-        menus.add(new GridMenu("Home", R.drawable.home));
-        menus.add(new GridMenu("Calendar", R.drawable.calendar));
-        menus.add(new GridMenu("Overview", R.drawable.overview));
-        menus.add(new GridMenu("Groups", R.drawable.groups));
-        menus.add(new GridMenu("Lists", R.drawable.lists));
+        menus.add(new GridMenu("即時天氣", R.drawable.home));
+        menus.add(new GridMenu("氣溫圖", R.drawable.calendar));
+        menus.add(new GridMenu("紫外線", R.drawable.overview));
+        menus.add(new GridMenu("全台PM2.5", R.drawable.groups));
+        menus.add(new GridMenu("即時水庫", R.drawable.lists));
         menus.add(new GridMenu("Profile", R.drawable.profile));
         menus.add(new GridMenu("Timeline", R.drawable.timeline));
         menus.add(new GridMenu("Setting", R.drawable.settings));
