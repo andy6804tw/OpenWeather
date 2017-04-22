@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity  {
 
     GPSTracker mGps;
     DBAccessWeather mAccess;
-    double latitude,longtitude;
+    double mLatitude,mLongitude;
     String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
     private Context mContext;
     DBAccessEnvironment mAccess2;
@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity  {
 
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null,1);
-        //mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
+        mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
 
     }
 
@@ -91,6 +91,7 @@ public class SplashActivity extends AppCompatActivity  {
         }else{
             init_GPS();
             init_Weather();
+            init_UV();
             //init_Environment();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -121,7 +122,7 @@ public class SplashActivity extends AppCompatActivity  {
         ///**撈取天氣資料START**///
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D\"("+latitude+","+longtitude+")\")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        String url = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D\"("+mLatitude+","+mLongitude+")\")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -134,11 +135,11 @@ public class SplashActivity extends AppCompatActivity  {
                         try {
                             jsonObject = new JSONObject(response);
                             //位置 Location
-                            if(!(latitude>=20&&latitude<=27)&&!(longtitude>=118&&longtitude<=124)){
+                            if(!(mLatitude>=20&&mLatitude<=27)&&!(mLongitude>=118&&mLongitude<=124)){
                                 mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
                                 mCity = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("city");
                                 //寫入 Location 資料表
-                                mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
+                                mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
                             }
                             //風 wind
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
@@ -276,16 +277,16 @@ public class SplashActivity extends AppCompatActivity  {
     private void init_GPS() {
         mGps = new GPSTracker(this);
         if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
-            latitude = mGps.getLatitude();
-            longtitude =mGps.getLongtitude();
-            if((latitude>=20&&latitude<=27)&&(longtitude>=118&&longtitude<=124))
+            mLatitude = mGps.getLatitude();
+            mLongitude =mGps.getLongtitude();
+            if((mLatitude>=20&&mLatitude<=27)&&(mLongitude>=118&&mLongitude<=124))
                 mLanguage="zh-TW";
 
             //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
             ///**撈取時間資料START**///
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longtitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + mLatitude + "," + mLongitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
 
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -307,10 +308,10 @@ public class SplashActivity extends AppCompatActivity  {
                                 Cursor c = mAccess.getData("Location", null, null);
                                 c.moveToFirst();
                                 if(c.getCount()==0){
-                                    mAccess.add("1",mCountry,mCity,mDistrict,mVillage,latitude+"",longtitude+"");
-                                }else if(c.getDouble(5)!=latitude||c.getDouble(6)!=longtitude){
+                                    mAccess.add("1",mCountry,mCity,mDistrict,mVillage,mLatitude+"",mLongitude+"");
+                                }else if(c.getDouble(5)!=mLatitude||c.getDouble(6)!=mLongitude){
                                     //Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
-                                    mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
+                                    mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -347,6 +348,217 @@ public class SplashActivity extends AppCompatActivity  {
             }
         }
     }
+    //計算兩點距離
+    public  double calLocation(double wd1, double jd1, double wd2, double jd2) {
+        double x, y, out;
+        double PI = 3.14159265;
+        double R = 6.371229 * 1e6;
+
+        x = (jd2 - jd1) * PI * R * Math.cos(((wd1 + wd2) / 2) * PI / 180) / 180;
+        y = (wd2 - wd1) * PI * R / 180;
+        out = Math.hypot(x, y);
+        return out / 1000;
+    }
+    public double transWGS84(String WGS84){
+        String arr[]=WGS84.split(",");
+        return Double.parseDouble(arr[0])+Double.parseDouble(arr[1])/60+Double.parseDouble(arr[2])/3600;
+    }
+    public void initAirLoc() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000005?sort=SiteName&offset=0&limit=1000";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+
+                        JSONObject jsonObject;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            //Log.e("jsonObject",jsonObject.toString());
+                            //String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(0).getString("SiteName");
+                            Double min=Double.MAX_VALUE;
+                            String siteName="";
+                            int index=0;
+                            for(int i=0;i<jsonObject.getJSONObject("result").getJSONArray("records").length();i++){
+                                String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("SiteName");
+                                String latitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("TWD97Lat");
+                                String longitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("TWD97Lon");
+                                Double loc=calLocation(mLatitude,mLongitude,Double.parseDouble(latitude),Double.parseDouble(longitude));
+                                if(min>loc) {
+                                    index=i;
+                                    min = loc;
+                                    siteName=SiteName;
+                                }
+                                //Log.e("Data"+i,"測站:"+SiteName+"    經度:"+latitude+"    緯度:"+longitude+"   "+loc+"km");
+                            }
+                            //Log.e("Informatin","Your Location is: "+mLatitude+","+mLongitude);
+                            //Log.e("Air Result","The AirSite closest to you is "+siteName+"測站  distance->"+min+" km"+" "+index);
+                            initAir(index);//找出距離最近測站擷取空氣品質OpenData
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    public void initAir(int Airindex) {
+        final int index=Airindex;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-001805?sort=SiteName&offset=0&limit=1000";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+
+                        JSONObject jsonObject;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("SiteName");
+                            String PublishTime=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishTime");
+                            String AQI=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("AQI");
+                            String SO2=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("SO2");
+                            String CO=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("CO");
+                            String O3=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("O3");
+                            String PM10=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PM10");
+                            String PM25=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PM2.5");
+                            String NO2=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO2");
+                            String NOx=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NOx");
+                            String NO1=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    public void init_UV() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004?sort=PublishTime&offset=0&limit=1000";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+
+                        JSONObject jsonObject;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            Double min=Double.MAX_VALUE;
+                            int index=0;
+                            for(int i=0;i<jsonObject.getJSONObject("result").getJSONArray("records").length();i++){
+                                String latitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("WGS84Lat");
+                                String longitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("WGS84Lon");
+                                Double loc=calLocation(mLatitude,mLongitude,transWGS84(latitude),transWGS84(longitude));
+                                if(min>loc) {
+                                    index=i;
+                                    min = loc;
+                                }
+                                //Log.e("Data"+i,"測站:"+SiteName+"    經度:"+latitude+"    緯度:"+longitude+"   "+loc+"km");
+                            }
+                            String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("SiteName");
+                            String UVI=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("UVI");
+                            String PublishAgency=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishAgency");
+                            String PublishTime=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishTime");
+                            Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+                            cl5.moveToFirst();
+                            if(cl5.getCount()==0) {
+                                mAccess2.add();
+                                mAccess2.add("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
+                            }else{
+                                mAccess2.update("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude,null);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    public void initRain() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/315070000H-000001?sort=PublishTime&offset=0&limit=1000";
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+
+                        JSONObject jsonObject;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            Double min=Double.MAX_VALUE;
+                            int index=0;
+                            for(int i=0;i<jsonObject.getJSONObject("result").getJSONArray("records").length();i++){
+                                String latitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("TWD67Lat");
+                                String longitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("TWD67Lon");
+                                Double loc=calLocation(mLatitude,mLongitude,Double.parseDouble(latitude),Double.parseDouble(longitude));
+                                if(min>loc) {
+                                    index=i;
+                                    min = loc;
+                                }
+                                //Log.e("Data"+i,"測站:"+SiteName+"    經度:"+latitude+"    緯度:"+longitude+"   "+loc+"km");
+                            }
+                            String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("SiteName");
+                            String Now=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Now");
+                            String PublishAgency=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Unit");
+                            String Rainfall10min=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Rainfall10min");
+                            String Rainfall1hr=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Rainfall1hr");
+                            String Rainfall3hr=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Rainfall3hr");
+                            String Rainfall12hr=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("Rainfall12hr");
+                            String PublishTime=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishTime");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
     public void init_Environment(){
         Cursor cl1 = mAccess2.getData("Location", null, null);
         if(cl1.getCount()==0){
@@ -357,7 +569,7 @@ public class SplashActivity extends AppCompatActivity  {
             //更新Air
             mAccess2.update("2","某時間",9,8,7,6,5,4,3,22,11,null);
             //更新Ultraviolet
-            mAccess2.update("2",28,"CJCU","11點","澎湖","159.258","753.951",null);
+            mAccess2.update("2",28,"CJCU","11點","澎湖",159.258,753.951,null);
             //更新Rain
             mAccess2.update("2","CJCU","11點","澎湖", 8521, 61,123,582,1234,null);
         }

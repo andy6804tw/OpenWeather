@@ -430,7 +430,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         return db.insert("Ultraviolet",null,values);
 
     }
-    public long update(String loc_id,int UVI,String PublishAgency,String PublishTime,String SiteName,String latitude,String longitude,String whereClause){
+    public long update(String loc_id,int UVI,String PublishAgency,String PublishTime,String SiteName,double latitude,double longitude,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);

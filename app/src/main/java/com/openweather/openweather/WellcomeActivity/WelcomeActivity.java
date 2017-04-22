@@ -286,7 +286,7 @@ public class WelcomeActivity extends AppCompatActivity {
             init_GPS();
             init_Weather();
             initAirLoc();
-            initUVI();
+            init_UV();
             initRain();
         }
         /***/
@@ -611,7 +611,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
-    public void initUVI() {
+    public void init_UV() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004?sort=PublishTime&offset=0&limit=1000";
         // Request a string response from the provided URL.
