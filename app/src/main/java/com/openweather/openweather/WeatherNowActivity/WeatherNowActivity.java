@@ -33,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.baoyz.widget.PullRefreshLayout;
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.openweather.openweather.AirActuvuty.AirMainActivity;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
@@ -211,6 +212,11 @@ public class WeatherNowActivity extends AppCompatActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.f74372017.twreservoir")));
                     }
                 }
+                if(position==5) {
+                    Intent intent = new Intent(WeatherNowActivity.this, AirMainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 if(position==7) {
                     Intent intent = new Intent(WeatherNowActivity.this, SettingsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -226,7 +232,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         menus.add(new GridMenu("紫外線", R.mipmap.uvi));
         menus.add(new GridMenu("全台PM2.5", R.mipmap.mask));
         menus.add(new GridMenu("即時水庫", R.mipmap.water));
-        //menus.add(new GridMenu("Profile", R.drawable.profile));
+        menus.add(new GridMenu("空氣品質", R.mipmap.env_air));
         //menus.add(new GridMenu("Timeline", R.drawable.timeline));
         //menus.add(new GridMenu("Setting", R.mipmap.settings));
 

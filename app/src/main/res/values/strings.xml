@@ -144,4 +144,27 @@
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
 
+    <string name="uv_suggest1">對人體無太大影響，外出時戴上太陽帽即可</string>
+    <string name="uv_suggest2">外出時除戴上太陽帽外還需備太陽鏡，並在身上塗上防晒霜，以避免皮膚受到太陽輻射的危害</string>
+    <string name="uv_suggest3">帽子/洋傘+防曬乳液+太陽眼鏡,盡量待在陰涼處</string>
+    <string name="uv_suggest4">帽子/陽傘+防曬液+太陽眼鏡+陰涼處+長袖衣物,上午十時至下午二時最好不外出</string>
+    <string name="uv_suggest5">帽子/陽傘+防曬液+太陽眼鏡+陰涼處+長袖衣物,上午十時至下午二時最好不外出</string>
+
+    <string-array name="meter">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

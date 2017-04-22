@@ -66,30 +66,50 @@ public class UVIActivity extends AppCompatActivity {
         if(c.getShort(1)==0||c.getShort(1)==1||c.getShort(1)==2){
             tvStr.setText("低量級");
             tvSuggest.setText(getResources().getString(R.string.uv_suggest1));
+            // start
+            BreathingViewHelper.setBreathingBackgroundColor(
+                    findViewById(R.id.relativelatout),
+                    getResources().getColor(R.color.alermUV1)
+            );
         }
         else if(c.getShort(1)==3||c.getShort(1)==4||c.getShort(1)==5){
             tvStr.setText("中量級");
             tvSuggest.setText(getResources().getString(R.string.uv_suggest2));
+            // start
+            BreathingViewHelper.setBreathingBackgroundColor(
+                    findViewById(R.id.relativelatout),
+                    getResources().getColor(R.color.alermUV2)
+            );
         }
         else if(c.getShort(1)==6||c.getShort(1)==7){
             tvStr.setText("高量級");
             tvSuggest.setText(getResources().getString(R.string.uv_suggest3));
+            // start
+            BreathingViewHelper.setBreathingBackgroundColor(
+                    findViewById(R.id.relativelatout),
+                    getResources().getColor(R.color.alermUV3)
+            );
         }
         else if(c.getShort(1)==8||c.getShort(1)==9||c.getShort(1)==10){
             tvStr.setText("過量級");
             tvSuggest.setText(getResources().getString(R.string.uv_suggest4));
+            // start
+            BreathingViewHelper.setBreathingBackgroundColor(
+                    findViewById(R.id.relativelatout),
+                    getResources().getColor(R.color.alermUV4)
+            );
         }
         else if(c.getShort(1)>=11){
             tvStr.setText("危險級");
             tvSuggest.setText(getResources().getString(R.string.uv_suggest5));
+            // start
+            BreathingViewHelper.setBreathingBackgroundColor(
+                    findViewById(R.id.relativelatout),
+                    getResources().getColor(R.color.alermUV5)
+            );
         }
 
 
-    // start
-        BreathingViewHelper.setBreathingBackgroundColor(
-                findViewById(R.id.relativelatout),
-                getResources().getColor(R.color.alermUVI)
-        );
     // stop
         //BreathingViewHelper.stopBreathingBackgroundColor(findViewById(R.id.relativelatout));
         mGridMenuFragment = GridMenuFragment.newInstance(R.mipmap.bguvi2);

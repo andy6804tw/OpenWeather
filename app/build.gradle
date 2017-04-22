@@ -59,5 +59,7 @@ dependencies {
     compile 'com.github.pwittchen:weathericonview:1.1.0'
     compile 'me.drakeet:breathingviewhelper:1.0.0'
     compile 'com.kaopiz:kprogresshud:1.0.5'
+    compile 'com.github.SuperKung:DashboardView:1.2.1'
+    compile 'devlight.io:navigationtabbar:1.2.5'
     testCompile 'junit:junit:4.12'
 }

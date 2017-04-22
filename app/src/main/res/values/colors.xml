@@ -12,7 +12,11 @@
     <color name="chartLow">#00ccff</color>
     <color name="tvForecast1">#fff</color>
     <color name="tvForecast2">#bcb9b9</color>
-    <color name="alermUVI">#11f72a5a</color>
+    <color name="alermUV1">#1b8dbf01</color>
+    <color name="alermUV2">#18f8d216</color>
+    <color name="alermUV3">#19f98a02</color>
+    <color name="alermUV4">#11f72a5a</color>
+    <color name="alermUV5">#16a747ed</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#ffc73e</color>
@@ -41,5 +45,13 @@
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
     </array>
+
+
+    <color name="alermAir1">#23ff24</color>
+    <color name="alermAir2">#ffff2b</color>
+    <color name="alermAir3">#ff9124</color>
+    <color name="alermAir4">#ff2424</color>
+    <color name="alermAir5">#8e3f96</color>
+    <color name="alermAir6">#7d0023</color>
 </resources>
 

@@ -26,6 +26,7 @@
         <activity android:name=".Settings.SettingsActivity" />
         <activity android:name=".UVIActivity.UVIActivity" />
         <activity android:name=".LoadingSplash.SplashActivity" />
+        <activity android:name=".AirActuvuty.AirMainActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

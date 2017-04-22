@@ -488,9 +488,9 @@ public class SplashActivity extends AppCompatActivity  {
                             cl5.moveToFirst();
                             if(cl5.getCount()==0) {
                                 mAccess2.add();
-                                mAccess2.add("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
+                                mAccess2.add("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
                             }else{
-                                mAccess2.update("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude,null);
+                                mAccess2.update("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude,null);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -594,7 +594,9 @@ public class WelcomeActivity extends AppCompatActivity {
                             String NO1=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO");
                             Log.e("Air info","SiteName:"+SiteName+"   PublishTime:"+PublishTime+"   AQI:"+AQI+"   SO2:"+SO2+"   CO:"+CO+"   O3:"+O3+"  PM10:"+PM10+"   PM25:"
                                     +PM25+"   NO2:"+NO2+"   NOX:"+NOx+"  NO:"+NO1);
-
+                            if(PM25.equals(""))
+                                PM25="0";
+                            Toast.makeText(WelcomeActivity.this,PM25+" "+Integer.parseInt(PM25),Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -646,7 +648,7 @@ public class WelcomeActivity extends AppCompatActivity {
                             cl5.moveToFirst();
                             if(cl5.getCount()==0) {
                                 mAccess2.add();
-                                mAccess2.add("1",Integer.parseInt(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
+                                mAccess2.add("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

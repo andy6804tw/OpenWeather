@@ -1,0 +1,110 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.openweather.openweather.AirActuvuty.AQIFragment"
+    android:background="#efeac3">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.anderson.dashboardview.view.DashboardView
+            android:id="@+id/dashboardView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scrollbarFadeDuration="220"
+            android:text="細懸浮微指標"
+            android:textSize="11dp"
+            app:backgroundColor="#cef5f5f5"
+            app:centerCircleColor="@color/colorPrimary"
+            app:endProgressColor="@color/RED"
+            app:maxNumber="10"
+            app:progressStrokeWidth="16dp"
+            app:startNumber="0"
+            app:startProgressColor="@color/GREEN"
+            app:tikeStrArray="@array/meter"
+            app:tikeStrColor="@color/colorAccent"
+            app:tikeStrSize="10dp"
+            app:unit="ug/m3" />
+
+        <TextView
+            android:id="@+id/tvAqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="31dp"
+            android:layout_marginRight="31dp"
+            android:layout_marginTop="20dp"
+            android:text="空氣指標\nAQI"
+            android:textSize="30sp" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/tvAqi"
+            android:layout_alignStart="@+id/tvAqi"
+            android:layout_below="@+id/tvAqi"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/round_box_air1">
+
+            <TextView
+                android:id="@+id/tvStr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="普 通"
+                android:textColor="#0d0d0d"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="330dp"
+            android:layout_height="140dp"
+            android:layout_alignLeft="@+id/textView"
+            android:layout_alignStart="@+id/textView"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_rect"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="活動建議:\n\n一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應減少體力消耗，特別是減少戶外活動。\n2.學生應避免長時間劇烈運動，進行其他戶外活動時應增加休息時間。"
+            android:textColor="#222123"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="330dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/dashboardView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_rect"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="人體健康影響:\n\n對所有人的健康開始產生影響，對於敏感族群可能產生較嚴重的健康影響。"
+            android:textColor="#222123"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPublishtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="最後更新時間2017-04-22 18:00"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+</FrameLayout>

@@ -149,4 +149,18 @@
     <string name="uv_suggest4">帽子/陽傘+防曬液+太陽眼鏡+陰涼處+長袖衣物,上午十時至下午二時最好不外出</string>
     <string name="uv_suggest5">帽子/陽傘+防曬液+太陽眼鏡+陰涼處+長袖衣物,上午十時至下午二時最好不外出</string>
 
+    <string-array name="meter">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
 </resources>
