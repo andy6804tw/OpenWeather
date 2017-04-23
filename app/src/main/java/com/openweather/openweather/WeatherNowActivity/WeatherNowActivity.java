@@ -535,8 +535,6 @@ public class WeatherNowActivity extends AppCompatActivity {
                 + cl8.getString(4) + " " + cl8.getString(5));*/
 
 
-
-
         initInfo();
         menu_init();//menu初始化
 
@@ -627,7 +625,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                 + cl2.getString(4) + " " + cl2.getString(5) + " "
                 + cl2.getString(6) + " " + cl2.getString(7) + " "
                 + cl2.getString(8) + " " + cl2.getString(9) + " "
-                + cl2.getString(10));
+                + cl2.getString(10) + " "+ cl2.getString(11));
 
         Cursor cl22 = access2.getData("AQI", null, null);
         cl22.moveToFirst();

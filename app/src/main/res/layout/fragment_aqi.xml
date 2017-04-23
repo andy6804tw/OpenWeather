@@ -30,7 +30,7 @@
             app:unit="ug/m3" />
 
         <TextView
-            android:id="@+id/tvAqi"
+            android:id="@+id/tvPM25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -46,9 +46,9 @@
             android:id="@+id/relativeLayout2"
             android:layout_width="110dp"
             android:layout_height="50dp"
-            android:layout_alignLeft="@+id/tvAqi"
-            android:layout_alignStart="@+id/tvAqi"
-            android:layout_below="@+id/tvAqi"
+            android:layout_alignLeft="@+id/tvPM25"
+            android:layout_alignStart="@+id/tvPM25"
+            android:layout_below="@+id/tvPM25"
             android:layout_marginTop="24dp"
             android:background="@drawable/round_box_air1">
 

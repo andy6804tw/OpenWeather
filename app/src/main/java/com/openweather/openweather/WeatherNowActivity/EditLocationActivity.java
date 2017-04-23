@@ -83,7 +83,7 @@ public class EditLocationActivity extends AppCompatActivity {
                 tvCity.setText(getResources().getString(R.string.SelectCity)+": " + mPlace);
                 init_PlaceWeather();
                 EditLocationActivity.myPlace=true;
-               /* new Handler().postDelayed(new Runnable() {
+                /*new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         startActivity( new Intent(EditLocationActivity.this, WeatherNowActivity.class));
@@ -213,7 +213,7 @@ public class EditLocationActivity extends AppCompatActivity {
                             mCountry = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("location").getString("country");
                             mCity = mPlace;
                             //寫入 Location 資料表
-                            mAccess.update("0",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
+                            mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                             //風 wind
                             String chill = jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("chill");
                             double direction = Double.parseDouble(jsonObject.getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("wind").getString("direction"));

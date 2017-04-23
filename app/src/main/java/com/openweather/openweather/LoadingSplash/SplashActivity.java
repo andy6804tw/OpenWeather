@@ -91,13 +91,16 @@ public class SplashActivity extends AppCompatActivity  {
         }else{
             init_GPS();
             init_Weather();
-            init_UV();
+            //init_UV();
+            //initAirLoc();
             //init_Environment();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Cursor c = mAccess.getData("Condition", null, null);
                     c.moveToFirst();
+                    Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+                    cl5.moveToFirst();
                     if(c.getCount()==0) {
                         SunBabyLoadingView.str = "資料重新建置中請收後...";
                         onResume();
@@ -395,7 +398,7 @@ public class SplashActivity extends AppCompatActivity  {
                             }
                             //Log.e("Informatin","Your Location is: "+mLatitude+","+mLongitude);
                             //Log.e("Air Result","The AirSite closest to you is "+siteName+"測站  distance->"+min+" km"+" "+index);
-                            initAir(index);//找出距離最近測站擷取空氣品質OpenData
+                            init_Air(index);//找出距離最近測站擷取空氣品質OpenData
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -413,7 +416,7 @@ public class SplashActivity extends AppCompatActivity  {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
-    public void initAir(int Airindex) {
+    public void init_Air(int Airindex) {
         final int index=Airindex;
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-001805?sort=SiteName&offset=0&limit=1000";
@@ -438,7 +441,15 @@ public class SplashActivity extends AppCompatActivity  {
                             String NO2=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO2");
                             String NOx=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NOx");
                             String NO1=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO");
-
+                            if(PM25.equals(""))
+                                PM25="0";
+                            Cursor cl2 = mAccess2.getData("AIR", null, null);
+                            cl2.moveToFirst();
+                            if(cl2.getCount()==0){
+                                mAccess2.add("1", PublishTime, SiteName, AQI, SO2, CO, O3, PM10, PM25, NO2, NOx, NO1);
+                            }else{
+                                mAccess2.update("1", PublishTime, SiteName, AQI, SO2, CO, O3, PM10, PM25, NO2, NOx, NO1,null);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -501,6 +512,11 @@ public class SplashActivity extends AppCompatActivity  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+                Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+                cl5.moveToFirst();
+                if(cl5.getCount()==0) {
+                    mAccess2.add("1", 0, "null", "null", "null", 0.0, 0.0);
+                }
             }
 
         });
@@ -567,7 +583,7 @@ public class SplashActivity extends AppCompatActivity  {
             //更新Location
             mAccess2.update("2","台灣","台南市","歸仁區","大潭里","22.9072455","120.2685797",null);
             //更新Air
-            mAccess2.update("2","某時間",9,8,7,6,5,4,3,22,11,null);
+            mAccess2.update("2","某時間","台南","9","8","9","9","9","9","9","9","9",null);
             //更新Ultraviolet
             mAccess2.update("2",28,"CJCU","11點","澎湖",159.258,753.951,null);
             //更新Rain

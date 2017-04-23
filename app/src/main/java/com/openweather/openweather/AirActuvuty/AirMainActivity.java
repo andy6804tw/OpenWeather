@@ -26,7 +26,7 @@ public class AirMainActivity extends AppCompatActivity {
         viewPager=(ViewPager)findViewById(R.id.viewPager);
         viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new AQIFragment(),"AQI");
-        viewPagerAdapter.addFragments(new BlankFragment(),"PM25");
+        viewPagerAdapter.addFragments(new PM25Fragment(),"PM25");
         viewPagerAdapter.addFragments(new BlankFragment(),"AIR");
         viewPager.setAdapter(viewPagerAdapter);
         initUI();
@@ -71,7 +71,7 @@ public class AirMainActivity extends AppCompatActivity {
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.aqi1),
+                        getResources().getDrawable(R.mipmap.aqi),
                         Color.parseColor(colors[0]))
                         //.selectedIcon(getResources().getDrawable(R.mipmap.aqi2))
                         .title("AQI")

@@ -285,9 +285,14 @@ public class WelcomeActivity extends AppCompatActivity {
         }else{
             init_GPS();
             init_Weather();
-            initAirLoc();
-            init_UV();
-            initRain();
+            //initAirLoc();
+            //init_UV();
+            //initRain();
+            Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+            cl5.moveToFirst();
+            if(cl5.getCount()==0) {
+                mAccess2.add();
+            }
         }
         /***/
     }
@@ -596,7 +601,12 @@ public class WelcomeActivity extends AppCompatActivity {
                                     +PM25+"   NO2:"+NO2+"   NOX:"+NOx+"  NO:"+NO1);
                             if(PM25.equals(""))
                                 PM25="0";
-                            Toast.makeText(WelcomeActivity.this,PM25+" "+Integer.parseInt(PM25),Toast.LENGTH_SHORT).show();
+                            Cursor cl2 = mAccess2.getData("AIR", null, null);
+                            cl2.moveToFirst();
+                            if(cl2.getCount()==0){
+                                mAccess2.add("1", PublishTime, SiteName, AQI, SO2, CO, O3, PM10, PM25, NO2, NOx, NO1);
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -606,6 +616,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+                mAccess2.add("1", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null");
             }
 
         });
@@ -659,6 +670,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
+                mAccess2.add("1", 0, "null", "null", "null",0.0,0.0);
             }
 
         });

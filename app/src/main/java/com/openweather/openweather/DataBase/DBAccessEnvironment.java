@@ -35,6 +35,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         String sql2 = "create table AIR("
                 +"loc_id integer not null primary key,"
                 +"PublishTime string(20),"
+                +"SiteName string(10),"
                 +"AQI int(5),"
                 +"SO2 int(3),"
                 +"CO int(3),"
@@ -129,6 +130,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         ContentValues va2 = new ContentValues();
         va2.put("loc_id",1);
         va2.put("PublishTime","2017/03/10 15:30");
+        va2.put("SiteName","台南");
         va2.put("AQI",0);
         va2.put("SO2",1);
         va2.put("CO",2);
@@ -321,7 +323,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                         , whereStr, null, null, null, orderbyStr);
             }
             case "AIR":{
-                return db.query(NAME, new String[]{"loc_id", "PublishTime", "AQI", "SO2"
+                return db.query(NAME, new String[]{"loc_id", "PublishTime","SiteName", "AQI", "SO2"
                                 , "CO", "O3", "PM10","PM25","NO2","NOX","NO1"}
                         , whereStr, null, null, null, orderbyStr);
             }
@@ -381,11 +383,12 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
     }
 
     //AIR
-    public long add(String loc_id,String PublishTime,int AQI,int SO2,int CO,int O3,int PM10,int PM25,int NO2,int NOX,int NO1){
+    public long add(String loc_id,String PublishTime,String SiteName,String AQI,String SO2,String CO,String O3,String PM10,String PM25,String NO2,String NOX,String NO1){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
         values.put("PublishTime",PublishTime);
+        values.put("SiteName",SiteName);
         values.put("AQI",AQI);
         values.put("SO2",SO2);
         values.put("CO",CO);
@@ -397,11 +400,12 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         values.put("NO1",NO1);
         return db.insert("AIR",null,values);
     }
-    public long update(String loc_id,String PublishTime,int AQI,int SO2,int CO,int O3,int PM10,int PM25,int NO2,int NOX,int NO1,String whereClause){
+    public long update(String loc_id,String PublishTime,String SiteName,String AQI,String SO2,String CO,String O3,String PM10,String PM25,String NO2,String NOX,String NO1,String whereClause){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values =new ContentValues();
         values.put("loc_id",loc_id);
         values.put("PublishTime",PublishTime);
+        values.put("SiteName",SiteName);
         values.put("AQI",AQI);
         values.put("SO2",SO2);
         values.put("CO",CO);
