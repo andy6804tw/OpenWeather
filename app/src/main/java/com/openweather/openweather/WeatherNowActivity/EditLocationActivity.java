@@ -192,6 +192,7 @@ public class EditLocationActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         //處理英文空白字串增加%20
         String tempPlace=mPlace;
+        mPlace=enCity(mPlace);
         if(mPlace.split(" ").length==2)
             mPlace=mPlace.split(" ")[0]+"%20"+mPlace.split(" ")[1];
         if(mPlace.split(" ").length==3)
@@ -344,6 +345,54 @@ public class EditLocationActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+    public String enCity(String city){
+        switch (city){
+            case "基隆市":
+                return "Keelung City";
+            case "新北市":
+                return "Taipei City";
+            case "臺北市":
+                return "New Taipei City";
+            case "新竹市":
+                return "Hsinchu City";
+            case "新竹縣":
+                return "Hsinchu Country";
+            case "臺中市":
+                return "Taichung City";
+            case "台南市":
+                return "Tainan City";
+            case "高雄市":
+                return "Kaohsiung City";
+            case "宜蘭縣":
+                return "Yilan Country";
+            case "桃園市":
+                return "Taoyuan City";
+            case "苗栗縣":
+                return "Miaoli Country";
+            case "彰化縣":
+                return "Changhua Country";
+            case "南投縣":
+                return "Nantou Country";
+            case "雲林縣":
+                return "Yunlin Country";
+            case "嘉義市":
+                return "Chiayi City";
+            case "嘉義縣":
+                return "Chiayi Country";
+            case "屏東縣":
+                return "Pingtung Country";
+            case "臺東縣":
+                return "Taitung";
+            case "花蓮縣":
+                return "Hualien Country";
+            case "澎湖縣":
+                return "Penghu Country";
+            case "金門縣":
+                return "Kinmen Country";
+            default:
+                return "Lienchiang Country";
 
+        }
+    }
 }
 

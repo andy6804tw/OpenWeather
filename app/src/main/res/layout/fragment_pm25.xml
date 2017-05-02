@@ -16,8 +16,8 @@
             custom:arc_bottom_text="PM2.5"
             custom:arc_bottom_text_size="20dp"
             custom:arc_finished_color="#1561bf"
-            custom:arc_max="80"
-            custom:arc_progress="22"
+            custom:arc_max="90"
+            custom:arc_progress="54"
             custom:arc_stroke_width="6dp"
             custom:arc_suffix_text=" μg/m3"
             custom:arc_suffix_text_padding="17dp"
@@ -39,7 +39,7 @@
             android:id="@+id/relativeLayout2"
             android:layout_width="110dp"
             android:layout_height="50dp"
-            android:background="@drawable/round_box_air1"
+            android:background="@drawable/round_box_air3"
             android:layout_marginRight="18dp"
             android:layout_marginEnd="18dp"
             android:layout_below="@+id/tvPM25"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="普 通"
+                android:text="高"
                 android:textColor="#0d0d0d"
                 android:textSize="20dp" />
         </RelativeLayout>
@@ -97,7 +97,7 @@
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:text="最後更新時間2017-04-22 18:00"
+            android:text="最後更新時間2017-04-26 12:01"
             android:textSize="10sp" />
     </RelativeLayout>
 

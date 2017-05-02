@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.goka.blurredgridmenu.GridMenu;
 import com.goka.blurredgridmenu.GridMenuFragment;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
@@ -47,6 +48,7 @@ public class UVIActivity extends AppCompatActivity {
     private TextView tvUv,tvCity,tvLocation,tvPublishTime,tvPublishAgency,tvSiteName,tvStr,tvSuggest;
     double mLatitude,mLongitude;
     GPSTracker mGps;
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +145,7 @@ public class UVIActivity extends AppCompatActivity {
         super.onResume();
         init_UV();
         mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
@@ -155,7 +157,30 @@ public class UVIActivity extends AppCompatActivity {
                 else
                     init_View();
             }
-        }, 6500);
+        }, 6500);*/
+        hud = KProgressHUD.create(UVIActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("請稍後...")
+                .setDimAmount(0.5f);
+        scheduleDismiss();
+        hud.show();
+    }
+    private void scheduleDismiss() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hud.dismiss();
+                Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
+                cl5.moveToFirst();
+                if(cl5.getCount()==0) {
+                    Toast.makeText(UVIActivity.this,"Wait!",Toast.LENGTH_SHORT).show();
+                    onResume();
+                }
+                else
+                    init_View();
+            }
+        }, 3000);
     }
 
     /**選單Menu**/
@@ -169,7 +194,7 @@ public class UVIActivity extends AppCompatActivity {
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
                 tx.commit();
-                Toast.makeText(UVIActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(UVIActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -295,7 +320,7 @@ public class UVIActivity extends AppCompatActivity {
                                 mAccess2.add("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
                             }else{
                                 mAccess2.update("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude,null);
-                                Toast.makeText(UVIActivity.this,"SUCCESS",Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(UVIActivity.this,"SUCCESS",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

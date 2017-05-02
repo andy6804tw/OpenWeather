@@ -76,7 +76,7 @@ public class Main2Activity extends AppCompatActivity {
                 tx.replace(R.id.main_frame, mGridMenuFragment);
                 tx.addToBackStack(null);
                 tx.commit();
-                Toast.makeText(Main2Activity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Main2Activity.this,"Coming soon",Toast.LENGTH_SHORT).show();
             }
         });
 
