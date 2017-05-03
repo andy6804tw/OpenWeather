@@ -38,11 +38,11 @@ import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
-import com.openweather.openweather.Main2Activity;
 import com.openweather.openweather.Pm25Activity;
 import com.openweather.openweather.R;
 import com.openweather.openweather.Settings.SettingsActivity;
-import com.openweather.openweather.UVIActivity.UVIActivity;
+import com.openweather.openweather.TemperatureActivity;
+import com.openweather.openweather.UltravioletActivity.UVIActivity;
 import com.openweather.openweather.View.SunBabyLoadingView;
 import com.qiushui.blurredview.BlurredView;
 
@@ -183,7 +183,7 @@ public class WeatherNowActivity extends AppCompatActivity {
             public void onClickMenu(GridMenu gridMenu, int position) {
 
                 if(position==1) {
-                    Intent intent = new Intent(WeatherNowActivity.this, Main2Activity.class);
+                    Intent intent = new Intent(WeatherNowActivity.this, TemperatureActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -191,7 +191,6 @@ public class WeatherNowActivity extends AppCompatActivity {
                     Intent intent = new Intent(WeatherNowActivity.this, UVIActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();
                 }
                 if(position==3) {
                     Intent intent = new Intent(WeatherNowActivity.this, Pm25Activity.class);

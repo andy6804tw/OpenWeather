@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bguvi2"
-    tools:context="com.openweather.openweather.UVIActivity.UVIActivity">
+    tools:context="com.openweather.openweather.UltravioletActivity.UVIActivity">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

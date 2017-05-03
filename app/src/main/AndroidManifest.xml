@@ -19,12 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".TemperatureActivity" />
         <activity android:name=".WeatherNowActivity.WeatherNowActivity" />
         <activity android:name=".Pm25Activity" />
         <activity android:name=".Settings.SettingsActivity" />
-        <activity android:name=".UVIActivity.UVIActivity" />
+        <activity android:name=".UltravioletActivity.UVIActivity" />
         <activity android:name=".LoadingSplash.SplashActivity" />
         <activity android:name=".AirActuvuty.AirMainActivity" />
 
@@ -32,7 +31,8 @@
             android:name="io.fabric.ApiKey"
             android:value="c35757b70465f6feb7def6349ac0f1052839f09f" />
 
-        <activity android:name=".WeatherNowActivity.EditLocationActivity"></activity>
+        <activity android:name=".WeatherNowActivity.EditLocationActivity" />
+
     </application>
 
 </manifest>
