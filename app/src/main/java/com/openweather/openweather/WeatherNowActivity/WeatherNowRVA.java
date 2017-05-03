@@ -226,9 +226,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                             tvDay1.setText(day(cl8.getString(2)));
                             //set temperature
                             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                                tvTemp1.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                                tvTemp1.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                             else
-                                tvTemp1.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                                tvTemp1.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                             //set icon
                             weatherIconView1.setIconSize(25);
                             weatherIconView1.setIconColor(Color.WHITE);
@@ -239,9 +239,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                             tvDay2.setText(day(cl8.getString(2)));
                             //set temperature
                             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                                tvTemp2.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                                tvTemp2.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                             else
-                                tvTemp2.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                                tvTemp2.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                             //set icon
                             weatherIconView2.setIconSize(25);
                             weatherIconView2.setIconColor(Color.WHITE);
@@ -252,9 +252,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                             tvDay3.setText(day(cl8.getString(2)));
                             //set Temperature
                             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                                tvTemp3.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                                tvTemp3.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                             else
-                                tvTemp3.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                                tvTemp3.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                             //set icon
                             weatherIconView3.setIconSize(25);
                             weatherIconView3.setIconColor(Color.WHITE);
@@ -265,9 +265,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                             tvDay4.setText(day(cl8.getString(2)));
                             //set temperature
                             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                                tvTemp4.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                                tvTemp4.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                             else
-                                tvTemp4.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                                tvTemp4.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                             //set icon
                             weatherIconView4.setIconSize(25);
                             weatherIconView4.setIconColor(Color.WHITE);
@@ -278,9 +278,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                             tvDay5.setText(day(cl8.getString(2)));
                             //set temperature
                             if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                                tvTemp5.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                                tvTemp5.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                             else
-                                tvTemp5.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                                tvTemp5.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                             //set icon
                             weatherIconView5.setIconSize(25);
                             weatherIconView5.setIconColor(Color.WHITE);
@@ -562,9 +562,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.tvDay1.setText(mContext.getString(R.string.Today));
                     //set temperature
                     if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                        viewHolder.tvTemp1.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                        viewHolder.tvTemp1.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                     else
-                        viewHolder.tvTemp1.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                        viewHolder.tvTemp1.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                     //set icon
                     viewHolder.weatherIconView1.setIconSize(25);
                     viewHolder.weatherIconView1.setIconColor(Color.WHITE);
@@ -575,9 +575,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.tvDay2.setText(mContext.getString(R.string.Tomorrow));
                     //set temperature
                     if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                        viewHolder.tvTemp2.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                        viewHolder.tvTemp2.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                     else
-                        viewHolder.tvTemp2.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                        viewHolder.tvTemp2.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                     //set icon
                     viewHolder.weatherIconView2.setIconSize(25);
                     viewHolder.weatherIconView2.setIconColor(Color.WHITE);
@@ -588,9 +588,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.tvDay3.setText(day(cl8.getString(2)));
                     //set Temperature
                     if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                        viewHolder.tvTemp3.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                        viewHolder.tvTemp3.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                     else
-                        viewHolder.tvTemp3.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                        viewHolder.tvTemp3.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                     //set icon
                     viewHolder.weatherIconView3.setIconSize(25);
                     viewHolder.weatherIconView3.setIconColor(Color.WHITE);
@@ -601,9 +601,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.tvDay4.setText(day(cl8.getString(2)));
                     //set temperature
                     if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                        viewHolder.tvTemp4.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                        viewHolder.tvTemp4.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                     else
-                        viewHolder.tvTemp4.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                        viewHolder.tvTemp4.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                     //set icon
                     viewHolder.weatherIconView4.setIconSize(25);
                     viewHolder.weatherIconView4.setIconColor(Color.WHITE);
@@ -614,9 +614,9 @@ public class WeatherNowRVA extends RecyclerView.Adapter<WeatherNowRVA.ViewHolder
                     viewHolder.tvDay5.setText(day(cl8.getString(2)));
                     //set temperature
                     if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals(""))
-                    viewHolder.tvTemp5.setText((int)Math.round((cl8.getShort(3)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(4)-32)*5/9.)+"°");
+                    viewHolder.tvTemp5.setText((int)Math.round((cl8.getShort(4)-32)*5/9.)+"°/"+(int)Math.round((cl8.getShort(3)-32)*5/9.)+"°");
                     else
-                    viewHolder.tvTemp5.setText(cl8.getShort(3)+"°/"+cl8.getShort(4)+"°");
+                    viewHolder.tvTemp5.setText(cl8.getShort(4)+"°/"+cl8.getShort(3)+"°");
                     //set icon
                     viewHolder.weatherIconView5.setIconSize(25);
                     viewHolder.weatherIconView5.setIconColor(Color.WHITE);

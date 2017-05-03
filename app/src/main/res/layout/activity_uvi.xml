@@ -7,14 +7,6 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bguvi2"
     tools:context="com.openweather.openweather.UltravioletActivity.UVIActivity">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_hamburg"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
