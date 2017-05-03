@@ -182,6 +182,9 @@ public class WeatherNowActivity extends AppCompatActivity {
             @Override
             public void onClickMenu(GridMenu gridMenu, int position) {
 
+                if(position==0) {
+                    onKeyDown(KeyEvent.KEYCODE_BACK,null);
+                }
                 if(position==1) {
                     Intent intent = new Intent(WeatherNowActivity.this, TemperatureActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
