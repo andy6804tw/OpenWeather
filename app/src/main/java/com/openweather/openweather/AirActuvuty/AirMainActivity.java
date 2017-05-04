@@ -304,6 +304,8 @@ public class AirMainActivity extends AppCompatActivity {
                             cl2.moveToFirst();
                             if(cl2.getCount()==0){
                                 mAccess2.add("1", PublishTime, SiteName, AQI, SO2, CO, O3, PM10, PM25, NO2, NOx, NO1);
+                            }else{
+                                mAccess2.update("1", PublishTime, SiteName, AQI, SO2, CO, O3, PM10, PM25, NO2, NOx, NO1,null);
                             }
 
                         } catch (JSONException e) {
