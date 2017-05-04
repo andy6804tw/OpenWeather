@@ -120,6 +120,8 @@ public class UVIActivity extends AppCompatActivity {
         c.moveToFirst();
         if(c.getCount()!=0)
             init_View();
+        //stop
+        BreathingViewHelper.stopBreathingBackgroundColor(findViewById(R.id.relativelatout));
         hud = KProgressHUD.create(UVIActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("請稍後...")
@@ -185,7 +187,6 @@ public class UVIActivity extends AppCompatActivity {
                                 mAccess2.add("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
                             }else{
                                 mAccess2.update("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude,null);
-                               // Toast.makeText(UVIActivity.this,"SUCCESS",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

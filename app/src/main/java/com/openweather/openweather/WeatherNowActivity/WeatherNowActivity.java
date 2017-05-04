@@ -219,7 +219,7 @@ public class WeatherNowActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
-                if(position==7) {
+                if(position==6) {
                     Intent intent = new Intent(WeatherNowActivity.this, SettingsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -236,7 +236,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         menus.add(new GridMenu("即時水庫", R.mipmap.water));
         menus.add(new GridMenu("空氣品質", R.mipmap.env_air));
         //menus.add(new GridMenu("Timeline", R.drawable.timeline));
-        //menus.add(new GridMenu("Setting", R.mipmap.settings));
+        menus.add(new GridMenu("Setting", R.mipmap.settings));
 
         mGridMenuFragment.setupMenu(menus);
     }

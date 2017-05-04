@@ -286,7 +286,6 @@ public class WelcomeActivity extends AppCompatActivity {
             init_GPS();
             init_Weather();
             //initAirLoc();
-            //init_UV();
             //initRain();
             Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
             cl5.moveToFirst();
@@ -617,60 +616,6 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
                 mAccess2.add("1", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null");
-            }
-
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-    }
-    public void init_UV() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004?sort=PublishTime&offset=0&limit=1000";
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-
-                        JSONObject jsonObject;
-                        try {
-                            jsonObject = new JSONObject(response);
-                            Double min=Double.MAX_VALUE;
-                            int index=0;
-                            for(int i=0;i<jsonObject.getJSONObject("result").getJSONArray("records").length();i++){
-                                String latitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("WGS84Lat");
-                                String longitude=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(i).getString("WGS84Lon");
-                                Double loc=calLocation(mLatitude,mLongitude,transWGS84(latitude),transWGS84(longitude));
-                                if(min>loc) {
-                                    index=i;
-                                    min = loc;
-                                }
-                                //Log.e("Data"+i,"測站:"+SiteName+"    經度:"+latitude+"    緯度:"+longitude+"   "+loc+"km");
-                            }
-                            String SiteName=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("SiteName");
-                            String UVI=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("UVI");
-                            String PublishAgency=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishAgency");
-                            String PublishTime=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("PublishTime");
-                            Log.e("UVI Result","The UVISite closest to you is "+SiteName+"測站  distance->"+min+" km"+" "+index);
-                            Log.e("UVI info","SiteName:"+SiteName+" UVI:"+UVI+" PublishAgency:"+PublishAgency+" PublishTime:"+PublishTime);
-                            Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
-                            cl5.moveToFirst();
-                            if(cl5.getCount()==0) {
-                                mAccess2.add();
-                                mAccess2.add("1",(int)Double.parseDouble(UVI),PublishAgency,PublishTime,SiteName,mLatitude,mLongitude);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
-                mAccess2.add("1", 0, "null", "null", "null",0.0,0.0);
             }
 
         });

@@ -99,8 +99,6 @@ public class SplashActivity extends AppCompatActivity  {
                 public void run() {
                     Cursor c = mAccess.getData("Condition", null, null);
                     c.moveToFirst();
-                    Cursor cl5 = mAccess2.getData("Ultraviolet", null, null);
-                    cl5.moveToFirst();
                     if(c.getCount()==0) {
                         SunBabyLoadingView.str = "資料重新建置中請收後...";
                         onResume();
@@ -312,9 +310,11 @@ public class SplashActivity extends AppCompatActivity  {
                                 c.moveToFirst();
                                 if(c.getCount()==0){
                                     mAccess.add("1",mCountry,mCity,mDistrict,mVillage,mLatitude+"",mLongitude+"");
+                                    mAccess2.add("1",mCountry,mCity,mDistrict,mVillage,mLatitude+"",mLongitude+"");
                                 }else if(c.getDouble(5)!=mLatitude||c.getDouble(6)!=mLongitude){
                                     //Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
                                     mAccess.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
+                                    mAccess2.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
