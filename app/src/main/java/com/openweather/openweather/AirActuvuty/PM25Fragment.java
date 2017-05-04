@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,8 @@ public class PM25Fragment extends Fragment {
     private DashboardView dashboardView;
     private DBAccessEnvironment mAccess2;
     private int mIndex=0;
-    private TextView tvPublishtime;
+    private TextView tvPublishtime,tvStr;
+    private RelativeLayout PMrelativeLayout;
 
     public PM25Fragment() {
         // Required empty public constructor
@@ -40,6 +42,8 @@ public class PM25Fragment extends Fragment {
         mAccess2= new DBAccessEnvironment(getContext(), "Environment", null, 1);
 
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
+        tvStr=(TextView)view.findViewById(R.id.tvStr);
+        PMrelativeLayout=(RelativeLayout)view.findViewById(R.id.PMrelativeLayout);
 
 
         return view;
@@ -67,31 +71,53 @@ public class PM25Fragment extends Fragment {
         cl2.moveToFirst();
         Cursor cl3 = mAccess2.getData("PM25", null, null);
         cl3.moveToFirst();
-        if(cl2.getShort(8)>=0&&cl2.getShort(8)<=11)
+        if(cl2.getShort(8)>=0&&cl2.getShort(8)<=11){
             mIndex=1;
-        else if(cl2.getShort(8)>=12&&cl2.getShort(8)<=23)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm1);
+        }
+        else if(cl2.getShort(8)>=12&&cl2.getShort(8)<=23){
             mIndex=2;
-        else if(cl2.getShort(8)>=24&&cl2.getShort(8)<=35)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm2);
+        }
+        else if(cl2.getShort(8)>=24&&cl2.getShort(8)<=35){
             mIndex=3;
-        else if(cl2.getShort(8)>=36&&cl2.getShort(8)<=41)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm3);
+        }
+        else if(cl2.getShort(8)>=36&&cl2.getShort(8)<=41){
             mIndex=4;
-        else if(cl2.getShort(8)>=42&&cl2.getShort(8)<=47)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm4);
+        }
+        else if(cl2.getShort(8)>=42&&cl2.getShort(8)<=47){
             mIndex=5;
-        else if(cl2.getShort(8)>=48&&cl2.getShort(8)<=53)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm5);
+        }
+        else if(cl2.getShort(8)>=48&&cl2.getShort(8)<=53){
             mIndex=6;
-        else if(cl2.getShort(8)>=54&&cl2.getShort(8)<=58)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm6);
+        }
+        else if(cl2.getShort(8)>=54&&cl2.getShort(8)<=58){
             mIndex=7;
-        else if(cl2.getShort(8)>=59&&cl2.getShort(8)<=64)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm7);
+        }
+        else if(cl2.getShort(8)>=59&&cl2.getShort(8)<=64){
             mIndex=8;
-        else if(cl2.getShort(8)>=65&&cl2.getShort(8)<=70)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm8);
+        }
+        else if(cl2.getShort(8)>=65&&cl2.getShort(8)<=70){
             mIndex=9;
-        else if(cl2.getShort(8)>=71)
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm9);
+        }
+        else if(cl2.getShort(8)>=71){
             mIndex=10;
+            PMrelativeLayout.setBackgroundResource(R.drawable.round_box_pm10);
+        }
+
         dashboardView.setPercent(mIndex*10);
         cl3.moveToPosition(mIndex);
 
         dashboardView.setUnit(cl3.getString(1));
-        tvPublishtime.setText(cl2.getString(1));
+        tvPublishtime.setText("最後更新時間: "+cl2.getString(1));
+        tvStr.setText(cl3.getString(1));
         Toast.makeText(getContext(),cl3.getString(1)+" "+mIndex+" "+cl2.getShort(8),Toast.LENGTH_LONG).show();
     }
 }

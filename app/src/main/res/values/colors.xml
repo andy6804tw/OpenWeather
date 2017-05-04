@@ -53,5 +53,17 @@
     <color name="alermAir4">#ff2424</color>
     <color name="alermAir5">#8e3f96</color>
     <color name="alermAir6">#7d0023</color>
+
+    <color name="alermPM1">#9bfd9b</color>
+    <color name="alermPM2">#31fd01</color>
+    <color name="alermPM3">#31ce01</color>
+    <color name="alermPM4">#fdfd01</color>
+    <color name="alermPM5">#fdce01</color>
+    <color name="alermPM6">#fd9901</color>
+    <color name="alermPM7">#fd6464</color>
+    <color name="alermPM8">#fd0001</color>
+    <color name="alermPM9">#980001</color>
+    <color name="alermPM10">#c92ff9</color>
+
 </resources>
 
