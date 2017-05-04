@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.R;
@@ -37,6 +39,7 @@ public class AirMainActivity extends AppCompatActivity {
     double mLatitude,mLongitude;
     private TextView tvCity,tvTime;
     private SharedPreferences settings;
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -92,6 +95,26 @@ public class AirMainActivity extends AppCompatActivity {
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
             tvCity.setText(cl1.getString(2)+"/"+cl1.getString(3));
         }
+
+        hud = KProgressHUD.create(AirMainActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("請稍後...")
+                .setDimAmount(0.5f);
+        scheduleDismiss();
+        hud.show();
+    }
+    private void scheduleDismiss() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hud.dismiss();
+                Cursor cl2 = mAccess2.getData("AIR", null, null);
+                cl2.moveToFirst();
+                if(cl2.getCount()==0)
+                    onResume();
+            }
+        }, 3000);
     }
 
     private void initUI() {

@@ -81,6 +81,7 @@ public class EditLocationActivity extends AppCompatActivity {
                 mPlace = viewHolder.tv.getText().toString();
                 //queryEnCityName(text);
                 tvCity.setText(getResources().getString(R.string.SelectCity)+": " + mPlace);
+                mAccess.update("1",mCountry,mPlace,mDistrict,mVillage,Double.toString(latitude),Double.toString(longtitude),null);
                 init_PlaceWeather();
                 EditLocationActivity.myPlace=true;
                 /*new Handler().postDelayed(new Runnable() {

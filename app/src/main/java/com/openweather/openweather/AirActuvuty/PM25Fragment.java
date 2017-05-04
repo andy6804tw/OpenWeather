@@ -3,6 +3,7 @@ package com.openweather.openweather.AirActuvuty;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,13 +42,27 @@ public class PM25Fragment extends Fragment {
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
 
 
-
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        final Cursor cl2 = mAccess2.getData("AIR", null, null);
+        cl2.moveToFirst();
+        if(cl2.getCount()!=0)
+            init();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(cl2.getCount()!=0) {
+                    init();
+                }else
+                    onResume();
+            }
+        }, 3000);
+    }
+    public void init(){
         Cursor cl2 = mAccess2.getData("AIR", null, null);
         cl2.moveToFirst();
         Cursor cl3 = mAccess2.getData("PM25", null, null);
