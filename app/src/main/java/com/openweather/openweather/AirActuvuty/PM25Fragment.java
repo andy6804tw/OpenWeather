@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anderson.dashboardview.view.DashboardView;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
@@ -24,7 +23,7 @@ public class PM25Fragment extends Fragment {
     private DashboardView dashboardView;
     private DBAccessEnvironment mAccess2;
     private int mIndex=0;
-    private TextView tvPublishtime,tvStr;
+    private TextView tvPublishtime,tvStr,tvNormalsuggest,tvAllergysuggest,tvSiteName;
     private RelativeLayout PMrelativeLayout;
 
     public PM25Fragment() {
@@ -43,6 +42,9 @@ public class PM25Fragment extends Fragment {
 
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
         tvStr=(TextView)view.findViewById(R.id.tvStr);
+        tvNormalsuggest=(TextView)view.findViewById(R.id.tvNormalsuggest);
+        tvAllergysuggest=(TextView)view.findViewById(R.id.tvAllergysuggest);
+        tvSiteName=(TextView)view.findViewById(R.id.tvSiteName);
         PMrelativeLayout=(RelativeLayout)view.findViewById(R.id.PMrelativeLayout);
 
 
@@ -65,6 +67,14 @@ public class PM25Fragment extends Fragment {
                     onResume();
             }
         }, 3000);
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //相當於Fragment的onResume
+            init();
+        }
     }
     public void init(){
         Cursor cl2 = mAccess2.getData("AIR", null, null);
@@ -114,10 +124,13 @@ public class PM25Fragment extends Fragment {
 
         dashboardView.setPercent(mIndex*10);
         cl3.moveToPosition(mIndex);
-
-        dashboardView.setUnit(cl3.getString(1));
+        dashboardView.setUnit("指標等級");
+        dashboardView.setText(cl2.getShort(8)+"μg/m3");
+        tvSiteName.setText("測站: "+cl2.getString(2));
         tvPublishtime.setText("最後更新時間: "+cl2.getString(1));
         tvStr.setText(cl3.getString(1));
-        Toast.makeText(getContext(),cl3.getString(1)+" "+mIndex+" "+cl2.getShort(8),Toast.LENGTH_LONG).show();
+        tvNormalsuggest.setText(cl3.getString(3));
+        tvAllergysuggest.setText(cl3.getString(4));
+        //Toast.makeText(getContext(),cl3.getString(1)+" "+mIndex+" "+cl2.getShort(8),Toast.LENGTH_LONG).show();
     }
 }

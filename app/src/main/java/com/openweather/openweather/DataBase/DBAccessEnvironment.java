@@ -198,57 +198,57 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                     va4.put("PM25_index",1);
                     va4.put("PM25_sort","低");
                     va4.put("PM25_level",1);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest","正常戶外活動");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n正常戶外活動");
                     db.insert("PM25",null,va4);
                     break;
                 case 2:
                     va4.put("PM25_index",2);
                     va4.put("PM25_sort","低");
                     va4.put("PM25_level",2);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest","正常戶外活動");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n正常戶外活動");
                     db.insert("PM25",null,va4);
                     break;
                 case 3:
                     va4.put("PM25_index",3);
                     va4.put("PM25_sort","低");
                     va4.put("PM25_level",3);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest","正常戶外活動");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n正常戶外活動");
                     db.insert("PM25",null,va4);
                     break;
                 case 4:
                     va4.put("PM25_index",4);
                     va4.put("PM25_sort","中");
                     va4.put("PM25_level",4);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest","有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
                     db.insert("PM25",null,va4);
                     break;
                 case 5:
                     va4.put("PM25_index",5);
                     va4.put("PM25_sort","中");
                     va4.put("PM25_level",5);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest","有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
                     db.insert("PM25",null,va4);
                     break;
                 case 6:
                     va4.put("PM25_index",6);
                     va4.put("PM25_sort","中");
                     va4.put("PM25_level",6);
-                    va4.put("PM25_normalsuggest","正常戶外活動");
-                    va4.put("PM25_allergysuggest", "有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n正常戶外活動");
+                    va4.put("PM25_allergysuggest", "敏感性族群活動建議:\n\n有心臟、呼吸道及心血管疾病的成人與孩童感受到癥狀時，應考慮減少體力消耗，特別是減少戶外活動。");
                     db.insert("PM25",null,va4);
                     break;
                 case 7:
                     va4.put("PM25_index",7);
                     va4.put("PM25_sort","高");
                     va4.put("PM25_level",7);
-                    va4.put("PM25_normalsuggest","任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
-                    va4.put("PM25_allergysuggest","1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
-                            "2. 老年人應減少體力消耗。 \n " +
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
+                            "2. 老年人應減少體力消耗。\n" +
                             "3. 具有氣喘的人可能需增加使用吸入劑的頻率。 \t\n" );
                     db.insert("PM25",null,va4);
                     break;
@@ -256,9 +256,9 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                     va4.put("PM25_index",8);
                     va4.put("PM25_sort","高");
                     va4.put("PM25_level",8);
-                    va4.put("PM25_normalsuggest","任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
-                    va4.put("PM25_allergysuggest","1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
-                            "2. 老年人應減少體力消耗。 \n " +
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
+                            "2. 老年人應減少體力消耗。\n" +
                             "3. 具有氣喘的人可能需增加使用吸入劑的頻率。 \t\n");
                     db.insert("PM25",null,va4);
                     break;
@@ -266,18 +266,18 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                     va4.put("PM25_index",9);
                     va4.put("PM25_sort","高");
                     va4.put("PM25_level",9);
-                    va4.put("PM25_normalsuggest","任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
-                    va4.put("PM25_allergysuggest","1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
-                            "2. 老年人應減少體力消耗。 \n " +
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
+                            "2. 老年人應減少體力消耗。\n" +
                             "3. 具有氣喘的人可能需增加使用吸入劑的頻率。 \t\n");
                     break;
                 case 10:
                     va4.put("PM25_index",10);
                     va4.put("PM25_sort","高");
                     va4.put("PM25_level",10);
-                    va4.put("PM25_normalsuggest","任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
-                    va4.put("PM25_allergysuggest","1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
-                            "2. 老年人應減少體力消耗。 \n " +
+                    va4.put("PM25_normalsuggest","一般民眾活動建議:\n\n任何人如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。");
+                    va4.put("PM25_allergysuggest","敏感性族群活動建議:\n\n1. 有心臟、呼吸道及心血管疾病的成人與孩童，應減少體力消耗，特別是減少戶外活動。\n" +
+                            "2. 老年人應減少體力消耗。\n" +
                             "3. 具有氣喘的人可能需增加使用吸入劑的頻率。 \t\n");
                     db.insert("PM25",null,va4);
                     break;

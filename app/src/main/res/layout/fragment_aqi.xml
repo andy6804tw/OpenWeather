@@ -32,8 +32,8 @@
             android:text="空氣指標\nAQI"
             android:textSize="30sp"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/textView"
-            android:layout_alignEnd="@+id/textView" />
+            android:layout_alignRight="@+id/tvNormalsuggest"
+            android:layout_alignEnd="@+id/tvNormalsuggest" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"
@@ -58,7 +58,7 @@
                 android:textSize="20dp" />
         </RelativeLayout>
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvNormalsuggest"
             android:layout_width="330dp"
             android:layout_height="100dp"
             android:layout_weight="1"
@@ -74,12 +74,12 @@
             android:layout_centerHorizontal="true" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvAllergysuggest"
             android:layout_width="330dp"
             android:layout_height="140dp"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/tvNormalsuggest"
+            android:layout_alignStart="@+id/tvNormalsuggest"
+            android:layout_below="@+id/tvNormalsuggest"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:background="@drawable/bg_round_rect"
@@ -94,7 +94,7 @@
             android:id="@+id/tvPublishtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/tvAllergysuggest"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:text="最後更新時間2017-04-26 12:01"

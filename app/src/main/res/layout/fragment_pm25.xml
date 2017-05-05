@@ -12,8 +12,8 @@
 
         <com.anderson.dashboardview.view.DashboardView
             android:id="@+id/dashboardView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="185dp"
+            android:layout_height="185dp"
             android:scrollbarFadeDuration="220"
             android:text="細懸浮微粒"
             android:textSize="11dp"
@@ -46,11 +46,11 @@
             android:id="@+id/PMrelativeLayout"
             android:layout_width="110dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
             android:background="@drawable/round_box_air1"
-            android:layout_below="@+id/tvPM25"
-            android:layout_alignRight="@+id/textView"
-            android:layout_alignEnd="@+id/textView">
+            android:layout_above="@+id/tvNormalsuggest"
+            android:layout_alignRight="@+id/tvNormalsuggest"
+            android:layout_alignEnd="@+id/tvNormalsuggest"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/tvStr"
@@ -64,12 +64,12 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvAllergysuggest"
             android:layout_width="330dp"
             android:layout_height="140dp"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"
-            android:layout_below="@+id/textView"
+            android:layout_alignLeft="@+id/tvNormalsuggest"
+            android:layout_alignStart="@+id/tvNormalsuggest"
+            android:layout_below="@+id/tvNormalsuggest"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:background="@drawable/bg_round_rect"
@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvNormalsuggest"
             android:layout_width="330dp"
             android:layout_height="100dp"
             android:layout_below="@+id/dashboardView"
@@ -100,10 +100,20 @@
             android:id="@+id/tvPublishtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/tvSiteName"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:text="最後更新時間2017-04-26 12:01"
+            android:text="最後更新時間: 2017-04-26 12:01"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tvSiteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAllergysuggest"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="12dp"
+            android:text="測站: 台南"
             android:textSize="10sp" />
 
     </RelativeLayout>

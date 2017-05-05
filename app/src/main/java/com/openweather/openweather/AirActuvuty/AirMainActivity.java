@@ -52,7 +52,7 @@ public class AirMainActivity extends AppCompatActivity {
         viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragments(new AQIFragment(),"AQI");
         viewPagerAdapter.addFragments(new PM25Fragment(),"PM25");
-        viewPagerAdapter.addFragments(new BlankFragment(),"AIR");
+        //viewPagerAdapter.addFragments(new BlankFragment(),"AIR");
         viewPager.setAdapter(viewPagerAdapter);
         initUI();
 
@@ -170,7 +170,7 @@ public class AirMainActivity extends AppCompatActivity {
                         //.badgeTitle("with")
                         .build()
         );
-        models.add(
+        /*models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.mipmap.air1),
                         Color.parseColor(colors[2]))
@@ -178,7 +178,7 @@ public class AirMainActivity extends AppCompatActivity {
                         .title("AIR")
                         //.badgeTitle("state")
                         .build()
-        );
+        );*/
        /* models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_fourth),
@@ -340,9 +340,11 @@ public class AirMainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getBaseContext(), "無法連接網路!", Toast.LENGTH_SHORT).show();
-                mAccess2.add("1", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null");
+                Cursor cl2 = mAccess2.getData("AIR", null, null);
+                cl2.moveToFirst();
+                if (cl2.getCount() == 0)
+                    mAccess2.add("1", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null", "null");
             }
-
         });
 
         // Add the request to the RequestQueue.
