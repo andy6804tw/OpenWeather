@@ -93,7 +93,8 @@ public class EditLocationActivity extends AppCompatActivity {
                 hud = KProgressHUD.create(EditLocationActivity.this)
                         .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                         .setLabel("請稍後...")
-                        .setDimAmount(0.5f);
+                        .setDimAmount(0.5f)
+                        .setCancellable(false);
                 scheduleDismiss();
                 hud.show();
             }

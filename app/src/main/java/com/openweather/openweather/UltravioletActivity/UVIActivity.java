@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class UVIActivity extends AppCompatActivity {
     double mLatitude,mLongitude;
     GPSTracker mGps;
     private KProgressHUD hud;
+    private long temptime = 0;//計算退出秒數
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +127,7 @@ public class UVIActivity extends AppCompatActivity {
         hud = KProgressHUD.create(UVIActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("請稍後...")
-                .setDimAmount(0.5f);
+                .setDimAmount(0.5f).setCancellable(false);
         scheduleDismiss();
         hud.show();
     }
@@ -225,4 +227,8 @@ public class UVIActivity extends AppCompatActivity {
             return Double.parseDouble(arr[0])+Double.parseDouble(arr[1])/60+Double.parseDouble(arr[2])/3600;
         }
 
+    public void onBack(View view) {
+        //Toast.makeText(UVIActivity.this,"123",Toast.LENGTH_LONG).show();
+        finish();
+    }
 }
