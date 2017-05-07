@@ -1,10 +1,15 @@
 package com.openweather.openweather.AirActuvuty;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
+import com.openweather.openweather.LoadingSplash.GPSTracker;
 import com.openweather.openweather.R;
 
 import org.json.JSONException;
@@ -36,10 +42,12 @@ public class AirMainActivity extends AppCompatActivity {
     private ViewPagerAdapter viewPagerAdapter;
     private DBAccessEnvironment mAccess2;
     private DBAccessWeather mAccess;
-    double mLatitude,mLongitude;
     private TextView tvCity,tvTime;
     private SharedPreferences settings;
     private KProgressHUD hud;
+    private String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
+    private double mLatitude,mLongitude;
+    GPSTracker mGps;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -66,6 +74,7 @@ public class AirMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        init_GPS();
         initAirLoc();
         Cursor cl1 = mAccess2.getData("Location", null, null);
         cl1.moveToFirst();
@@ -87,13 +96,13 @@ public class AirMainActivity extends AppCompatActivity {
             }
             else
                 tvTime.setText(Integer.parseInt(time[0])+":"+time[1]+" "+str[6]);
-            tvCity.setText(cl1.getString(2)+"/"+cl1.getString(3));
+            tvCity.setText(cl1.getString(2)+"/"+cl1.getString(3)+" "+cl1.getString(4));
         }
         else{
             if(str[5].equals("PM")&&Integer.parseInt(time[0])!=12)
                 hour+=12;
             tvTime.setText(str[4]+" "+str[5]+" "+str[6]);
-            tvCity.setText(cl1.getString(2)+"/"+cl1.getString(3));
+            tvCity.setText(cl1.getString(2)+"/"+cl1.getString(3)+" "+cl1.getString(4));
         }
 
         hud = KProgressHUD.create(AirMainActivity.this)
@@ -351,5 +360,78 @@ public class AirMainActivity extends AppCompatActivity {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+    private void init_GPS() {
+        mGps = new GPSTracker(this);
+        if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
+            mLatitude = mGps.getLatitude();
+            mLongitude =mGps.getLongtitude();
+            if((mLatitude>=20&&mLatitude<=27)&&(mLongitude>=118&&mLongitude<=124))
+                mLanguage="zh-TW";
 
+            //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
+            ///**撈取時間資料START**///
+            // Instantiate the RequestQueue.
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + mLatitude + "," + mLongitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            //mTextView.setText("Response is: "+ response.substring(0,500));
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response);
+                                int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
+                                mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
+                                mDistrict = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
+                                mVillage = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
+                                String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                                //寫入Location資料表
+                                Cursor c = mAccess2.getData("Location", null, null);
+                                c.moveToFirst();
+                                if(c.getCount()==0){
+                                    mAccess2.add("1",mCountry,mCity,mDistrict,mVillage,mLatitude+"",mLongitude+"");
+                                }else if(c.getDouble(5)!=mLatitude||c.getDouble(6)!=mLongitude){
+                                    //Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
+                                    mAccess2.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+        }else{
+            final LocationManager locationManager=(LocationManager)getSystemService(LOCATION_SERVICE);
+            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+                alertDialog.setTitle("Gps is settings");
+                alertDialog.setMessage("Gps is not enabled.");
+                alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        }
+    }
 }

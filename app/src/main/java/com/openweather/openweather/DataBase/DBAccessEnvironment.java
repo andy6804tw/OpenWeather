@@ -52,7 +52,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         String sql3 = "create table AQI("
                 +"AQI_index integer not null primary key,"
                 +"AQI_suggest varchar(35),"
-                +"AQI_statecolor varchar(35),"
+                +"AQI_normalsuggest varchar(35),"
                 +"AQI_des varchar(40),"
                 +"foreign key (AQI_index) references Air(AQI) "
                 +")";
@@ -140,8 +140,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
         va2.put("NO2",6);
         va2.put("NOX",7);
         va2.put("NO1",8);
-        db.insert("AIR",null,va2);
-*/
+        db.insert("AIR",null,va2);*/
         //AQI
         for(int i = 1;i<=6;i++){
             ContentValues va3 = new ContentValues();
@@ -149,43 +148,49 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                 case 1:
                     va3.put("AQI_index",1);
                     va3.put("AQI_suggest","良好");
-                    va3.put("AQI_statecolor","綠");
-                    va3.put("AQI_des","空氣品質為良好，污染程度低或無污染。");
+                    va3.put("AQI_normalsuggest","一般民眾活動建議:\n\n正常戶外活動。");
+                    va3.put("AQI_des","人體健康影響: \n\n空氣品質為良好，污染程度低或無污染。");
                     db.insert("AQI",null,va3);
                     break;
                 case 2:
                     va3.put("AQI_index",2);
                     va3.put("AQI_suggest","普通");
-                    va3.put("AQI_statecolor","黃");
-                    va3.put("AQI_des","空氣品質普通；但對非常少數之極敏感族群產生輕微影響。");
+                    va3.put("AQI_normalsuggest","一般民眾活動建議:\n\n正常戶外活動。");
+                    va3.put("AQI_des","人體健康影響: \n\n空氣品質普通；但對非常少數之極敏感族群產生輕微影響。");
                     db.insert("AQI",null,va3);
                     break;
                 case 3:
                     va3.put("AQI_index",3);
                     va3.put("AQI_suggest","對敏感群不良");
-                    va3.put("AQI_statecolor","橘");
-                    va3.put("AQI_des","空氣污染物可能會對敏感族群的健康造成影響，但是對一般大眾的影響不明顯。");
+                    va3.put("AQI_normalsuggest","一般民眾活動建議:\n\n1.一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。\n" +
+                            "2.學生仍可進行戶外活動，但建議減少長時間劇烈運動。");
+                    va3.put("AQI_des","人體健康影響: \n\n空氣污染物可能會對敏感族群的健康造成影響，但是對一般大眾的影響不明顯。");
                     db.insert("AQI",null,va3);
                     break;
                 case 4:
                     va3.put("AQI_index",4);
                     va3.put("AQI_suggest","對所有群族不良");
-                    va3.put("AQI_statecolor","紅");
-                    va3.put("AQI_des","對所有人的健康開始產生影響，對於敏感族群可能產生較嚴重的健康影響。");
+                    va3.put("AQI_normalsuggest","0一般民眾活動建議:\n\n1.一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應減少體力消耗，特別是減少戶外活動。\n" +
+                            "2.學生應避免長時間劇烈運動，進行其他戶外活動時應增加休息時間。"+
+                            "\n敏感性族群活動建議:\n\n1.有心臟、呼吸道及心血管疾病患者、孩童及老年人，建議留在室內並減少體力消耗活動，必要外出應配戴口罩。\n" +
+                            "2.具有氣喘的人可能需增加使用吸入劑的頻率。");
+                    va3.put("AQI_des","人體健康影響: \n\n對所有人的健康開始產生影響，對於敏感族群可能產生較嚴重的健康影響。");
                     db.insert("AQI",null,va3);
                     break;
                 case 5:
                     va3.put("AQI_index",5);
                     va3.put("AQI_suggest","非常不良");
-                    va3.put("AQI_statecolor","紫");
-                    va3.put("AQI_des","健康警報：所有人都可能產生較嚴重的健康影響。");
+                    va3.put("AQI_normalsuggest","一般民眾活動建議:\n\n1.一般民眾應減少戶外活動。\n" +
+                            "2.學生應立即停止戶外活動，並將課程調整於室內進行。");
+                    va3.put("AQI_des","人體健康影響: \n\n健康警報：所有人都可能產生較嚴重的健康影響。");
                     db.insert("AQI",null,va3);
                     break;
                 case 6:
                     va3.put("AQI_index",6);
                     va3.put("AQI_suggest","有害");
-                    va3.put("AQI_statecolor","橘紅");
-                    va3.put("AQI_des","健康威脅達到緊急，所有人都可能受到影響。");
+                    va3.put("AQI_normalsuggest","一般民眾活動建議:\n\n1.一般民眾應避免戶外活動，室內應緊閉門窗，必要外出應配戴口罩等防護用具。\n" +
+                            "2.學生應立即停止戶外活動，並將課程調整於室內進行。");
+                    va3.put("AQI_des","人體健康影響: \n\n健康威脅達到緊急，所有人都可能受到影響。");
                     db.insert("AQI",null,va3);
                     break;
             }
@@ -328,7 +333,7 @@ public class DBAccessEnvironment extends SQLiteOpenHelper {
                         , whereStr, null, null, null, orderbyStr);
             }
             case "AQI":{
-                return db.query(NAME, new String[]{"AQI_index", "AQI_suggest", "AQI_statecolor", "AQI_des"}
+                return db.query(NAME, new String[]{"AQI_index", "AQI_suggest", "AQI_normalsuggest", "AQI_des"}
                         , whereStr, null, null, null, orderbyStr);
             }
             case "PM25":{

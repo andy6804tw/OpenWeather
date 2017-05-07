@@ -1,8 +1,13 @@
 package com.openweather.openweather.UltravioletActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +34,8 @@ public class UVIActivity extends AppCompatActivity {
 
     DBAccessEnvironment mAccess2;
     private TextView tvUv,tvCity,tvLocation,tvPublishTime,tvPublishAgency,tvSiteName,tvStr,tvSuggest;
-    double mLatitude,mLongitude;
+    private String mLanguage="en",mCity,mCountry,mDistrict,mVillage;
+    private double mLatitude,mLongitude;
     GPSTracker mGps;
     private KProgressHUD hud;
     private long temptime = 0;//計算退出秒數
@@ -116,6 +122,7 @@ public class UVIActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        init_GPS();
         init_UV();
         mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
         Cursor c = mAccess2.getData("Ultraviolet", null, null);
@@ -230,5 +237,79 @@ public class UVIActivity extends AppCompatActivity {
     public void onBack(View view) {
         //Toast.makeText(UVIActivity.this,"123",Toast.LENGTH_LONG).show();
         finish();
+    }
+    private void init_GPS() {
+        mGps = new GPSTracker(this);
+        if (mGps.canGetLocation && mGps.getLatitude() != (0.0) && mGps.getLongtitude() != (0.0)) {
+            mLatitude = mGps.getLatitude();
+            mLongitude =mGps.getLongtitude();
+            if((mLatitude>=20&&mLatitude<=27)&&(mLongitude>=118&&mLongitude<=124))
+                mLanguage="zh-TW";
+
+            //Toast.makeText(getApplicationContext(), "Your Location is->\nLat: " + latitude + "\nLong: " + longtitude, Toast.LENGTH_LONG).show();
+            ///**撈取時間資料START**///
+            // Instantiate the RequestQueue.
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + mLatitude + "," + mLongitude + "&language="+mLanguage+"&sensor=true&key=AIzaSyDHA4UDKuJ_hZafj8Xn6m3mMzOsQnbTZ_w&lafhdfhfdhfdhrh";
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            //mTextView.setText("Response is: "+ response.substring(0,500));
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response);
+                                int count = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").length();
+                                mCountry = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 2).getString("long_name");
+                                mCity = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 3).getString("long_name");
+                                mDistrict = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 4).getString("short_name");
+                                mVillage = jsonObject.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(count - 5).getString("short_name");
+                                String str5 = jsonObject.getJSONArray("results").getJSONObject(0).getString("formatted_address");
+                                //寫入Location資料表
+                                Cursor c = mAccess2.getData("Location", null, null);
+                                c.moveToFirst();
+                                if(c.getCount()==0){
+                                    mAccess2.add("1",mCountry,mCity,mDistrict,mVillage,mLatitude+"",mLongitude+"");
+                                }else if(c.getDouble(5)!=mLatitude||c.getDouble(6)!=mLongitude){
+                                    //Toast.makeText(SplashActivity.this,"更新位置->\nLat: " + latitude + "\nLong: " + longtitude,Toast.LENGTH_SHORT).show();
+                                    mAccess2.update("1",mCountry,mCity,mDistrict,mVillage,Double.toString(mLatitude),Double.toString(mLongitude),null);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            });
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+        }else{
+            final LocationManager locationManager=(LocationManager)getSystemService(LOCATION_SERVICE);
+            if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+                alertDialog.setTitle("Gps is settings");
+                alertDialog.setMessage("Gps is not enabled.");
+                alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.setCancelable(false);
+                alertDialog.show();
+            }
+        }
     }
 }

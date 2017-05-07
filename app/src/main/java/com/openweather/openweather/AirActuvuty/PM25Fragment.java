@@ -42,8 +42,8 @@ public class PM25Fragment extends Fragment {
 
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
         tvStr=(TextView)view.findViewById(R.id.tvStr);
-        tvNormalsuggest=(TextView)view.findViewById(R.id.tvNormalsuggest);
-        tvAllergysuggest=(TextView)view.findViewById(R.id.tvAllergysuggest);
+        tvNormalsuggest=(TextView)view.findViewById(R.id.tvDes);
+        tvAllergysuggest=(TextView)view.findViewById(R.id.tvNormalsuggest);
         tvSiteName=(TextView)view.findViewById(R.id.tvSiteName);
         PMrelativeLayout=(RelativeLayout)view.findViewById(R.id.PMrelativeLayout);
 
@@ -73,7 +73,10 @@ public class PM25Fragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             //相當於Fragment的onResume
-            init();
+            Cursor cl2 = mAccess2.getData("AIR", null, null);
+            cl2.moveToFirst();
+            if(cl2.getCount()!=0)
+                init();
         }
     }
     public void init(){
@@ -123,7 +126,7 @@ public class PM25Fragment extends Fragment {
         }
 
         dashboardView.setPercent(mIndex*10);
-        cl3.moveToPosition(mIndex);
+        cl3.moveToPosition(mIndex-1);
         dashboardView.setUnit("指標等級");
         dashboardView.setText(cl2.getShort(8)+"μg/m3");
         tvSiteName.setText("測站: "+cl2.getString(2));

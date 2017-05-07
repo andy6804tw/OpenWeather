@@ -47,9 +47,9 @@
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:background="@drawable/round_box_air1"
-            android:layout_above="@+id/tvNormalsuggest"
-            android:layout_alignRight="@+id/tvNormalsuggest"
-            android:layout_alignEnd="@+id/tvNormalsuggest"
+            android:layout_above="@+id/tvDes"
+            android:layout_alignRight="@+id/tvDes"
+            android:layout_alignEnd="@+id/tvDes"
             android:layout_marginBottom="20dp">
 
             <TextView
@@ -64,12 +64,12 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tvAllergysuggest"
+            android:id="@+id/tvNormalsuggest"
             android:layout_width="330dp"
             android:layout_height="140dp"
-            android:layout_alignLeft="@+id/tvNormalsuggest"
-            android:layout_alignStart="@+id/tvNormalsuggest"
-            android:layout_below="@+id/tvNormalsuggest"
+            android:layout_alignLeft="@+id/tvDes"
+            android:layout_alignStart="@+id/tvDes"
+            android:layout_below="@+id/tvDes"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:background="@drawable/bg_round_rect"
@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvNormalsuggest"
+            android:id="@+id/tvDes"
             android:layout_width="330dp"
             android:layout_height="100dp"
             android:layout_below="@+id/dashboardView"
@@ -109,7 +109,7 @@
             android:id="@+id/tvSiteName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvAllergysuggest"
+            android:layout_below="@+id/tvNormalsuggest"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="12dp"
