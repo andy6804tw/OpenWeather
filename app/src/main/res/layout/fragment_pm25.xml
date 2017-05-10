@@ -47,9 +47,9 @@
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:background="@drawable/round_box_air1"
-            android:layout_above="@+id/tvDes"
-            android:layout_alignRight="@+id/tvDes"
-            android:layout_alignEnd="@+id/tvDes"
+            android:layout_above="@+id/tvHumidity"
+            android:layout_alignRight="@+id/tvHumidity"
+            android:layout_alignEnd="@+id/tvHumidity"
             android:layout_marginBottom="20dp">
 
             <TextView
@@ -67,9 +67,9 @@
             android:id="@+id/tvNormalsuggest"
             android:layout_width="330dp"
             android:layout_height="140dp"
-            android:layout_alignLeft="@+id/tvDes"
-            android:layout_alignStart="@+id/tvDes"
-            android:layout_below="@+id/tvDes"
+            android:layout_alignLeft="@+id/tvHumidity"
+            android:layout_alignStart="@+id/tvHumidity"
+            android:layout_below="@+id/tvHumidity"
             android:layout_marginTop="12dp"
             android:layout_weight="1"
             android:background="@drawable/bg_round_rect"
@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvDes"
+            android:id="@+id/tvHumidity"
             android:layout_width="330dp"
             android:layout_height="100dp"
             android:layout_below="@+id/dashboardView"

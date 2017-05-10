@@ -12,7 +12,7 @@
         android:id="@+id/relativeLayout">
 
         <TextView
-            android:id="@+id/tvDes"
+            android:id="@+id/tvHumidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="地址:"

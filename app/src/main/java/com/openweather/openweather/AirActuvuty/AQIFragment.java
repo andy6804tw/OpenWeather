@@ -40,7 +40,7 @@ public class AQIFragment extends Fragment {
         arc_progress=(ArcProgress)view.findViewById(R.id.arc_progress);
         AQIrelativeLayout=(RelativeLayout)view.findViewById(R.id.AQIrelativeLayout);
         tvStr=(TextView)view.findViewById(R.id.tvStr);
-        tvDes=(TextView)view.findViewById(R.id.tvDes);
+        tvDes=(TextView)view.findViewById(R.id.tvHumidity);
         tvNormalsuggest=(TextView)view.findViewById(R.id.tvNormalsuggest);
         tvSiteName=(TextView)view.findViewById(R.id.tvSiteName);
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
@@ -96,7 +96,7 @@ public class AQIFragment extends Fragment {
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air6);
         }
         arc_progress.setProgress(cl2.getShort(3));
-        cl3.moveToPosition(3);
+        cl3.moveToPosition(mIndex-1);
         tvStr.setText(cl3.getString(1));
         tvDes.setText(cl3.getString(3));
         tvNormalsuggest.setText(cl3.getString(2));

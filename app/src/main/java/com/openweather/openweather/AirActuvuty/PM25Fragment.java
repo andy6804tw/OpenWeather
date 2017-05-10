@@ -42,7 +42,7 @@ public class PM25Fragment extends Fragment {
 
         tvPublishtime=(TextView)view.findViewById(R.id.tvPublishtime);
         tvStr=(TextView)view.findViewById(R.id.tvStr);
-        tvNormalsuggest=(TextView)view.findViewById(R.id.tvDes);
+        tvNormalsuggest=(TextView)view.findViewById(R.id.tvHumidity);
         tvAllergysuggest=(TextView)view.findViewById(R.id.tvNormalsuggest);
         tvSiteName=(TextView)view.findViewById(R.id.tvSiteName);
         PMrelativeLayout=(RelativeLayout)view.findViewById(R.id.PMrelativeLayout);
