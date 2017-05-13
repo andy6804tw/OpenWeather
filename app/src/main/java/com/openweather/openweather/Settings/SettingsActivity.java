@@ -1,8 +1,10 @@
 package com.openweather.openweather.Settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +15,6 @@ import com.xiaoyongit.settingview.SettingView;
 import com.xiaoyongit.settingview.entity.SettingModel;
 import com.xiaoyongit.settingview.entity.SettingViewItem;
 import com.xiaoyongit.settingview.item.BasicItemViewH;
-import com.xiaoyongit.settingview.item.CheckItemViewH;
 import com.xiaoyongit.settingview.item.SwitchItemView;
 
 import java.util.ArrayList;
@@ -56,10 +57,10 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(int index) {
 
-                    Toast.makeText(mContext, "第" + index + "項被點擊", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "第" + index + "項被點擊", Toast.LENGTH_SHORT).show();
                     if (index == 4) {
-                        mSettingView1.setItemSubTitle("中華電信", 5);
-
+                        //mSettingView1.setItemSubTitle("中華電信", 5);
+                        Toast.makeText(mContext,"Coming soon !",Toast.LENGTH_LONG).show();
                     }
                     else if(index==1){
                         if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
@@ -72,10 +73,12 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                     else if (index == 3) {
-                        mSettingView1.setItemSubTitle("移動",4);
+                        //mSettingView1.setItemSubTitle("移動",4);
                     }
                     else if (index == 2) {
-                        mSettingView1.setItemSubTitle("關閉",3);
+                        //mSettingView1.setItemSubTitle("關閉",3);
+                        Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
                     }
                     else if (index == 0) {
                             if(settings.getString("Clock","").equals("12hr")||settings.getString("Temperature","").equals("")) {
@@ -96,10 +99,10 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(int index) {
 
-                    Toast.makeText(mContext, "第" + index + "項被點擊", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "第" + index + "項被點擊", Toast.LENGTH_SHORT).show();
                     if (index == 4) {
-                        mSettingView1.setItemSubTitle("中華電信", 5);
-
+                        //mSettingView1.setItemSubTitle("中華電信", 5);
+                        Toast.makeText(mContext,"Coming soon !",Toast.LENGTH_LONG).show();
                     }
                     else if(index==1){
                         if(settings.getString("Temperature","").equals("°C")||settings.getString("Temperature","").equals("")) {
@@ -112,10 +115,12 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                     else if (index == 3) {
-                        mSettingView1.setItemSubTitle("移動",4);
+                        //mSettingView1.setItemSubTitle("移動",4);
                     }
                     else if (index == 2) {
-                        mSettingView1.setItemSubTitle("關閉",3);
+                        //mSettingView1.setItemSubTitle("關閉",3);
+                        Intent intent=new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
                     }
                 }
             });
@@ -131,6 +136,14 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }
+        /* ==========================SettingView2========================== */
+        mSettingView2.setOnSettingViewItemClickListener(new SettingView.onSettingViewItemClickListener() {
+            @Override
+            public void onItemClick(int i) {
+                Toast.makeText(mContext,"Coming soon !",Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         initView(mContext);
     }
@@ -180,9 +193,9 @@ public class SettingsActivity extends AppCompatActivity {
         mItemViewData = new SettingViewItem();
         mItemData = new SettingModel();
         mItemData.setTitle("GPS");
-        mItemData.setSubTitle("開啟");
+        //mItemData.setSubTitle("開啟");
 
-        mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon02));
+        mItemData.setDrawable(getResources().getDrawable(R.mipmap.setting_gps));
 
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new BasicItemViewH(context));
@@ -190,9 +203,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         mItemViewData = new SettingViewItem();
         mItemData = new SettingModel();
-        mItemData.setTitle("天氣");
+        mItemData.setTitle("建議與回饋");
         mItemData.setSubTitle(" ");
-        mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon05));
+        mItemData.setDrawable(getResources().getDrawable(R.mipmap.setting_write));
 
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new BasicItemViewH(context));
@@ -200,9 +213,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         mItemViewData = new SettingViewItem();
         mItemData = new SettingModel();
-        mItemData.setTitle("營運商");
-        mItemData.setSubTitle("遠傳電信");
-        mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon03));
+        mItemData.setTitle("更換背景");
+        //mItemData.setSubTitle("遠傳電信");
+        mItemData.setDrawable(getResources().getDrawable(R.mipmap.setting_img));
 
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new BasicItemViewH(context));
@@ -219,7 +232,7 @@ public class SettingsActivity extends AppCompatActivity {
         mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon10));
 
         mItemViewData.setData(mItemData);
-        mItemViewData.setItemView(new CheckItemViewH(mContext));
+        mItemViewData.setItemView(new BasicItemViewH(context));
         mListData.add(mItemViewData);
 
         mItemViewData = new SettingViewItem();
@@ -228,7 +241,7 @@ public class SettingsActivity extends AppCompatActivity {
         mItemData.setDrawable(getResources().getDrawable(R.mipmap.icon10));
 
         mItemViewData.setData(mItemData);
-        mItemViewData.setItemView(new CheckItemViewH(context));
+        mItemViewData.setItemView(new BasicItemViewH(context));
         mListData.add(mItemViewData);
 
         mItemViewData = new SettingViewItem();

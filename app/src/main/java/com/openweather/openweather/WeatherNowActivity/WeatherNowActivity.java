@@ -236,7 +236,7 @@ public class WeatherNowActivity extends AppCompatActivity {
         menus.add(new GridMenu("即時水庫", R.mipmap.water));
         menus.add(new GridMenu("空氣品質", R.mipmap.env_air));
         //menus.add(new GridMenu("Timeline", R.drawable.timeline));
-        menus.add(new GridMenu("Setting", R.mipmap.settings));
+        menus.add(new GridMenu("設定", R.mipmap.settings));
 
         mGridMenuFragment.setupMenu(menus);
     }
