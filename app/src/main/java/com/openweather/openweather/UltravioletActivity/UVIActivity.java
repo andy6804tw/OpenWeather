@@ -235,7 +235,6 @@ public class UVIActivity extends AppCompatActivity {
         }
 
     public void onBack(View view) {
-        //Toast.makeText(UVIActivity.this,"123",Toast.LENGTH_LONG).show();
         finish();
     }
     private void init_GPS() {

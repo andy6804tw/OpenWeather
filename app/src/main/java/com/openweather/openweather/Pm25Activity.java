@@ -2,6 +2,7 @@ package com.openweather.openweather;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -28,4 +29,7 @@ public class Pm25Activity extends AppCompatActivity {
             return true;
         }
     };
+    public void onBack(View view) {
+        finish();
+    }
 }
