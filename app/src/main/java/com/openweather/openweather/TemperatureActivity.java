@@ -12,7 +12,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.openweather.openweather.DataBase.DBAccessWeather;
+
+import io.fabric.sdk.android.Fabric;
 
 public class TemperatureActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class TemperatureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_temperature);
         ExitApplication.getInstance().addActivity(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Fabric.with(this, new Crashlytics());
         settings=getApplicationContext().getSharedPreferences("Data",MODE_PRIVATE);
 
         toolbar=(Toolbar)findViewById(R.id.app_bar);

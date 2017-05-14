@@ -34,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
@@ -45,13 +46,10 @@ import com.openweather.openweather.View.SunBabyLoadingView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.fabric.sdk.android.Fabric;
+
 import static android.os.Build.VERSION_CODES.M;
 
-/**
- * Created by Akshay Raj on 7/28/2016.
- * Snow Corporation Inc.
- * www.snowcorp.org
- */
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -74,6 +72,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ExitApplication.getInstance().addActivity(this);
+        Fabric.with(this, new Crashlytics());
         //Database
         mContext=getApplicationContext();
         mAccess = new DBAccessWeather(this, "weather", null,1);

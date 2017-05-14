@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
+import io.fabric.sdk.android.Fabric;
 
 public class AirMainActivity extends AppCompatActivity {
 
@@ -54,6 +55,7 @@ public class AirMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_airmain);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Fabric.with(this, new Crashlytics());
 
         mAccess2= new DBAccessEnvironment(this, "Environment", null, 1);
         viewPager=(ViewPager)findViewById(R.id.viewPager);
@@ -285,7 +287,7 @@ public class AirMainActivity extends AppCompatActivity {
                                 //Log.e("Data"+i,"測站:"+SiteName+"    經度:"+latitude+"    緯度:"+longitude+"   "+loc+"km");
                             }
                             //Log.e("Informatin","Your Location is: "+mLatitude+","+mLongitude);
-                            Log.e("Air Result","The AirSite closest to you is "+siteName+"測站  distance->"+min+" km"+" "+index);
+                            //Log.e("Air Result","The AirSite closest to you is "+siteName+"測站  distance->"+min+" km"+" "+index);
                             initAir(index);//找出距離最近測站擷取空氣品質OpenData
 
                         } catch (JSONException e) {
@@ -329,8 +331,8 @@ public class AirMainActivity extends AppCompatActivity {
                             String NO2=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO2");
                             String NOx=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NOx");
                             String NO1=jsonObject.getJSONObject("result").getJSONArray("records").getJSONObject(index).getString("NO");
-                            Log.e("Air info","SiteName:"+SiteName+"   PublishTime:"+PublishTime+"   AQI:"+AQI+"   SO2:"+SO2+"   CO:"+CO+"   O3:"+O3+"  PM10:"+PM10+"   PM25:"
-                                    +PM25+"   NO2:"+NO2+"   NOX:"+NOx+"  NO:"+NO1);
+                            /*Log.e("Air info","SiteName:"+SiteName+"   PublishTime:"+PublishTime+"   AQI:"+AQI+"   SO2:"+SO2+"   CO:"+CO+"   O3:"+O3+"  PM10:"+PM10+"   PM25:"
+                                    +PM25+"   NO2:"+NO2+"   NOX:"+NOx+"  NO:"+NO1);*/
                             if(PM25.equals(""))
                                 PM25="0";
                             Cursor cl2 = mAccess2.getData("AIR", null, null);

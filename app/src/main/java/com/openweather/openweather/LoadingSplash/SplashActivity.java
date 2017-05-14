@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 import com.openweather.openweather.ExitApplication;
@@ -32,6 +33,8 @@ import com.openweather.openweather.WeatherNowActivity.WeatherNowActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import io.fabric.sdk.android.Fabric;
 
 import static android.os.Build.VERSION_CODES.M;
 
@@ -47,7 +50,7 @@ public class SplashActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
 
         setContentView(R.layout.activity_splash);
         ExitApplication.getInstance().addActivity(this);

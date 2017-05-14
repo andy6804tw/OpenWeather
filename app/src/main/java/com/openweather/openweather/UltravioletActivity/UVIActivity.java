@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.openweather.openweather.DataBase.DBAccessEnvironment;
 import com.openweather.openweather.LoadingSplash.GPSTracker;
@@ -28,6 +29,7 @@ import com.openweather.openweather.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.fabric.sdk.android.Fabric;
 import me.drakeet.BreathingViewHelper;
 
 public class UVIActivity extends AppCompatActivity {
@@ -38,14 +40,13 @@ public class UVIActivity extends AppCompatActivity {
     private double mLatitude,mLongitude;
     GPSTracker mGps;
     private KProgressHUD hud;
-    private long temptime = 0;//計算退出秒數
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uvi);
-        //ExitApplication.getInstance().addActivity(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Fabric.with(this, new Crashlytics());
 
 
     }

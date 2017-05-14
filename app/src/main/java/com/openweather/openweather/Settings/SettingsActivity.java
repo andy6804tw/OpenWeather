@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.openweather.openweather.R;
 import com.xiaoyongit.settingview.SettingView;
 import com.xiaoyongit.settingview.entity.SettingModel;
@@ -19,6 +20,8 @@ import com.xiaoyongit.settingview.item.SwitchItemView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Fabric.with(this, new Crashlytics());
 
         settings=getSharedPreferences("Data",MODE_PRIVATE);
         ivBack=(ImageView)findViewById(R.id.ivBack);
