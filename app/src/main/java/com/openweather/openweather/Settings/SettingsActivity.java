@@ -3,6 +3,7 @@ package com.openweather.openweather.Settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     else if (index == 3) {
                         //mSettingView1.setItemSubTitle("移動",4);
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSfj8hA229yeSQ_eRLpw1tjeUD0OqzXSWH1kBxuDZ55Lh_gS1A/viewform?usp=sf_link")));
                     }
                     else if (index == 2) {
                         //mSettingView1.setItemSubTitle("關閉",3);
@@ -120,6 +122,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                     else if (index == 3) {
                         //mSettingView1.setItemSubTitle("移動",4);
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSfj8hA229yeSQ_eRLpw1tjeUD0OqzXSWH1kBxuDZ55Lh_gS1A/viewform?usp=sf_link")));
                     }
                     else if (index == 2) {
                         //mSettingView1.setItemSubTitle("關閉",3);
