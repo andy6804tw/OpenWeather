@@ -34,8 +34,10 @@ information, but also collect the weather and the health effects between the hum
 We put the logic in the App, showing its differences with existing products, and to remind 
 users of the activities of the proposed recommendations and protective measurement.
 ```
+公開資料來源:行政院環境保護署、中央氣象局、Yahoo Weather API
+
 Google Play商店下載=>https://play.google.com/store/apps/details?id=com.openweather.openweather
 
 <img src="Screenshot/QRcode.jpg" width="150">
 
-最後更新時間:2017/05/18
+最後更新時間:2017/06/08
