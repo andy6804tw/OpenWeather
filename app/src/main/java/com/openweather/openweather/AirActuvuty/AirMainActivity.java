@@ -258,7 +258,7 @@ public class AirMainActivity extends AppCompatActivity {
     }
     public void initAirLoc() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000005?sort=SiteName&offset=0&limit=1000";
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000006?sort=SiteName&offset=0&limit=1000";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -309,7 +309,7 @@ public class AirMainActivity extends AppCompatActivity {
     public void initAir(int Airindex) {
         final int index=Airindex;
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-001805?sort=SiteName&offset=0&limit=1000";
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259?sort=SiteName&offset=0&limit=1000";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

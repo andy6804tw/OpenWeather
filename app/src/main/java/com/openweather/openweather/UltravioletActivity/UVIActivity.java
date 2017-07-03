@@ -164,7 +164,7 @@ public class UVIActivity extends AppCompatActivity {
             mLongitude = mGps.getLongtitude();
         }
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004?sort=PublishTime&offset=0&limit=1000";
+        String url = "http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000005?sort=PublishTime&offset=0&limit=10000";
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
