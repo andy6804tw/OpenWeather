@@ -2,28 +2,36 @@ package com.openweather.openweather;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.openweather.openweather.DataBase.DBAccessWeather;
 
+import java.io.InputStream;
+import java.util.Calendar;
+
 import io.fabric.sdk.android.Fabric;
 
 public class TemperatureActivity extends AppCompatActivity {
 
-    private WebView mWebView = null;
+    private ImageView imageView;
     private Toolbar toolbar;
     private DBAccessWeather mAccess;
     private TextView tvHumidity;
     private SharedPreferences settings;
+    private String mDate="";
+    private Boolean mCheck=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +51,9 @@ public class TemperatureActivity extends AppCompatActivity {
         mAccess=new DBAccessWeather(this, "weather", null, 1);
 
         tvHumidity=(TextView)findViewById(R.id.tvHumidity);
-        mWebView = (WebView)findViewById(R.id.webView);
-        mWebView.setWebViewClient(mWebViewClient);
-        mWebView.setInitialScale(1);
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setUseWideViewPort(true);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("http://opendata.cwb.gov.tw/opendata/DIV2/O-A0038-001.jpg");
+        imageView=(ImageView)findViewById(R.id.imageView);
+        initTime();
+        //mWebView.loadUrl("http://opendata.cwb.gov.tw/opendata/DIV2/O-A0038-001.jpg");
     }
 
     @Override
@@ -86,13 +90,7 @@ public class TemperatureActivity extends AppCompatActivity {
 
     }
 
-    WebViewClient mWebViewClient = new WebViewClient() {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    };
+    //返回
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -103,5 +101,79 @@ public class TemperatureActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //照片下載
+    private void initTime() {
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        //清空
+        mDate="";
+        //年
+        mDate=year+"-";
+        //月份
+        if(Integer.toString((month+1)).length()==1)
+            mDate+="0"+(month+1);
+        else
+            mDate+=(month+1);
+        //日期(先判斷小時是否00)
+        if(hour==0){
+            hour=24;
+            day-=1;
+        }
+        if(Integer.toString(day).length()==1)
+            mDate+="-0"+day;
+        else
+            mDate+="-"+day;
+        //小時並判斷錯誤偵測
+        if(mCheck){
+            if(Integer.toString((hour)).length()==1)
+                mDate+="_0"+(hour)+"00";
+            else
+                mDate+="_"+(hour)+"00";
+        }else{
+            if(Integer.toString((hour-1)).length()==1)
+                mDate+="_0"+(hour-1)+"00";
+            else
+                mDate+="_"+(hour-1)+"00";
+        }
+        Log.e("time",mDate);
+        //載入圖片
+        DownloadImageTask downloadImageTask=new DownloadImageTask(imageView);
+        downloadImageTask.execute("http://www.cwb.gov.tw/V7/observe/temperature/Data/"+mDate+".GTP.jpg");
+
+
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                mCheck=false;
+                initTime();
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 
 }

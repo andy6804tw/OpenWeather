@@ -71,27 +71,27 @@ public class AQIFragment extends Fragment {
         Cursor cl3 = mAccess2.getData("AQI", null, null);
         cl3.moveToFirst();
 
-        if(cl2.getShort(2)>=0&&cl2.getShort(2)<=50){
+        if(cl2.getShort(3)>=0&&cl2.getShort(3)<=50){
             mIndex=1;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air1);
         }
-        else if(cl2.getShort(2)>=51&&cl2.getShort(2)<=100){
+        else if(cl2.getShort(3)>=51&&cl2.getShort(3)<=100){
             mIndex=2;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air2);
         }
-        else if(cl2.getShort(2)>=101&&cl2.getShort(2)<=150){
+        else if(cl2.getShort(3)>=101&&cl2.getShort(3)<=150){
             mIndex=3;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air3);
         }
-        else if(cl2.getShort(2)>=151&&cl2.getShort(2)<=200){
+        else if(cl2.getShort(3)>=151&&cl2.getShort(3)<=200){
             mIndex=4;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air4);
         }
-        else if(cl2.getShort(2)>=201&&cl2.getShort(2)<=300){
+        else if(cl2.getShort(3)>=201&&cl2.getShort(3)<=300){
             mIndex=5;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air5);
         }
-        else if(cl2.getShort(2)>=301&&cl2.getShort(2)<=500){
+        else if(cl2.getShort(3)>=301&&cl2.getShort(3)<=500){
             mIndex=6;
             AQIrelativeLayout.setBackgroundResource(R.drawable.round_box_air6);
         }

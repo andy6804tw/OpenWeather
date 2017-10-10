@@ -24,7 +24,7 @@ public class Pm25Activity extends AppCompatActivity {
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.loadUrl("http://env.childgrowth.info/air/");
+        mWebView.loadUrl("https://env.healthinfo.tw/air/");
     }
 
     WebViewClient mWebViewClient = new WebViewClient() {
