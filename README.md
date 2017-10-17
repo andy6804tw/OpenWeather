@@ -40,4 +40,4 @@ Google Play商店下載=>https://play.google.com/store/apps/details?id=com.openw
 
 <img src="Screenshot/QRcode.jpg" width="150">
 
-最後更新時間:2017/06/08
+最後更新時間:2017/10/9
