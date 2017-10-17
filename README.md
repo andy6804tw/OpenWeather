@@ -8,13 +8,6 @@
 希望花點時間幫我們做問卷謝謝= )
 您寶貴的意見是我們創造的原動力:https://goo.gl/GK57v7
 
-最新版本2.0.1
-☀全台氣溫圖結合生活品質建議
-☀即時紫外線
-☀空氣品質(PM2.5、AQI)
-☀全台PM2.5俯視圖(感謝藍爸在技術上提供)
-☀全台即時水庫 ps.由於近日下載人數眾多導致伺服器撈取資料延遲卡頓的狀況，若出現不明原因閃退或是一直讀取不到
-資料問題，請嘗試重新開啟App或是重新下載，工程師近日會解決，本團隊在此感謝您的支持。
 -以視覺圖像的方式讓您了解現在的天氣概況
 -使用GPS偵測目前位置，顯示目前所在地的即時天氣
 -目前狀況掌握今日高低溫以及目前體感溫度
@@ -33,6 +26,26 @@ air quality six functions. The difference with other Apps is that we not only pr
 information, but also collect the weather and the health effects between the human body. 
 We put the logic in the App, showing its differences with existing products, and to remind 
 users of the activities of the proposed recommendations and protective measurement.
+```
+
+# 版本log
+```
+新功能
+2.0.3
+☀修正AQI數值的標準
+☀修正PM2.5頁面遷移網址
+☀修正氣溫圖連線失敗問題
+2.0.2
+☀紫外線部分修正讀取不到問題
+☀AQI & PM2.5修正讀取不到問題
+2.0.1
+☀新增建議與回饋表單
+2.0.0
+☀全台氣溫圖結合生活品質建議
+☀即時紫外線
+☀空氣品質(PM2.5、AQI)
+☀全台PM2.5俯視圖(感謝藍爸在技術上提供)
+☀全台即時水庫
 ```
 公開資料來源:行政院環境保護署、中央氣象局、Yahoo Weather API
 
